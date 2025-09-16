@@ -1,0 +1,169 @@
+@charset "utf-8";
+a { text-decoration: none;   }
+
+.head { text-align: center;
+        vertical-align: middle;
+	    height: 150px;    }
+
+.Genre { font-family: Inter;
+         color: #FFDD00;
+         margin: auto; 	}
+
+.SubGenre { font-family: Inter;
+            color: #FFFFFF;
+            margin: auto;	}
+
+.links { font-family: Inter;
+         color: #0691FF;
+        margin: auto;	}
+
+.minilink { font-family: Inter;
+         color: #0691FF;
+	font-size: 30px;
+          }
+
+.minilink2 { font-family: Inter;
+         color:red;
+	font-size: 30px;
+          }
+
+.minilink3 { font-family: Inter;
+         color:#02FF00;
+	font-size: 30px;
+          }
+
+.scene { font-family: Inter;
+         color: #00F5B4;
+         margin: auto; 	}
+	
+.artists { font-family: Inter;
+         color: #FF0000;
+         margin: auto; 	}
+
+.live { font-family: Inter;
+         color: #02FF00;
+         margin: auto; 	}
+	
+.cuerpo { 		}
+
+.navigation{ width: 620px;
+	         margin-left: auto;
+	         margin-right: auto;
+	         position: relative;	
+	         font-size: 65px;
+	         font: normal;	}
+
+.div { height: 110px; } 
+.minidiv { height: 110px;
+display: flex;} 
+
+@media (max-height:1080px){
+	/* PC */
+	
+	.head { text-align: center;
+        vertical-align: middle;
+	        }
+.Genre {
+    font-family: Inter;
+    color: #FFDD00;
+    font-size: 40px;
+    font: normal;
+    		  	}
+.SubGenre {
+    font-family: Inter;
+    color: #FFFFFF;
+    font-size: 40px;
+    font: normal;
+    margin: auto;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	  	}
+.links {
+    font-family: Inter;
+    color: #0691FF;
+    font-size: 40px;
+    font: normal;
+    margin: auto;
+	margin-top: 5px;
+	margin-bottom: 5px;
+  	}
+.minilink {
+    font-family: Inter;
+    color: #0691FF;
+    font-size: 20px;
+    font: normal;
+     	}
+.minilink2 {
+    font-family: Inter;
+    color: red;
+    font-size: 20px;
+    font: normal;
+     	}
+	
+.minilink3 { font-family: Inter;
+    color:#02FF00;
+	font-size: 20px;
+          }
+
+.scene {
+    font-family: Inter;
+    color: #00F5B4;
+    font-size: 40px;
+    font: normal;
+    margin: auto;
+	margin-top: 5px;
+	margin-bottom: 5px;
+  	}
+	
+	.artists {
+    font-family: Inter;
+    color: #FF0000;
+    font-size: 40px;
+    font: normal;
+    margin: auto;
+	margin-top: 5px;
+	margin-bottom: 5px;
+  	}
+	
+		.live {
+    font-family: Inter;
+    color: #02FF00;
+    font-size: 40px;
+    font: normal;
+    margin: auto;
+	margin-top: 5px;
+	margin-bottom: 5px;
+  	}
+.
+.cuerpo {}
+.navigation{
+    width: 1040px;
+    margin-left: 43%;
+    margin-right: auto;
+    position: relative;
+	}
+.div{height: 70px;}
+.minidiv{height: 70px;
+	display: flex;
+	} 
+	
+	}
+.history{
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+	font-family: Inter;
+	color: #FFFCFC;
+	padding-left: 5px;
+	padding-right: 5px;
+	margin-top: 30px;
+	}
+.aka{
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+	font-family: Inter;
+	color: #FFFCFC;
+	font: bold;
+	font-size: 30px;
+		}

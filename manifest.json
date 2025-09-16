@@ -1,0 +1,18 @@
+{
+  "short_name": "YTML",
+  "name": "Music Library",
+  "display": "standalone",
+  "id": "/?source=pwa",
+  "start_url": "/?source=pwa",
+/*	"start_url": home.html,*/
+  "icons": [
+      {
+          "src": "apple-touch-icon.png",
+          "sizes": "any",
+          "type": "image/png",
+          "purpose": "any"
+      }
+  ]
+}
+
+  
