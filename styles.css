@@ -5,7 +5,7 @@ a { text-decoration: none;   }
         vertical-align: middle;
 	    height: 150px;    }
 
-.Genre { font-family: Inter;
+.Genre { font-family: Inter; 
          color: #FFDD00;
          margin: auto; 	}
 
@@ -16,6 +16,10 @@ a { text-decoration: none;   }
 .links { font-family: Inter;
          color: #0691FF;
         margin: auto;	}
+
+.links2 { font-family: Inter;
+         color: #0691FF;
+      font-size: 40px;	}
 
 .minilink { font-family: Inter;
          color: #0691FF;
@@ -64,7 +68,7 @@ display: flex;}
         vertical-align: middle;
 	        }
 .Genre {
-    font-family: Inter;
+    font-family:Inter;
     color: #FFDD00;
     font-size: 40px;
     font: normal;
@@ -87,6 +91,16 @@ display: flex;}
 	margin-top: 5px;
 	margin-bottom: 5px;
   	}
+	.links2 {
+    font-family: Inter;
+    color: #0691FF;
+    font-size: 40px;
+    font: normal;
+    margin: auto;
+	margin-top: 5px;
+	margin-bottom: 5px;
+  	}
+	
 .minilink {
     font-family: Inter;
     color: #0691FF;
