@@ -18,8 +18,6 @@ a { text-decoration: none;   }
 	font-size: 52px;
             margin: auto;	}
 
-
-
 .links { font-family: Inter;
          color: #0691FF;
         margin: auto;	}
@@ -50,6 +48,11 @@ a { text-decoration: none;   }
 .artists { font-family: Inter;
          color: #FF0000;
          margin: auto; 	}
+
+.artists2 { font-family: Inter;
+            color: #FFFFFF;
+	font-size: 52px;
+            margin: auto;	}
 
 .live { font-family: Inter;
          color: #02FF00;
@@ -151,6 +154,16 @@ display: flex;}
   	}
 	
 	.artists {
+    font-family: Inter;
+    color: #FF0000;
+    font-size: 40px;
+    font: normal;
+    margin: auto;
+	margin-top: 5px;
+	margin-bottom: 5px;
+  	}
+	
+	.artists2 {
     font-family: Inter;
     color: #FF0000;
     font-size: 40px;
