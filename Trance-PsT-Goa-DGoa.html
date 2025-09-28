@@ -3,12 +3,6 @@
 <head>
 	<script src="splide-4.1.3/dist/js/splide.min.js"></script>
 	
-	<script>
-  document.addEventListener( 'DOMContentLoaded', function () {
-    new Splide( '#image-carousel' ).mount();
-  } );
-</script>
-	
 <meta charset="utf-8">
 <title>YTML</title>
 <style type="text/css">
@@ -60,13 +54,16 @@ a:active {
   <div class="splide__track">
 		<ul class="splide__list">
 			<li class="splide__slide">
-				<img src="images/DestinationGoa/1.jpg" width="140" height="140" alt="">
+				<a href="https://music.youtube.com/browse/VLPLV5aIGkszfb9zvnEpYjVKlCzYFJdLdtEf">
+				<img src="images/DestinationGoa/1.jpg" width="100%" height="100%" alt=""></a>
 			</li>
 			<li class="splide__slide">
-				<img src="images/DestinationGoa/2.jpg" width="140" height="140" alt="">
+				<a href="https://music.youtube.com/browse/VLPLV5aIGkszfb9LfW_Od3c2r7HDovjJIF3h">
+				<img src="images/DestinationGoa/2.jpg" width="500" height="500" alt=""></a>
 			</li>
 			<li class="splide__slide">
-				<img src="images/DestinationGoa/3.jpg" width="140" height="140" alt="">
+				<a href="https://music.youtube.com/browse/VLPLV5aIGkszfb9KKdiGMJ9bqyGCmjwPOTC8">
+				<img src="images/DestinationGoa/3.jpg" width="500" height="500" alt=""></a>
 			</li>
 		</ul>
   </div>
@@ -102,7 +99,13 @@ a:active {
 		</nav>
   </footer>
 	<script>
-  new Splide( '#image-carousel' ).mount();
+  new Splide( '#image-carousel'	, {
+		width : '500px',
+		height: '500px',
+  } ).mount();
+		
+		
+		
 </script>
 </body>
 </html>
