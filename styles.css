@@ -73,6 +73,11 @@ a { text-decoration: none;   }
 .minidiv { height: 110px;
 display: flex;} 
 
+.splide__slide img {
+  width: 450px;
+  height: auto;
+}
+
 @media (max-height:1080px){
 	/* PC */
 	
@@ -221,3 +226,8 @@ display: flex;}
 	font: bold;
 	font-size: 30px;
 		}
+
+.splide__slide img {
+  width: 450px;
+  height: auto;
+}
