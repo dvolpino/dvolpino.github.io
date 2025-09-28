@@ -1,6 +1,14 @@
 <!doctype html>
 <html>
 <head>
+	<script src="splide-4.1.3/dist/js/splide.min.js"></script>
+	
+	<script>
+  document.addEventListener( 'DOMContentLoaded', function () {
+    new Splide( '#image-carousel' ).mount();
+  } );
+</script>
+	
 <meta charset="utf-8">
 <title>YTML</title>
 <style type="text/css">
@@ -29,6 +37,9 @@ a:active {
 </style>
 	<link rel="icon" href="favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+	
+	<link rel="stylesheet" href="splide-4.1.3/dist/css/splide.min.css">
+	
 </head>
 
 <body>
@@ -44,8 +55,24 @@ a:active {
 		<div class="div"><a href="Trance-PsT-Goa-Goa.html" class="links" >&nbsp;&nbsp;Goa-Head</a></div>
 		<div class="div"><a href="Trance-PsT-Goa.html" class="links" >&nbsp;&nbsp;Destination Goa</a></div>
 		
-		<div>
-		<a href="https://music.youtube.com/browse/VLPLV5aIGkszfb9zvnEpYjVKlCzYFJdLdtEf"><image src="images/destinationgoa/1.png" width="140" height="140"></image></a>
+		
+		<section id="image-carousel" class="splide" aria-label="Beautiful Images">
+  <div class="splide__track">
+		<ul class="splide__list">
+			<li class="splide__slide">
+				<img src="images/destinationgoa/1.jpg" alt="">
+			</li>
+			<li class="splide__slide">
+				<img src="images/destinationgoa/2.jpg" alt="">
+			</li>
+			<li class="splide__slide">
+				<img src="images/destinationgoa/3.jpg" alt="">
+			</li>
+		</ul>
+  </div>
+</section>
+<! -- <div>
+		<a href="https://music.youtube.com/browse/VLPLV5aIGkszfb9zvnEpYjVKlCzYFJdLdtEf"><image src="images/destinationgoa/1.jpg" width="140" height="140"></image></a>
 		<a href="https://music.youtube.com/browse/VLPLV5aIGkszfb9LfW_Od3c2r7HDovjJIF3h"><image src="images/destinationgoa/2.png" width="140" height="140"></image></a>
 		<a href="https://music.youtube.com/browse/VLPLV5aIGkszfb9KKdiGMJ9bqyGCmjwPOTC8"><image src="images/destinationgoa/3.png" width="140" height="140"></image></a>
 		<a href="https://music.youtube.com/browse/VLPLV5aIGkszfb8ZZBhiBEoUzJSHriqvBYX9"><image src="images/destinationgoa/4.png" width="140" height="140"></image></a>
@@ -60,13 +87,11 @@ a:active {
 	<div><a href="https://music.youtube.com/browse/VLPLV5aIGkszfb-IoTM7qKgaX4dWMr9hPyIV"><image src="images/destinationgoa/9.png" width="140" height="140"></image></a>
 		<a href="https://music.youtube.com/browse/VLPLV5aIGkszfb_XFsB_bN6Ud5dwLym-uO54"><image src="images/destinationgoa/10.png" width="140" height="140"></image></a>
 		<a href="https://music.youtube.com/browse/VLPLV5aIGkszfb_QkQiIll1VAgt_5MpU6E4u"><image src="images/destinationgoa/11.png" width="140" height="140"></image></a>
-		<a href="https://music.youtube.com/browse/VLPLV5aIGkszfb_ytQi38xSzApKAAGNQ53py"><image src="images/destinationgoa/12.png" width="140" height="140"></image></a>
+		<a href="https://music.youtube.com/browse/VLPLV5aIGkszfb_ytQi38xSzApKAAGNQ53py"><image src="images/destinationgoa/12.png" width="140" height="140"></image></a> 
 		</div>
 		
-		
-		
-		
-		
+		-->
+					
 		<div class="div"><a href="Trance-PsT-PsyDub.html" class="SubGenre" >&nbsp;Psy Dub & Psybient</a></div>
 		<div class="div"><a href="Trance-PsT-PsT.html" class="SubGenre" >&nbsp;Psychedelic Trance</a></div>
 		<div class="div"><a href="Trance-PsT-Prog.html" class="SubGenre" >&nbsp;ProgPsy</a></div>
@@ -76,5 +101,8 @@ a:active {
     </div>
 		</nav>
   </footer>
+	<script>
+  new Splide( '#image-carousel' ).mount();
+</script>
 </body>
 </html>
