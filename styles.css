@@ -45,6 +45,11 @@ a { text-decoration: none;   }
 	font-size: 30px;
           }
 
+.minilink4 { font-family: Inter;
+         color:#F9F9F9;
+	font-size: 30px;
+          }
+
 .scene { font-family: Inter;
          color: #00F5B4;
          margin: auto; 	}
