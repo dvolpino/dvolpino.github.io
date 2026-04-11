@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+	<script src="splide-4.1.3/dist/js/splide.min.js"></script>
 <meta charset="utf-8">
 <title>YTML</title>
 <style type="text/css">
@@ -27,8 +28,9 @@ a:active {
     text-decoration: none;
 }
 </style>
-	<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="splide-4.1.3/dist/css/splide.min.css">
 </head>
 
 <body>
@@ -46,11 +48,28 @@ a:active {
 		<div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb8PZN9n5SrX_yTwYDJfLfO7" class="links" >&nbsp;&nbsp;Psy Trance</a> <a class="minilink">PL</a></div>
 		<div class="minidiv"><a href="https://www.youtube.com/watch?v=G5hNzujZK1w&t=3354s" class="minilink3" >&nbsp;&nbsp;&nbsp;&nbsp;RAJA RAM<br>&nbsp;&nbsp;&nbsp;&nbsp;Full set @ Psy-Fi 2017</a></div>
 		
-		<div class="div"><a href="Trance-PsT-PsT.html" class="artists" >&nbsp;Artists</a></div>
-		<div class="div"><a href="https://music.youtube.com/channel/UCJxVx0s58ArYqu2zorUE5iA" class="artists" >&nbsp;&nbsp;Cosmosis</a></div>
-		<div class="div"><a href="https://music.youtube.com/channel/UCvOrEkI96uFpsXEby7h1KVQ" class="artists" >&nbsp;&nbsp;Astral Projection</a></div>
-		<div class="div"><a href="https://music.youtube.com/channel/UC1JUVnZy_F-eb4KKG6e4Wkw" class="artists" >&nbsp;&nbsp;Talamasca</a></div>
-		<div class="div"><a href="https://music.youtube.com/channel/UCB7oAP1ehXKjVW9M1E31yBw" class="artists" >&nbsp;&nbsp;Ovnimoon</a></div>
+		<div class="div"><a href="Trance-PsT-PsT.html" class="artists" >&nbsp;&nbsp;Artists</a></div>
+				
+		
+		<section id="image-carousel" class="splide" aria-label="Beautiful Images" >
+  <div class="splide__track" align="right">
+		<ul class="splide__list">
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/channel/UCJxVx0s58ArYqu2zorUE5iA"><image src="images/Psy T/Cosmosis.png" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/channel/UCvOrEkI96uFpsXEby7h1KVQ"><image src="images/Psy T/Astral Projection.jpeg" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/channel/UC1JUVnZy_F-eb4KKG6e4Wkw"><image src="images/Psy T/Talamasca.jpg" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/channel/UCB7oAP1ehXKjVW9M1E31yBw"><image src="images/Psy T/Ovnimoon.jpg" alt=""></image></a>
+			</li>
+			</ul>
+  </div>
+</section>
+		<br / class="minilink4">
 		
 		<div class="div"><a href="Trance-PsT-Prog.html" class="SubGenre" >&nbsp;ProgPsy</a></div>
 		
@@ -59,5 +78,11 @@ a:active {
     </div>
 		</nav>
   </footer>
+	<script>
+  new Splide( '#image-carousel'	, {
+		width : '510px',
+		height: '510px',
+  } ).mount();	
+</script>
 </body>
 </html>
