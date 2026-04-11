@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+	<script src="splide-4.1.3/dist/js/splide.min.js"></script>
 <meta charset="utf-8">
 <title>YTML</title>
 <style type="text/css">
@@ -27,8 +28,9 @@ a:active {
     text-decoration: none;
 }
 </style>
-	<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="splide-4.1.3/dist/css/splide.min.css">
 </head>
 
 <body>
@@ -46,17 +48,44 @@ a:active {
 		<div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb-HFv57DEin5CDoCVMtbmnA" class="links" >&nbsp;Orbiting</a></div>
 		<div class="div"><a href="DT-LS.html" class="live" >&nbsp;Live Sets</a></div>
 		<div class="div"><a href="DT.html" class="artists" >&nbsp;Artists</a></div>
-		<div class="div"><a href="https://music.youtube.com/channel/UCH8lAsNRLe1HA-vps0Ggphw" class="artists" >&nbsp;&nbsp;In-Dika</a></div>
-		<div class="div"><a href="https://music.youtube.com/channel/UCyUsrsLb4lbyBsHn9D49HRQ" class="artists" >&nbsp;&nbsp;Joachim Pastor</a></div>
-		<div class="div"><a href="https://music.youtube.com/channel/UC_AlTNYYHf8v4zMgUZoSaMA" class="artists" >&nbsp;&nbsp;Joris Delacroix</a></div>
-		<div class="div"><a href="https://music.youtube.com/channel/UCTOCNk4K3D5W2UTwdq3Oi7w" class="artists" >&nbsp;&nbsp;Melokind</a></div>
-		<div class="div"><a href="https://music.youtube.com/channel/UCHHDjeTwOsVc6kvFmZRFFrg" class="artists" >&nbsp;&nbsp;Pablo Moriego</a></div>
-		<div class="div"><a href="https://music.youtube.com/channel/UCVuiCOvNUybDH5d4hiHaZIw" class="artists" >&nbsp;&nbsp;Ron Flatter</a></div>
-		<div class="div"><a href="https://music.youtube.com/channel/UCtBGveTXr3SZFfnZ5vniHJA" class="artists" >&nbsp;&nbsp;Teho</a></div>
 		
+				
+		<section id="image-carousel" class="splide" aria-label="Beautiful Images" >
+  <div class="splide__track" align="right">
+		<ul class="splide__list">
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/channel/UCH8lAsNRLe1HA-vps0Ggphw"><image src="images/DT/In-Dika.jpg" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/channel/UCyUsrsLb4lbyBsHn9D49HRQ"><image src="images/DT/Joachim Pastor.jpg" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/channel/UC_AlTNYYHf8v4zMgUZoSaMA"><image src="images/DT/Joris Delacroix.jpg" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/channel/UCTOCNk4K3D5W2UTwdq3Oi7w"><image src="images/DT/Melokind.jpg" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/channel/UCHHDjeTwOsVc6kvFmZRFFrg"><image src="images/DT/Pablo Moriego.jpg" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/channel/UCVuiCOvNUybDH5d4hiHaZIw"><image src="images/DT/Ron Flatter.jpg" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/channel/UCtBGveTXr3SZFfnZ5vniHJA"><image src="images/DT/Teho.jpg" alt=""></image></a>
+			</li>
+			</ul>
+  </div>
+</section>
 		
     </div>
 		</nav>
   </footer>
+	<script>
+  new Splide( '#image-carousel'	, {
+		width : '510px',
+		height: '510px',
+  } ).mount();	
+</script>
 </body>
 </html>
