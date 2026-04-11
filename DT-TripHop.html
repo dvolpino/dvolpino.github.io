@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+	<script src="splide-4.1.3/dist/js/splide.min.js"></script>
 <meta charset="utf-8">
 <title>YTML</title>
 <style type="text/css">
@@ -27,9 +28,11 @@ a:active {
     text-decoration: none;
 }
 </style>
-	<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="splide-4.1.3/dist/css/splide.min.css">
 </head>
+
 
 <body>
 <header class="head"><a href="Home.html"><img src="logo.png" alt="" width="675" height="127"/></a></header>
@@ -41,8 +44,20 @@ a:active {
 		<div class="div"><a href="H-DT-TripHop.html" class="SubGenre" >&nbsp;Trip Hop</a></div>
 		<div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb_gqXVb0lZ8haLvFTadL5qP" class="links" >&nbsp;&nbsp;Trip Hop 90´s</a></div>
 		<div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb_o_YrguWzasRwULheR9DP0" class="links" >&nbsp;&nbsp;Trip Hop 00´s</a></div>
-		<div class="minidiv"><a href="https://music.youtube.com/playlist?list=OLAK5uy_k0N4oB7Wgjlp1dMadL1Y4V6UYWPVBA01U" class="minilink" >&nbsp;&nbsp;&nbsp;&nbsp;MORCHEEBA <br> &nbsp;&nbsp;&nbsp;&nbsp;Parts of the Process</a></div>
-		<div class="minidiv"><a href="https://music.youtube.com/playlist?list=OLAK5uy_nM_0VrdsOBm0hSQjLTt-3B9AGJaqfXFzM" class="minilink" >&nbsp;&nbsp;&nbsp;&nbsp;BJORK <br> &nbsp;&nbsp;&nbsp;&nbsp;Greatest Hits</a></div>
+	
+		<section id="image-carousel" class="splide" aria-label="Beautiful Images" >
+  <div class="splide__track" align="right">
+		<ul class="splide__list">
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/playlist?list=OLAK5uy_k0N4oB7Wgjlp1dMadL1Y4V6UYWPVBA01U"><image src="images/Trip Hop/Morcheeba.jpg" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/playlist?list=OLAK5uy_nM_0VrdsOBm0hSQjLTt-3B9AGJaqfXFzM"><image src="images/Trip Hop/Bjork.jpg" alt=""></image></a>
+			</li>
+			</ul>
+  </div>
+</section>
+				
 		<div class="div"><a href="DT-EF.html" class="SubGenre" >&nbsp;Electro Funk</a></div>
 		<div class="div"><a href="DT-AJ.html" class="SubGenre" >&nbsp;Acid Jazz</a></div>
 		<div class="div"><a href="Trance-PsT-PsyDub.html" class="SubGenre" >&nbsp;PsyDub & Psybient</a></div>
@@ -55,5 +70,11 @@ a:active {
     </div>
 		</nav>
   </footer>
+	<script>
+  new Splide( '#image-carousel'	, {
+		width : '510px',
+		height: '510px',
+  } ).mount();	
+</script>
 </body>
 </html>
