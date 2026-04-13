@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+	<script src="splide-4.1.3/dist/js/splide.min.js"></script>
 <meta charset="utf-8">
 <title>YTML</title>
 <style type="text/css">
@@ -27,8 +28,9 @@ a:active {
     text-decoration: none;
 }
 </style>
-	<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="splide-4.1.3/dist/css/splide.min.css">
 </head>
 
 <body>
@@ -42,17 +44,43 @@ a:active {
 		<div class="div"><a href="Progressive.html" class="scene" >&nbsp;Progressive</a></div>
 		<div class="div"><a href="House-Albums.html" class="links" >&nbsp;Albums</a></div>
 		<div class="div"><a href="House_and_Garage.html" class="artists" >&nbsp;Artists</a></div>
-		<div class="div"><a href="https://music.youtube.com/channel/UCNVW18G-vqZZPlWxe-Neqhw" class="artists" >&nbsp;&nbsp;16BL</a></div>
-		<div class="div"><a href="https://music.youtube.com/channel/UCEkFDkz531NFBECkKNWwcZA" class="artists" >&nbsp;&nbsp;Hot Since 82</a></div>
-		<div class="div"><a href="https://music.youtube.com/channel/UCrlC_HW1r3X21xRpSQPcykQ" class="artists" >&nbsp;&nbsp;Jamie Jones</a></div>
-		<div class="div"><a href="https://music.youtube.com/channel/UCTBpv6zop9Tonowm6Wecytw" class="artists" >&nbsp;&nbsp;Tim Green</a></div>
-		<div class="div"><a href="https://music.youtube.com/channel/UC6mLG5aFk-bcqNEahuF1XJA" class="artists" >&nbsp;&nbsp;Eris Drew</a></div>
-		<div class="div"><a href="https://music.youtube.com/channel/UCF87ahfL_bnzp0TTfXq3EoQ" class="artists" >&nbsp;&nbsp;Barbara Tucker</a></div>
+			
+<section id="image-carousel" class="splide" aria-label="Beautiful Images" >
+  <div class="splide__track" align="right">
+		<ul class="splide__list">
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/channel/UCNVW18G-vqZZPlWxe-Neqhw"><image src="images/House/16BL.jpg" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/channel/UCEkFDkz531NFBECkKNWwcZA"><image src="images/House/Hot Since 82.jpg" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/channel/UCrlC_HW1r3X21xRpSQPcykQ"><image src="images/House/Jamie Jones.jpg" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/channel/UCTBpv6zop9Tonowm6Wecytw"><image src="images/House/Tim Green.jpg" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/channel/UC6mLG5aFk-bcqNEahuF1XJA"><image src="images/House/Eris Drew.jpg" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/channel/UCF87ahfL_bnzp0TTfXq3EoQ"><image src="images/House/Barbara Tucker.jpg" alt=""></image></a>
+			</li>
+			</ul>
+  </div>
+</section>
+<br / class="minilink4">
+		
 			<div class="div"><a href="House-LS.html" class="live" >&nbsp;Live Sets</a></div>
-		
-		
+				
     </div>
 		</nav>
   </footer>
+	<script>
+  new Splide( '#image-carousel'	, {
+		width : '510px',
+		height: '510px',
+  } ).mount();	
+</script>
 </body>
 </html>
