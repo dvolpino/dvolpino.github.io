@@ -166,6 +166,10 @@ display: flex;}
     color:#02FF00;
 	font-size: 20px;
           }
+.minilink4 { font-family: Inter;
+    color:#F9F9F9;
+	font-size: 2px;
+	          }
 
 .scene {
     font-family: Inter;
