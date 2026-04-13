@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+	<script src="splide-4.1.3/dist/js/splide.min.js"></script>
 <meta charset="utf-8">
 <title>YTML</title>
 <style type="text/css">
@@ -27,8 +28,9 @@ a:active {
     text-decoration: none;
 }
 </style>
-	<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="splide-4.1.3/dist/css/splide.min.css">
 </head>
 
 <body>
@@ -46,19 +48,52 @@ a:active {
 		<div class="div"><a href="Techno-HT.html" class="SubGenre" >&nbsp;Hypnotic Techno</a></div>
 		<div class="div"><a href="Techno-Albums.html" class="links" >&nbsp;Albums</a></div>
 		<div class="div"><a href="Techno.html" class="artists" >&nbsp;Artists</a></div>
-		<div class="div"><a href="https://music.youtube.com/channel/UC089BQQ4lBHhkFIcLWRJYbw" class="artists" >&nbsp;&nbsp;Anfisa Letyago</a></div>
-		<div class="div"><a href="https://music.youtube.com/channel/UCmHFONxjmLurj_zTW4bq50g" class="artists" >&nbsp;&nbsp;Dominik Eulberg</a></div>
-		<div class="div"><a href="https://music.youtube.com/channel/UC_fkya3ogeefj4G8eWio8sw" class="artists" >&nbsp;&nbsp;Extrawelt</a></div>
-		<div class="div"><a href="https://music.youtube.com/channel/UCW820aCaM_0XC-yoV7ttRhQ" class="artists" >&nbsp;&nbsp;Marek Hemmann</a></div>
-		<div class="div"><a href="https://music.youtube.com/channel/UC5M_jqrDXITVS5tbh4Woo1Q" class="artists" >&nbsp;&nbsp;Minilogue</a></div>
-		<div class="div"><a href="https://music.youtube.com/channel/UC_qi8RUJGu0PVd9S7eJsD_Q" class="artists" >&nbsp;&nbsp;Sebastian Mullaert</a></div>
-		<div class="div"><a href="https://music.youtube.com/channel/UCrBo5XcpoSWeH4UjViQj0cQ" class="artists" >&nbsp;&nbsp;Popof</a></div>
-		<div class="div"><a href="https://music.youtube.com/channel/UC8GpGuM_mxH6dukEiepsJBg" class="artists" >&nbsp;&nbsp;Richie Hawtin</a></div>
-		<div class="div"><a href="https://music.youtube.com/channel/UC3ay7Eo31B9rLsadCNTQQPw" class="artists" >&nbsp;&nbsp;Michael Mayer</a></div>
+		
+		<section id="image-carousel" class="splide" aria-label="Beautiful Images" >
+  <div class="splide__track" align="right">
+		<ul class="splide__list">
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/channel/UC8GpGuM_mxH6dukEiepsJBg"><image src="images/Techno/Richie Hawtin.jpg" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/channel/UC089BQQ4lBHhkFIcLWRJYbw"><image src="images/Techno/Anfisa Letyago.jpg" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/channel/UCmHFONxjmLurj_zTW4bq50g"><image src="images/Techno/Dominik Eulberg.jpg" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/channel/UC_fkya3ogeefj4G8eWio8sw"><image src="images/Techno/Extrawelt.jpg" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/channel/UCW820aCaM_0XC-yoV7ttRhQ"><image src="images/Techno/Marek Hemmann.jpg" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/channel/UC5M_jqrDXITVS5tbh4Woo1Q"><image src="images/Techno/Minilogue.jpg" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/channel/UC_qi8RUJGu0PVd9S7eJsD_Q"><image src="images/Techno/Sebastian Mullaert.jpg" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/channel/UCrBo5XcpoSWeH4UjViQj0cQ"><image src="images/Techno/Popof.jpg" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/channel/UC3ay7Eo31B9rLsadCNTQQPw"><image src="images/Techno/Michael Mayer.jpg" alt=""></image></a>
+			</li>
+			</ul>
+  </div>
+</section>
+<br / class="minilink4">
+		
 		<div class="div"><a href="Techno-LS.html" class="live" >&nbsp;Live Sets</a></div>
 		
     </div>
 		</nav>
   </footer>
+	<script>
+  new Splide( '#image-carousel'	, {
+		width : '510px',
+		height: '510px',
+  } ).mount();	
+</script>
 </body>
 </html>
