@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+	<script src="splide-4.1.3/dist/js/splide.min.js"></script>
 <meta charset="utf-8">
 <title>YTML</title>
 <style type="text/css">
@@ -27,8 +28,9 @@ a:active {
     text-decoration: none;
 }
 </style>
-	<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="splide-4.1.3/dist/css/splide.min.css">
 </head>
 
 <body>
@@ -56,8 +58,49 @@ a:active {
 <div class="minidiv"><a href="https://www.youtube.com/watch?v=e-RXzn0zpSM&list=PLV5aIGkszfb_C9SC6sAEqjd-hddq7_USs&index=37" class="minilink3" >&nbsp;&nbsp;ARIA MARZEN</br>&nbsp;&nbsp;Live Techno Jam Session</a></div>
 <div class="minidiv"><a href="https://www.youtube.com/watch?v=V2_WKRwvEnQ&list=RDV2_WKRwvEnQ&start_radio=1" class="minilink3" >&nbsp;&nbsp;SEBASTIAN MULLAERT</br>&nbsp;&nbsp;Dance thru Shadowed Structures Mix</a></div>
 <div class="minidiv"><a href="https://www.youtube.com/watch?v=dg-o3R5ojMM" class="minilink3" >&nbsp;&nbsp;Sebastian Mullaert, Vril & Neel</br>&nbsp;&nbsp;Circle of Live: Passengers</a></div>
+
+<section id="image-carousel" class="splide" aria-label="Beautiful Images" >
+  <div class="splide__track" align="right">
+		<ul class="splide__list">
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/channel/UC8GpGuM_mxH6dukEiepsJBg"><image src="images/Techno/Richie Hawtin Mixmag NYC.jpg" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/channel/UC089BQQ4lBHhkFIcLWRJYbw"><image src="images/Techno/Richie Hawtin Sonar 2025.jpg" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/channel/UCmHFONxjmLurj_zTW4bq50g"><image src="images/Techno/Extrawelt Time Warp 2017.jpg" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/channel/UC_fkya3ogeefj4G8eWio8sw"><image src="images/Techno/Extrawelt Strawberry Moon Festival 2023.jpg" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/channel/UCW820aCaM_0XC-yoV7ttRhQ"><image src="images/Techno/DJ Gigola Berlin.jpg" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/channel/UC5M_jqrDXITVS5tbh4Woo1Q"><image src="images/Techno/Aria Marzem Techno session.jpg" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/channel/UC_qi8RUJGu0PVd9S7eJsD_Q"><image src="images/Techno/Sebastian Mullaert DANCE.jpg" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/channel/UCrBo5XcpoSWeH4UjViQj0cQ"><image src="images/Techno/Sebastian Mullaert Circle of Live.jpg" alt=""></image></a>
+			</li>
+			
+			</ul>
+  </div>
+</section>
+<br / class="minilink4">
+
+
     </div>
 		</nav>
   </footer>
+<script>
+  new Splide( '#image-carousel'	, {
+		width : '510px',
+		height: '510px',
+  } ).mount();	
+</script>
 </body>
 </html>
