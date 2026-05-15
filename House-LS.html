@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+	<script src="splide-4.1.3/dist/js/splide.min.js"></script>
 <meta charset="utf-8">
 <title>YTML</title>
 <style type="text/css">
@@ -27,9 +28,11 @@ a:active {
     text-decoration: none;
 }
 </style>
-	<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="splide-4.1.3/dist/css/splide.min.css">
 </head>
+
 
 <body>
 <header class="head"><a href="Home.html"><img src="logo.png" alt="" width="675" height="127"/></a></header>
@@ -43,11 +46,29 @@ a:active {
 		<div class="div"><a href="House-Albums.html" class="links" >&nbsp;Albums</a></div>
 		<div class="div"><a href="House-Art.html" class="artists" >&nbsp;Artists</a></div>
 		<div class="div"><a href="House_and_Garage.html" class="live" >&nbsp;Live Sets</a></div>
-		<div class="minidiv"><a href="https://www.youtube.com/watch?v=Qr9G0WqsV5o" class="minilink3" >&nbsp;&nbsp;CAROLINE CHANG </br>&nbsp;&nbsp;House and Techno in The Mountains</a></div>
-	  <div class="minidiv"><a href="https://www.youtube.com/watch?v=RNiZy6t-XnA&list=RDRNiZy6t-XnA&start_radio=1" class="minilink3" >&nbsp;&nbsp;LIKA </br>&nbsp;&nbsp;Morning living room mix</a></div>
-		
-    </div>
+		<section id="image-carousel" class="splide" aria-label="Beautiful Images" >
+  <div class="splide__track" align="right">
+		<ul class="splide__list" >
+			<li class="splide__slide" >
+				<a href="https://www.youtube.com/watch?v=AJn2EfNsRDY&list=RDAJn2EfNsRDY&start_radio=1"><image src="images\House\LS\Ogazon HOR 2023.jpg" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://www.youtube.com/watch?v=Qr9G0WqsV5o"><image src="images\House\LS\Caroline Chang - Mountains.jpg" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://www.youtube.com/watch?v=RNiZy6t-XnA&list=RDRNiZy6t-XnA&start_radio=1"><image src="images/House\LS/LIKA - Morning living room.jpg" alt=""></image></a>
+			</li>
+			</ul>
+  </div>
+</section>
+	</div>
 		</nav>
   </footer>
+<script>
+  new Splide( '#image-carousel'	, {
+		width : '576px',
+		height: '324px',
+  } ).mount();	
+</script>
 </body>
 </html>
