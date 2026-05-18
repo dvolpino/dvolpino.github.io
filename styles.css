@@ -25,7 +25,7 @@ a { text-decoration: none;   }
     font-family: Inter;
     color: #0691FF;
     margin: auto;
-font-size: 37;
+font-size: 30;
   	}
 .links3 {
     font-family: Inter;
@@ -90,11 +90,7 @@ display: flex;}
 .Rock { font-family: Inter;
          color:#FA60FF;
 	font-size: 40px;
-        font: normal;
-    margin: auto;
-	margin-top: 5px;
-	margin-bottom: 5px;
-	  	}
+         margin: auto; 	}
 	
 .SubGenre {
     font-family: Inter;
