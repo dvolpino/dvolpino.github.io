@@ -57,7 +57,9 @@ a { text-decoration: none;   }
 .minidiv { height: 110px;
 display: flex;} 
 
-
+.history{
+    font-size: 30px;
+	}
 
 @media (max-height:1080px){
 	/* PC */
@@ -159,7 +161,7 @@ display: flex;}
 	padding-left: 5px;
 	padding-right: 5px;
 	margin-top: 30px;
-	font-size: 30px;
+	font-size: 20px;
 	}
 .aka{
     margin-left: auto;
