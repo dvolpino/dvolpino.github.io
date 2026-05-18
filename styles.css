@@ -84,6 +84,15 @@ display: flex;}
 .history{
  	font-size: 20px;
 	}
+.aka{
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+	font-family: Inter;
+	color: #FFFCFC;
+	font: bold;
+	font-size: 30px;
+		}
 .splide__slide img {
   width: 450px;
   height: auto;
