@@ -9,6 +9,10 @@ a { text-decoration: none;   }
          color: #FFDD00;
          margin: auto; 	}
 
+.Rock { font-family: Inter;
+         color:#FA60FF;
+         margin: auto; 	}
+
 .SubGenre { font-family: Inter;
             color: #FFFFFF;
             margin: auto;	}
