@@ -5,7 +5,7 @@ a { text-decoration: none;   }
         vertical-align: middle;
 	    height: 150px;    }
 
-.Genre { font-family: Inter; 
+.Genre { font-family: Inter;
          color: #FFDD00;
          margin: auto; 	}
 
@@ -13,22 +13,9 @@ a { text-decoration: none;   }
             color: #FFFFFF;
             margin: auto;	}
 
-.SubGenre2 { font-family: Inter;
-            color: #FFFFFF;
-	font-size: 52px;
-            margin: auto;	}
-
 .links { font-family: Inter;
          color: #0691FF;
         margin: auto;	}
-
-.links2 { font-family: Inter;
-         color: #0691FF;
-      font-size: 60px;	}
-
-.links3 { font-family: Inter;
-         color: #0691FF;
-      font-size: 50px;	}
 
 .minilink { font-family: Inter;
          color: #0691FF;
@@ -45,11 +32,6 @@ a { text-decoration: none;   }
 	font-size: 30px;
           }
 
-.minilink4 { font-family: Inter;
-         color:#F9F9F9;
-	font-size: 25px;
-	          }
-
 .scene { font-family: Inter;
          color: #00F5B4;
          margin: auto; 	}
@@ -58,19 +40,12 @@ a { text-decoration: none;   }
          color: #FF0000;
          margin: auto; 	}
 
-.artists2 { font-family: Inter;
-            color: #FF0000;
-	font-size: 50px;
-            margin: auto;	}
-
 .live { font-family: Inter;
          color: #02FF00;
          margin: auto; 	}
-
-.Rock { font-family: Inter; 
-         color: #EA5FC7;
-         margin: auto; 	}
 	
+.cuerpo { 		}
+
 .navigation{ width: 620px;
 	         margin-left: auto;
 	         margin-right: auto;
@@ -82,33 +57,6 @@ a { text-decoration: none;   }
 .minidiv { height: 110px;
 display: flex;} 
 
-.history{
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
-	font-family: Inter;
-	color: #FFFCFC;
-	padding-left: 5px;
-	padding-right: 5px;
-	margin-top: 30px;
-	font-size: 20px;
-	}
-.aka{
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
-	font-family: Inter;
-	color: #FFFCFC;
-	font: bold;
-	font-size: 30px;
-		}
-
-
-.splide__slide img {
-  width: 450px;
-  height: auto;
-}
-
 @media (max-height:1080px){
 	/* PC */
 	
@@ -116,7 +64,7 @@ display: flex;}
         vertical-align: middle;
 	        }
 .Genre {
-    font-family:Inter;
+    font-family: Inter;
     color: #FFDD00;
     font-size: 40px;
     font: normal;
@@ -130,18 +78,6 @@ display: flex;}
 	margin-top: 5px;
 	margin-bottom: 5px;
 	  	}
-	
-.SubGenre2 {
-    font-family: Inter;
-    color: #FFFFFF;
-    font-size: 40px;
-    font: normal;
-    margin: auto;
-	margin-top: 5px;
-	margin-bottom: 5px;
-	  	}
-	
-	
 .links {
     font-family: Inter;
     color: #0691FF;
@@ -151,26 +87,6 @@ display: flex;}
 	margin-top: 5px;
 	margin-bottom: 5px;
   	}
-	.links2 {
-    font-family: Inter;
-    color: #0691FF;
-    font-size: 40px;
-    font: normal;
-    margin: auto;
-	margin-top: 5px;
-	margin-bottom: 5px;
-  	}
-	
-	.links3 {
-    font-family: Inter;
-    color: #0691FF;
-    font-size: 40px;
-    font: normal;
-    margin: auto;
-	margin-top: 5px;
-	margin-bottom: 5px;
-  	}
-	
 .minilink {
     font-family: Inter;
     color: #0691FF;
@@ -188,10 +104,6 @@ display: flex;}
     color:#02FF00;
 	font-size: 20px;
           }
-.minilink4 { font-family: Inter;
-    color:#F9F9F9;
-	font-size: 2px;
-	          }
 
 .scene {
     font-family: Inter;
@@ -213,17 +125,7 @@ display: flex;}
 	margin-bottom: 5px;
   	}
 	
-	.artists2 {
-    font-family: Inter;
-    color: #FF0000;
-    font-size: 40px;
-    font: normal;
-    margin: auto;
-	margin-top: 5px;
-	margin-bottom: 5px;
-  	}
-	
-	.live {
+		.live {
     font-family: Inter;
     color: #02FF00;
     font-size: 40px;
@@ -232,14 +134,8 @@ display: flex;}
 	margin-top: 5px;
 	margin-bottom: 5px;
   	}
-.Rock { font-family: Inter; 
-         color: #EA5FC7 ;
-         font-size: 40px;
-         font: normal;
-         margin: auto;
-	     margin-top: 5px;
-	     margin-bottom: 5px;	}
-
+.
+.cuerpo {}
 .navigation{
     width: 1040px;
     margin-left: 43%;
@@ -250,6 +146,8 @@ display: flex;}
 .minidiv{height: 70px;
 	display: flex;
 	} 
+	
+	}
 .history{
     margin-left: auto;
     margin-right: auto;
@@ -259,7 +157,6 @@ display: flex;}
 	padding-left: 5px;
 	padding-right: 5px;
 	margin-top: 30px;
-	font-size: 20px;
 	}
 .aka{
     margin-left: auto;
@@ -270,8 +167,3 @@ display: flex;}
 	font: bold;
 	font-size: 30px;
 		}
-
-.splide__slide img {
-  width: 450px;
-  height: auto;
-}
