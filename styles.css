@@ -90,7 +90,11 @@ display: flex;}
 .Rock { font-family: Inter;
          color:#FA60FF;
 	font-size: 40px;
-         margin: auto; 	}
+        font: normal;
+    margin: auto;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	  	}
 	
 .SubGenre {
     font-family: Inter;
