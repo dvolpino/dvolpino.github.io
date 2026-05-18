@@ -25,7 +25,7 @@ a { text-decoration: none;   }
     font-family: Inter;
     color: #0691FF;
     margin: auto;
-	font-size: 45px;
+
   	}
 .links3 {
     font-family: Inter;
@@ -85,8 +85,12 @@ display: flex;}
     font-family: Inter;
     color: #FFDD00;
     font-size: 40px;
-    font: normal;
-    		  	}
+    font: normal; 	}
+	
+.Rock { font-family: Inter;
+         color:#FA60FF;
+         margin: auto; 	}
+	
 .SubGenre {
     font-family: Inter;
     color: #FFFFFF;
@@ -97,6 +101,16 @@ display: flex;}
 	margin-bottom: 5px;
 	  	}
 .links {
+    font-family: Inter;
+    color: #0691FF;
+    font-size: 40px;
+    font: normal;
+    margin: auto;
+	margin-top: 5px;
+	margin-bottom: 5px;
+  	}
+	
+	.links2 {
     font-family: Inter;
     color: #0691FF;
     font-size: 40px;
