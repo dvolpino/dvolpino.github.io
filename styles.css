@@ -87,6 +87,15 @@ display: flex;}
 	margin-top: 5px;
 	margin-bottom: 5px;
   	}
+	.links3 {
+    font-family: Inter;
+    color: #0691FF;
+    font-size: 35px;
+    font: normal;
+    margin: auto;
+	margin-top: 5px;
+	margin-bottom: 5px;
+  	}
 .minilink {
     font-family: Inter;
     color: #0691FF;
