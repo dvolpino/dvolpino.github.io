@@ -104,6 +104,16 @@ display: flex;}
 	margin-top: 5px;
 	margin-bottom: 5px;
 	  	}
+.SubGenre2 {
+    font-family: Inter;
+    color: #FFFFFF;
+    font-size: 40px;
+    font: normal;
+    margin: auto;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	  	}
+	
 .links {
     font-family: Inter;
     color: #0691FF;
@@ -163,6 +173,15 @@ display: flex;}
   	}
 	
 	.artists {
+    font-family: Inter;
+    color: #FF0000;
+    font-size: 40px;
+    font: normal;
+    margin: auto;
+	margin-top: 5px;
+	margin-bottom: 5px;
+  	}
+		.artists2 {
     font-family: Inter;
     color: #FF0000;
     font-size: 40px;
