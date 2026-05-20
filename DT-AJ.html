@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+<script src="splide-4.1.3/dist/js/splide.min.js"></script>
 <meta charset="utf-8">
 <title>YTML</title>
 <style type="text/css">
@@ -27,8 +28,9 @@ a:active {
     text-decoration: none;
 }
 </style>
-	<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="splide-4.1.3/dist/css/splide.min.css">
 </head>
 
 <body>
@@ -42,9 +44,24 @@ a:active {
 		<div class="div"><a href="DT-TripHop.html" class="SubGenre" >&nbsp;Trip Hop</a></div>
 		<div class="div"><a href="DT-EF.html" class="SubGenre" >&nbsp;Electro Funk</a></div>
 		<div class="div"><a href="H-DT-AJ.html" class="SubGenre" >&nbsp;Acid Jazz</a></div>
-		<div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb8nYVKO-sUBgFZ0w71XGkdZ" class="links" >&nbsp;&nbsp;&nbsp;Acid Jazz 80´s</a></div>
-		<div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb9LAu6jt8PF0V1PjO5JSjiU" class="links" >&nbsp;&nbsp;&nbsp;Acid Jazz 90´s</a></div>
-		<div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb_ksni3v9kStDGCGc49wqCI" class="links" >&nbsp;&nbsp;&nbsp;Acid Jazz 00´s</a></div>
+				
+		<section id="counter" class="splide" aria-label="Beautiful Images" data-splide='{"pagination":false,"arrows":false,"direction":"ttb","paginationDirection":"ttb"}'>
+		<div class="splide__track" align="right" >
+		<ul class="splide__list">
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb8nYVKO-sUBgFZ0w71XGkdZ" class="links"><image src="images/counter/80s.png" alt=""></image></a>
+			</li>
+		    <li class="splide__slide">
+				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb9LAu6jt8PF0V1PjO5JSjiU"><image src="images/counter/90s.png" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb_ksni3v9kStDGCGc49wqCI"><image src="images/counter/00s.png" alt=""></image></a>
+			</li>
+			</ul>
+  </div>
+			</section>
+		<br />
+		
 		<div class="div"><a href="Trance-PsT-PsyDub.html" class="SubGenre" >&nbsp;PsyDub & Psybient</a></div>
 		<div class="div"><a href="Techno-AmbientTechno.html" class="SubGenre" >&nbsp;Ambient Techno</a></div>
 		<div class="div"><a href="Breaks-AB.html" class="SubGenre" >&nbsp;Ambient Breaks</a></div>
@@ -58,5 +75,11 @@ a:active {
     </div>
 		</nav>
   </footer>
+	<script>
+  new Splide( '#counter'	, {
+		width : '510px',
+		height: '285px',
+  } ).mount();	
+</script>
 </body>
 </html>
