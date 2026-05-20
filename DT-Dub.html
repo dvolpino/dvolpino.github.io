@@ -39,10 +39,26 @@ a:active {
 	  	<div class="div"><a href="DT.html" class="Genre" >Downtempo</a></div>
 		<div class="div"><a href="DT-Krautrock.html" class="SubGenre" >&nbsp;Krautrock</a></div>
 		<div class="div"><a href="H-DT-Dub.html" class="SubGenre" >&nbsp;Dub</a></div>
-		<div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb9iQklr2lH5KaY5NvM7Dmur" class="links" >&nbsp;&nbsp;Dub 70´s</a></div>
-		<div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb_69i8Ad6MY8RRadu07Etb5" class="links" >&nbsp;&nbsp;Dub 80´s</a></div>
-		<div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb9pIzCHALJP8XDg_8jHgXSK" class="links" >&nbsp;&nbsp;Dub 90´s</a></div>
-		<div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb9aKbA9df6MJRcgXS1_YW2v" class="links" >&nbsp;&nbsp;Dub 00´s</a></div>
+				
+		<section id="counter" class="splide" aria-label="Beautiful Images" data-splide='{"pagination":false,"arrows":false,"direction":"ttb","paginationDirection":"ttb"}'>
+  <div class="splide__track" align="right" >
+		<ul class="splide__list">
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb9iQklr2lH5KaY5NvM7Dmur" class="links"><image src="images/counter/70s.png" alt=""></image></a>
+			</li>
+		<li class="splide__slide">
+				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb_69i8Ad6MY8RRadu07Etb5"><image src="images/counter/80s.png" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb9pIzCHALJP8XDg_8jHgXSK"><image src="images/counter/90s.png" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb9aKbA9df6MJRcgXS1_YW2v"><image src="images/counter/00s.png" alt=""></image></a>
+			</li>
+		</ul>
+  </div>
+</section>
+		
 		<div class="div"><a href="DT-TripHop.html" class="SubGenre" >&nbsp;Trip Hop</a></div>
 		<div class="div"><a href="DT-EF.html" class="SubGenre" >&nbsp;Electro Funk</a></div>
 		<div class="div"><a href="DT-AJ.html" class="SubGenre" >&nbsp;Acid Jazz</a></div>
@@ -59,5 +75,12 @@ a:active {
     </div>
 		</nav>
   </footer>
+	<script>
+  new Splide( '#counter'	, {
+		width : '510px',
+		height: '285px',
+  } ).mount();	
+</script>
+
 </body>
 </html>
