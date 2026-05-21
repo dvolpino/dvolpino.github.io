@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+<script src="splide-4.1.3/dist/js/splide.min.js"></script>
 <meta charset="utf-8">
 <title>YTML</title>
 <style type="text/css">
@@ -27,8 +28,9 @@ a:active {
     text-decoration: none;
 }
 </style>
-	<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="splide-4.1.3/dist/css/splide.min.css">
 </head>
 
 <body>
@@ -44,6 +46,24 @@ a:active {
 		<div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb95ntMwgJ6jXht3TpxHSgBO" class="links" >&nbsp;&nbsp;Minimal  90´s</a></div>
 		<div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb_C44AHVYba_ygH0Ng9CIuj" class="links" >&nbsp;&nbsp;Minimal  00´s</a></div>
 		<div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb8uj5ocEHNAZ19lzTcYb_s8" class="links" >&nbsp;&nbsp;Minimal  10´s</a></div>
+		
+		<section id="counter" class="splide" aria-label="Beautiful Images" data-splide='{"pagination":false,"arrows":false,"direction":"ttb","paginationDirection":"ttb"}'>
+  <div class="splide__track" align="right" >
+		<ul class="splide__list">
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb95ntMwgJ6jXht3TpxHSgBO" class="links"><image src="images/counter/90s.png" alt=""></image></a>
+			</li>
+		    <li class="splide__slide">
+				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb_C44AHVYba_ygH0Ng9CIuj"><image src="images/counter/00s.png" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb8uj5ocEHNAZ19lzTcYb_s8"><image src="images/counter/10s.png" alt=""></image></a>
+			</li>
+			</ul>
+  </div>
+</section>
+		
+		
 		<div class="div"><a href="https://music.youtube.com/browse/FEmusic_library_privately_owned_release_detailb_po_CM-vo7WKqNvVGhIIbWlrZSBpbmsiDWh0dHAgdXBsb2FkZXI" class="links" >&nbsp;&nbsp;Mike Inc</a></div>
 		<div class="div"><a href="Techno-AmbientTechno.html" class="SubGenre" >&nbsp;Ambient Techno</a></div>
 		<div class="div"><a href="Techno-DT.html" class="SubGenre" >&nbsp;Dub Techno</a></div>
@@ -55,5 +75,11 @@ a:active {
     </div>
 		</nav>
   </footer>
+	<script>
+  new Splide( '#counter'	, {
+		width : '510px',
+		height: '285px',
+  } ).mount();	
+</script>
 </body>
 </html>
