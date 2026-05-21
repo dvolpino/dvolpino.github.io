@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+<script src="splide-4.1.3/dist/js/splide.min.js"></script>
 <meta charset="utf-8">
 <title>YTML</title>
 <style type="text/css">
@@ -27,8 +28,9 @@ a:active {
     text-decoration: none;
 }
 </style>
-	<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="splide-4.1.3/dist/css/splide.min.css">
 </head>
 
 <body>
@@ -36,15 +38,33 @@ a:active {
 <footer class="cuerpo">
   <nav>
 	<div class="navigation">
-	 	<div class="div"><a href="Home.html" class="Genre" >Tech House</a></div>
+	 	<div class="div"><a href="TechH.html" class="Genre" >Tech House</a></div>
 		<div class="div"><a href="TechH-MH.html" class="SubGenre" >&nbsp;Micro House</a></div>
 		<div class="div"><a href="TechH-MTH.html" class="SubGenre" >&nbsp;Minimal Tech House</a></div>
 		<div class="div"><a href="TechH-TH.html" class="SubGenre" >&nbsp;Tech House</a></div>
 		<div class="div"><a href="H-TechH-DTH.html" class="SubGenre" >&nbsp;Deep Techouse</a></div>
-		<div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb-L2aA5DHxoBnMcs8FKGOxH" class="links" >&nbsp;Deep Techouse 00´s</a></div>
-		<div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb-bfsKlU8Vp8mDx0UWv0zNM" class="links" >&nbsp;Deep Techouse 10´s</a></div>
+		
+		<section id="counter" class="splide" aria-label="Beautiful Images" data-splide='{"pagination":false,"arrows":false,"direction":"ttb","paginationDirection":"ttb"}'>
+  <div class="splide__track" align="right" >
+		<ul class="splide__list">
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb-L2aA5DHxoBnMcs8FKGOxH" class="links"><image src="images/counter/00s.png" alt=""></image></a>
+			</li>
+		    <li class="splide__slide">
+				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb-bfsKlU8Vp8mDx0UWv0zNM"><image src="images/counter/10s.png" alt=""></image></a>
+			</li>
+			</ul>
+  </div>
+</section>
+		<br />
 				  </div>
 		</nav>
   </footer>
+	<script>
+  new Splide( '#counter'	, {
+		width : '510px',
+		height: '285px',
+  } ).mount();	
+</script>
 </body>
 </html>
