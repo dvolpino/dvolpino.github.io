@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+<script src="splide-4.1.3/dist/js/splide.min.js"></script>
 <meta charset="utf-8">
 <title>YTML</title>
 <style type="text/css">
@@ -27,8 +28,9 @@ a:active {
     text-decoration: none;
 }
 </style>
-	<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="splide-4.1.3/dist/css/splide.min.css">
 </head>
 
 <body>
@@ -36,13 +38,26 @@ a:active {
 <footer class="cuerpo">
   <nav>
 	<div class="navigation">
-	  	<div class="div"><a href="Home.html" class="Genre" >Trance</a></div>
+	  	<div class="div"><a href="Trance.html" class="Genre" >Trance</a></div>
 		<div class="div"><a href="Trance.html" class="scene" >Trance</a></div>
 		<div class="div"><a href="Trance-Trance-T.html" class="SubGenre" >&nbsp;Trance</a></div>
 		<div class="div"><a href="Trance-Trance-BT.html" class="SubGenre" >&nbsp;Balearic Trance</a></div>
 		<div class="div"><a href="H-Trance-Trance-PT.html" class="SubGenre" >&nbsp;Progressive Trance</a></div>
-		<div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb9tgJsvK6mfKoDxXtvaWN8v" class="links2" >&nbsp;&nbsp;Progressive Trance 90´s</div>
-		<div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb8FkKimfm6-oZ2IYOacKPOM" class="links2" >&nbsp;&nbsp;Progressive Trance 00´s</div>
+		
+		<section id="counter" class="splide" aria-label="Beautiful Images" data-splide='{"pagination":false,"arrows":false,"direction":"ttb","paginationDirection":"ttb"}'>
+  <div class="splide__track" align="right" >
+		<ul class="splide__list">
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb9tgJsvK6mfKoDxXtvaWN8v" class="links"><image src="images/counter/90s.png" alt=""></image></a>
+			</li>
+		    <li class="splide__slide">
+				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb8FkKimfm6-oZ2IYOacKPOM"><image src="images/counter/00s.png" alt=""></image></a>
+			</li>
+			</ul>
+  </div>
+</section>
+		<br />
+		
 	  <div class="div"><a href="Trance-Trance-TT.html" class="SubGenre" >&nbsp;Tech Trance</a></div>
 	
 		<div class="div"><a href="Trance-PsT.html" class="scene" >Psychedelic Trance</a></div>
@@ -50,5 +65,12 @@ a:active {
     </div>
 		</nav>
   </footer>
+	  	<script>
+  new Splide( '#counter'	, {
+		width : '510px',
+		height: '285px',
+  } ).mount();	
+</script>
+
 </body>
 </html>
