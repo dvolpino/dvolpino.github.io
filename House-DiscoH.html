@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+<script src="splide-4.1.3/dist/js/splide.min.js"></script>
 <meta charset="utf-8">
 <title>YTML</title>
 <style type="text/css">
@@ -27,8 +28,9 @@ a:active {
     text-decoration: none;
 }
 </style>
-	<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="splide-4.1.3/dist/css/splide.min.css">
 </head>
 
 <body>
@@ -42,8 +44,21 @@ a:active {
 		<div class="div"><a href="House-AH.html" class="SubGenre" >&nbsp;Acid House</a></div>
 		<div class="div"><a href="House-DeepH.html" class="SubGenre" >&nbsp;Deep House</a></div>
 		<div class="div"><a href="H-House-DiscoH.html" class="SubGenre" >&nbsp;Disco House</a></div>
-		<div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb_5P9mgPVkI7SNFVPKbAb_Y" class="links" >&nbsp;&nbsp;Disco House 90´s</a></div>
-		<div class="div"><a href="https://music.youtube.com/browse/VLPLV5aIGkszfb-0WyquSWnopUii-_QgfAlZ" class="links" >&nbsp;&nbsp;Disco House 00´s</a></div>
+			
+		<section id="counter" class="splide" aria-label="Beautiful Images" data-splide='{"pagination":false,"arrows":false,"direction":"ttb","paginationDirection":"ttb"}'>
+  <div class="splide__track" align="right" >
+		<ul class="splide__list">
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb_5P9mgPVkI7SNFVPKbAb_Y"><image src="images/counter/90s.png" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/browse/VLPLV5aIGkszfb-0WyquSWnopUii-_QgfAlZ"><image src="images/counter/00s.png" alt=""></image></a>
+			</li>
+			</ul>
+  </div>
+</section>
+		<br />
+		
 		<div class="div"><a href="House-DiscoH-FH.html" class="SubGenre" >&nbsp;&nbsp;French House</a></div>
 		<div class="div"><a href="House-DiscoH-EH.html" class="SubGenre" >&nbsp;&nbsp;Electro House</a></div>
 		<div class="div"><a href="House-Lo-Fi House.html" class="SubGenre" >&nbsp;&nbsp;Lo-Fi House</a></div>
@@ -51,10 +66,16 @@ a:active {
 		<div class="div"><a href="House-UKG.html" class="scene" >&nbsp;UK Garage</a></div>
 		<div class="div"><a href="House-Albums.html" class="links" >&nbsp;Albums</a></div>
 		<div class="div"><a href="House-Art.html" class="artists" >&nbsp;Artists</a></div>
-			<div class="div"><a href="House-LS.html" class="live" >&nbsp;Live Sets</a></div>
+		<div class="div"><a href="House-LS.html" class="live" >&nbsp;Live Sets</a></div>
 		
     </div>
 		</nav>
   </footer>
+	<script>
+  new Splide( '#counter'	, {
+		width : '510px',
+		height: '285px',
+  } ).mount();	
+</script>
 </body>
 </html>
