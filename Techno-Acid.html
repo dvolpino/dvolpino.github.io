@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+<script src="splide-4.1.3/dist/js/splide.min.js"></script>
 <meta charset="utf-8">
 <title>YTML</title>
 <style type="text/css">
@@ -27,8 +28,9 @@ a:active {
     text-decoration: none;
 }
 </style>
-	<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="splide-4.1.3/dist/css/splide.min.css">
 </head>
 <body>
 <header class="head"><a href="Home.html"><img src="logo.png" alt="" width="675" height="127"/></a></header>
@@ -39,8 +41,21 @@ a:active {
 		<div class="div"><a href="Techno-Detroit.html" class="SubGenre" >&nbsp;Detroit Techno</a></div>
 		<div class="div"><a href="Techno-Euro.html" class="SubGenre" >&nbsp;Euro Techno</a></div>
 		<div class="div"><a href="H-Techno-Acid.html" class="SubGenre" >&nbsp;Acid Techno</a></div>
-		<div class="div"><a href="https://music.youtube.com/browse/VLPLV5aIGkszfb9YanNnvgRKyh9eZxq1FjEU" class="links" >&nbsp;&nbsp;Acid Techno 80´s</a></div>
-		<div class="div"><a href="https://music.youtube.com/browse/VLPLV5aIGkszfb98dgJ_T7RrOIi5MaR_5aN2" class="links" >&nbsp;&nbsp;Acid Techno 90´s</a></div>
+			
+			<section id="counter" class="splide" aria-label="Beautiful Images" data-splide='{"pagination":false,"arrows":false,"direction":"ttb","paginationDirection":"ttb"}'>
+  <div class="splide__track" align="right" >
+		<ul class="splide__list">
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/browse/VLPLV5aIGkszfb9YanNnvgRKyh9eZxq1FjEU" class="links"><image src="images/counter/80s.png" alt=""></image></a>
+			</li>
+		    <li class="splide__slide">
+				<a href="https://music.youtube.com/browse/VLPLV5aIGkszfb98dgJ_T7RrOIi5MaR_5aN2"><image src="images/counter/90s.png" alt=""></image></a>
+			</li>
+			</ul>
+  </div>
+</section>
+		<br />
+		
 		<div class="div"><a href="Techno-MT.html" class="SubGenre" >&nbsp;Minimal Techno</a></div>
 		<div class="div"><a href="Techno-AmbientTechno.html" class="SubGenre" >&nbsp;Ambient Techno</a></div>
 		<div class="div"><a href="Techno-DT.html" class="SubGenre" >&nbsp;Dub Techno</a></div>
@@ -52,5 +67,11 @@ a:active {
     </div>
 		</nav>
   </footer>
+	<script>
+  new Splide( '#counter'	, {
+		width : '510px',
+		height: '285px',
+  } ).mount();	
+</script>
 </body>
 </html>
