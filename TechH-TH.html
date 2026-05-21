@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+<script src="splide-4.1.3/dist/js/splide.min.js"></script>
 <meta charset="utf-8">
 <title>YTML</title>
 <style type="text/css">
@@ -27,8 +28,9 @@ a:active {
     text-decoration: none;
 }
 </style>
-	<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="splide-4.1.3/dist/css/splide.min.css">
 </head>
 
 <body>
@@ -40,13 +42,34 @@ a:active {
 		<div class="div"><a href="TechH-MH.html" class="SubGenre" >&nbsp;Micro House</a></div>
 		<div class="div"><a href="TechH-MTH.html" class="SubGenre" >&nbsp;Minimal Tech House</a></div>
 		<div class="div"><a href="H-TechH-TH.html" class="SubGenre" >&nbsp;Tech House</a></div>
-		<div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb8LaoyLpu4tF_V8gcDHZUzK" class="links" >&nbsp;&nbsp;Tech House 90´s</a></div>
-		<div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb_gFfszyqiKp9CVuX6AT90g" class="links" >&nbsp;&nbsp;Tech House 00´s</a></div>
-		<div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb_F1quVQUynEUdLNisMgYib" class="links" >&nbsp;&nbsp;Tech House 10´s</a></div>
+			
+		<section id="counter" class="splide" aria-label="Beautiful Images" data-splide='{"pagination":false,"arrows":false,"direction":"ttb","paginationDirection":"ttb"}'>
+  <div class="splide__track" align="right" >
+		<ul class="splide__list">
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb8LaoyLpu4tF_V8gcDHZUzK" class="links"><image src="images/counter/90s.png" alt=""></image></a>
+			</li>
+		    <li class="splide__slide">
+				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb_gFfszyqiKp9CVuX6AT90g"><image src="images/counter/00s.png" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb_F1quVQUynEUdLNisMgYib"><image src="images/counter/10s.png" alt=""></image></a>
+			</li>
+			</ul>
+  </div>
+</section>
+		<br />
+		
 		
 	  <div class="div"><a href="TechH-DTH.html" class="SubGenre" >&nbsp;Deep Techouse</a></div>
 				  </div>
 		</nav>
   </footer>
+	<script>
+  new Splide( '#counter'	, {
+		width : '510px',
+		height: '285px',
+  } ).mount();	
+</script>
 </body>
 </html>
