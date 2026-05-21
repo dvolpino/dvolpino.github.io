@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+<script src="splide-4.1.3/dist/js/splide.min.js"></script>
 <meta charset="utf-8">
 <title>YTML</title>
 <style type="text/css">
@@ -27,8 +28,9 @@ a:active {
     text-decoration: none;
 }
 </style>
-	<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="splide-4.1.3/dist/css/splide.min.css">
 </head>
 
 <body>
@@ -42,9 +44,24 @@ a:active {
 		<div class="div"><a href="House_and_Garage.html" class="scene" >&nbsp;Progressive</a></div>
 		<div class="div"><a href="Progressive-PH.html" class="SubGenre" >&nbsp;&nbsp;Progressive House</a></div>
 		<div class="div"><a href="H-Progressive-Prog.html" class="SubGenre" >&nbsp;&nbsp;Progressive</a></div>
-		<div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb9sWFuzJeF3vUvwZ8TJyRmb" class="links" >&nbsp;&nbsp; Progressive 90´s</a></div>
-		<div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb-RXnmEa_a2XGw0c01UdAmJ" class="links" >&nbsp;&nbsp; Progressive 00´s</a></div>
-		<div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb8x7P-QrqkS8lYLam3Kfy3Q" class="links" >&nbsp;&nbsp; Progressive +10´s</a></div>
+			
+		<section id="counter" class="splide" aria-label="Beautiful Images" data-splide='{"pagination":false,"arrows":false,"direction":"ttb","paginationDirection":"ttb"}'>
+  <div class="splide__track" align="right" >
+		<ul class="splide__list">
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb9sWFuzJeF3vUvwZ8TJyRmb"><image src="images/counter/90s.png" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb-RXnmEa_a2XGw0c01UdAmJ"><image src="images/counter/00s.png" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb8x7P-QrqkS8lYLam3Kfy3Q"><image src="images/counter/10s.png" alt=""></image></a>
+			</li>
+			</ul>
+  </div>
+</section>
+		<br />
+		
 		<div class="div"><a href="Progressive-MP.html" class="SubGenre" >&nbsp;&nbsp;Minimal Prog</a></div>
 		<div class="div"><a href="House-Albums.html" class="links" >&nbsp;Albums</a></div>
 		<div class="div"><a href="House-Art.html" class="artists" >&nbsp;Artists</a></div>
@@ -53,5 +70,11 @@ a:active {
     </div>
 		</nav>
   </footer>
+	<script>
+  new Splide( '#counter'	, {
+		width : '510px',
+		height: '285px',
+  } ).mount();	
+</script>
 </body>
 </html>
