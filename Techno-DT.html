@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+<script src="splide-4.1.3/dist/js/splide.min.js"></script>
 <meta charset="utf-8">
 <title>YTML</title>
 <style type="text/css">
@@ -27,8 +28,9 @@ a:active {
     text-decoration: none;
 }
 </style>
-	<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="splide-4.1.3/dist/css/splide.min.css">
 </head>
 
 <body>
@@ -43,12 +45,29 @@ a:active {
 		<div class="div"><a href="Techno-MT.html" class="SubGenre" >&nbsp;Minimal Techno</a></div>
 		<div class="div"><a href="Techno-AmbientTechno.html" class="SubGenre" >&nbsp;Ambient Techno</a></div>
 		<div class="div"><a href="H-Techno-DT.html" class="SubGenre" >&nbsp;Dub Techno</a></div>
+		
+		<section id="counter" class="splide" aria-label="Beautiful Images" data-splide='{"pagination":false,"arrows":false,"direction":"ttb","paginationDirection":"ttb"}'>
+  <div class="splide__track" align="right" >
+		<ul class="splide__list">
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb8cVhGELsHy5bE4yqvlIR_Y" class="links"><image src="images/counter/90s.png" alt=""></image></a>
+			</li>
+		    <li class="splide__slide">
+				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb8RkUitZw3SauiwqTjFXsLz"><image src="images/counter/00s.png" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/browse/VLPLV5aIGkszfb-QF657mh2etQZwpUCuN3fJ"><image src="images/counter/10s.png" alt=""></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb-NYPDqHFwfuLx9i1DE-b_1"><image src="images/counter/20s.png" alt=""></image></a>
+			</li>
+		</ul>
+  </div>
+</section>
+		<br />
+		
 		<div class="minidiv"><a href="https://music.youtube.com/playlist?list=OLAK5uy_m5po0ROubyUuSnV883hbaufZn4hipLF8g" class="minilink" >&nbsp;&nbsp;&nbsp;&nbsp;Espectrum: The Avantroots</br>&nbsp;&nbsp;&nbsp;&nbsp;Dub Techno Compilation</a></div>
-		<div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb8cVhGELsHy5bE4yqvlIR_Y" class="links" >&nbsp;&nbsp;Dub Techno 90´s</a></div>
-		<div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb8RkUitZw3SauiwqTjFXsLz" class="links" >&nbsp;&nbsp;Dub Techno 00´s</a></div>
-		<div class="div"><a href="https://music.youtube.com/browse/VLPLV5aIGkszfb-QF657mh2etQZwpUCuN3fJ" class="links" >&nbsp;&nbsp;Dub Techno 10´s</a></div>
-	    <div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb-NYPDqHFwfuLx9i1DE-b_1" class="links" >&nbsp;&nbsp;Dub Techno 20´s</a></div>
-	  <div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb8_DHmKjX7DsFl_1YgRZNDn" class="links" >&nbsp;&nbsp;A I X E L E N T</a></div>
+	    <div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb8_DHmKjX7DsFl_1YgRZNDn" class="links" >&nbsp;&nbsp;A I X E L E N T</a></div>
 	  
 	  	<div class="div"><a href="Techno-HT.html" class="SubGenre" >&nbsp;Hypnotic Techno</a></div>
 	  <div class="div"><a href="Techno-Albums.html" class="links" >&nbsp;Albums</a></div>
@@ -58,5 +77,11 @@ a:active {
     </div>
 		</nav>
   </footer>
+	<script>
+  new Splide( '#counter'	, {
+		width : '510px',
+		height: '285px',
+  } ).mount();	
+</script>
 </body>
 </html>
