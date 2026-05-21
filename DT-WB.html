@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+<script src="splide-4.1.3/dist/js/splide.min.js"></script>
 <meta charset="utf-8">
 <title>YTML</title>
 <style type="text/css">
@@ -27,8 +28,9 @@ a:active {
     text-decoration: none;
 }
 </style>
-	<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="splide-4.1.3/dist/css/splide.min.css">
 </head>
 
 <body>
@@ -47,8 +49,20 @@ a:active {
 		<div class="div"><a href="Breaks-AB.html" class="SubGenre" >&nbsp;Ambient Breaks</a></div>
 		<div class="div"><a href="DT-Nortec.html" class="SubGenre" >&nbsp;Nortec</a></div>
 		<div class="div"><a href="DT.html" class="SubGenre" >&nbsp;Organic House</a></div>
-		<div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb8AhGk73YY1QhJp0mf7fiNO" class="links3" >&nbsp;&nbsp;Organic House 10´s</a></div>
-		<div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb_fcY-KeOvjWhJSKAeGl-pe" class="links3" >&nbsp;&nbsp;Organic House 20´s</a></div>
+			
+		<section id="counter" class="splide" aria-label="Beautiful Images" data-splide='{"pagination":false,"arrows":false,"direction":"ttb","paginationDirection":"ttb"}'>
+		<div class="splide__track" align="right" >
+		<ul class="splide__list">
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb8AhGk73YY1QhJp0mf7fiNO"><image src="images/counter/10s.png" alt=""></image></a>
+			</li>
+		    <li class="splide__slide">
+				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb_fcY-KeOvjWhJSKAeGl-pe"><image src="images/counter/20s.png" alt=""></image></a>
+			</li>
+			</ul>
+            </div>
+			</section>
+		
 		<div class="minidiv"><a href="https://music.youtube.com/watch?v=Z8oX1IJIui4" class="minilink" >&nbsp;&nbsp;&nbsp;&nbsp;Prism Tapes  <br> &nbsp;&nbsp;&nbsp;&nbsp;Echo Bazaar 2</a></div>
 		<div class="minidiv"><a href="https://www.youtube.com/watch?v=i0wr5bhZ0DQ&t=16s" class="minilink3" >&nbsp;&nbsp;&nbsp;&nbsp;Jarl Flamar </br> &nbsp;&nbsp;&nbsp;&nbsp;Live Hadra Festival 2024</a></div>
 		<div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb-HFv57DEin5CDoCVMtbmnA" class="links" >&nbsp;Orbiting</a></div>
@@ -59,5 +73,11 @@ a:active {
     </div>
 		</nav>
   </footer>
+	<script>
+  new Splide( '#counter'	, {
+		width : '510px',
+		height: '285px',
+  } ).mount();	
+</script>
 </body>
 </html>
