@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>YTML</title>
+	<!-- PWA-->
+	<link rel="manifest" crossorigin="use-credentials" href="manifest.json" />  
+	<!-- PWA-->
+	 <!-- ====================  BEGIN: Include add-to-homescreen resources  ==================== -->
+
+    <link rel="stylesheet" href="./dist/add-to-homescreen.min.css" />
+<style type="text/css">
+body {
+    background-image: url(background%20YTML.jpg);
+	background-size: cover;
+	background-attachment: fixed;
+    background-position: top;      
+}
+	
+</style>
+<link href="styles.css" rel="stylesheet" type="text/css">	
+
+<style type="text/css">
+a:link {
+    text-decoration: none;
+}
+a:visited {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: none;
+}
+a:active {
+    text-decoration: none;
+}
+</style>
+	<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+<header class="head"><a href="Home.html"><img src="logo.png" alt="" width="675" height="127" ></a></header>
+<footer class="cuerpo">
+  <nav>
+	<div class="navigation">
+	  		
+		<!-- Place this menu only on your settings/selector page -->
+<div class="selector-panel" class="SubGenre">
+    <p class="SubGenre">Choose Background</p>
+    <select id="bgSelector" onchange="updateBackground()">
+        <option value="background YTML.jpg">Panal</option>
+        <option value="background2.jpg">Bronza</option>
+        
+    </select>
+</div>
+
+<script>
+    function updateBackground() {
+        const selector = document.getElementById('bgSelector');
+        const selectedImage = selector.value;
+        
+        // 1. Apply it to the current page instantly
+        document.body.style.backgroundImage = "url('" + selectedImage + "')";
+        
+        // 2. Save the choice to the browser's memory
+        localStorage.setItem('userBackground', selectedImage);
+    }
+
+    // Keep the dropdown menu showing the correct option on page load
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedBg = localStorage.getItem('userBackground');
+        if (savedBg) {
+            document.getElementById('bgSelector').value = savedBg;
+            document.body.style.backgroundImage = "url('" + savedBg + "')";
+        }
+    </script>
+
+			  </div>
+		</nav>
+  </footer>
+	<script src="background-manager.js"></script>
+</body>
+</html>
