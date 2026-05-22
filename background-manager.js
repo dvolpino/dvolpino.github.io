@@ -1,26 +1,24 @@
 // JavaScript Document
-
-<style>
-    /* Put this global styling in your main CSS file or every HTML page */
-    body {
-        margin: 0;
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        /* Optional: Default fallback image if they haven't picked one yet */
-        background-image: url('background2.jpg'); 
+// This function handles saving new choices (used on the selector page)
+function updateBackground() {
+    const selector = document.getElementById('bgSelector');
+    if (selector) {
+        const selectedImage = selector.value;
+        document.body.style.backgroundImage = "url('" + selectedImage + "')";
+        localStorage.setItem('userBackground', selectedImage);
     }
-</style>
+}
 
-<script>
-    // This runs automatically as soon as any page loads
-    window.addEventListener('DOMContentLoaded', () => {
-        // Retrieve the saved image path from the browser memory
-        const savedBg = localStorage.getItem('userBackground');
+// This function automatically runs on EVERY page load to apply the saved background
+window.addEventListener('DOMContentLoaded', () => {
+    const savedBg = localStorage.getItem('userBackground');
+    if (savedBg) {
+        document.body.style.backgroundImage = "url('" + savedBg + "')";
         
-        // If the user previously picked a background, apply it
-        if (savedBg) {
-            document.body.style.backgroundImage = "url('" + savedBg + "')";
+        // If we are currently on the selector page, also update the dropdown menu state
+        const selector = document.getElementById('bgSelector');
+        if (selector) {
+            selector.value = savedBg;
         }
-    });
-</script>
+    }
+});

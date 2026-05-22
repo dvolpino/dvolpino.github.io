@@ -46,27 +46,6 @@ a:active {
     </select>
 </div>
 
-<script>
-    function updateBackground() {
-        const selector = document.getElementById('bgSelector');
-        const selectedImage = selector.value;
-        
-        // 1. Apply it to the current page instantly
-        document.body.style.backgroundImage = "url('" + selectedImage + "')";
-        
-        // 2. Save the choice to the browser's memory
-        localStorage.setItem('userBackground', selectedImage);
-    }
-
-    // Keep the dropdown menu showing the correct option on page load
-    window.addEventListener('DOMContentLoaded', () => {
-        const savedBg = localStorage.getItem('userBackground');
-        if (savedBg) {
-            document.getElementById('bgSelector').value = savedBg;
-            document.body.style.backgroundImage = "url('" + savedBg + "')";
-        }
-    </script>
-
 			  </div>
 		</nav>
   </footer>
