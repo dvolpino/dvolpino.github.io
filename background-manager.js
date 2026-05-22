@@ -8,7 +8,7 @@
         background-position: center;
         background-repeat: no-repeat;
         /* Optional: Default fallback image if they haven't picked one yet */
-        background-image: url('https://picsum.photos'); 
+        background-image: url('background2.jpg'); 
     }
 </style>
 
