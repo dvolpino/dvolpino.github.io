@@ -78,11 +78,8 @@ a { text-decoration: none;   }
 .minidiv { height: 110px;
 display: flex;} 
 
-.counter {
- border-style: outset;
-	border-width: 5px;
-	border-color: aliceblue;
-	
+.history {
+ font-size: 50px;
 }
 	 
 	 
