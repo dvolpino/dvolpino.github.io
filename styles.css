@@ -86,6 +86,9 @@ display: flex;}
 	color: #FFFCFC;
 	font-size: 40px;
 	} 
+
+.decada{ display: block;
+	        }
 	 
 @media (max-height:1080px){
 	/* PC */
