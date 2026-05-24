@@ -40,24 +40,32 @@ a:active {
 	<div class="navigation">
 	  	<div class="div"><a href="DT.html" class="Genre" >Downtempo</a></div>
 		<div class="div"><a href="H-DT-Krautrock.html" class="SubGenre" >&nbsp;Krautrock</a></div>
-			
-<section id="counter" class="splide" aria-label="Beautiful Images" data-splide='{"pagination":false,"arrows":false,"direction":"ttb","paginationDirection":"ttb"}'>
-  <div class="splide__track" align="right" >
-		<ul class="splide__list">
-		<li class="splide__slide">
-				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb9MtmmVHS5N8Y6Vl6J6eVyg" class="links"><image src="images/counter/70s.png" alt=""></image></a>
-			</li>
-		<li class="splide__slide">
-				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb-N86CXHeRzV0P6fYfWFfS-"><image src="images/counter/80s.png" alt=""></image></a>
-			</li>
-			
-		</ul>
-  </div>
-</section>
 		
+		<!-- Playlists por decada --> 
+		<div ><image src="images/counter/borde superior.png" alt="Playlist" width=510px class="decada" ></image> 
+		<div ><image src="images/counter/borde izquierdo.png" alt="" width=61px class="decada2" ></image> </div>
+		<div class="carousel-contenedor">
+		<section id="counter" class="splide" aria-label="Beautiful Images" data-splide='{"pagination":false,"arrows":false,"direction":"ttb","paginationDirection":"ttb"}' >
+		  <div class="splide__track" align="right">	<ul class="splide__list"  >
+			<li class="splide__slide" >
+				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb9MtmmVHS5N8Y6Vl6J6eVyg"><image src="images/counter/70sb2.png" alt="" class="decada2"></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb-N86CXHeRzV0P6fYfWFfS-"><image src="images/counter/80sb2.png" alt="" class="decada2"></image></a>
+			</li>
+			</ul>
+		  </div>
+        </section>
+		<div ><image src="images/counter/borde derecho.png" alt="" width=187px class="decada2" ></image> </div></div>
+	    <div><image src="images/counter/borde inferior.png" alt="" width=510px class="decada2" ></image></div> 
+        </div>
+		<br />
+		<!-- Fin Playlists por decada --> 
+		
+		<!-- Albums --> 
 		<section id="image-carousel" class="splide" aria-label="Beautiful Images" >
-  <div class="splide__track" align="right">
-		<ul class="splide__list">
+  		<div class="splide__track" align="right">
+		  <ul class="splide__list">
 			<li class="splide__slide">
 				<a href="https://music.youtube.com/playlist?list=OLAK5uy_kBxn-D-kRkzWpfSjJzHIZBbTsMepzm2IE"><image src="images/DT/Albums/Krautrock/Future Days.jpg" alt=""></image></a>
 			</li>
@@ -82,10 +90,12 @@ a:active {
 			<li class="splide__slide">
 				<a href="https://music.youtube.com/browse/FEmusic_library_privately_owned_release_detailb_po_CM-vo7WKqNvVGhIOc3RlbGxhciB0dW5uZWwiDWh0dHAgdXBsb2FkZXI"><image src="images/DT/Albums/Krautrock/Stellar-Tunnel.jpg" alt=""></image></a>
 			</li>
-			</ul>
-  </div>
-</section>
-					<br / class="minilink4">
+		 </ul>
+      </div>
+      </section>
+	  <br / class="minilink4">
+	  <!-- Fin Albums --> 
+		
 		<div class="div"><a href="DT-Dub.html" class="SubGenre" >&nbsp;Dub</a></div>
 		<div class="div"><a href="DT-TripHop.html" class="SubGenre" >&nbsp;Trip Hop</a></div>
 		<div class="div"><a href="DT-EF.html" class="SubGenre" >&nbsp;Electro Funk</a></div>
@@ -109,12 +119,15 @@ a:active {
 		height: '510px',
   } ).mount();	
 </script>
-<script>
-  new Splide( '#counter'	, {
-		width : '510px',
-		height: '285px',
-  } ).mount();	
-</script>
+<!-- Script para Playlists por decada --> 
+	<script>
+    new Splide( '#counter'	, {
+		width : '262px',
+		height: '187px',
+	   } ).mount();	
+    </script>
+	<!-- Fin Script para Playlists por decada --> 
+	
 	<script src="background-manager.js"></script>
 </body>
 </html>
