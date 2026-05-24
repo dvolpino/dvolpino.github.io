@@ -87,7 +87,8 @@ display: flex;}
 	font-size: 40px;
 	} 
 
-.decada{ display: block;
+.decada{ display: flex;
+	margin-right: 0px;
 	        }
 	 
 @media (max-height:1080px){
