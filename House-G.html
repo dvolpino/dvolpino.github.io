@@ -40,20 +40,28 @@ a:active {
 	<div class="navigation">
 	  	<div class="div"><a href="House_and_Garage.html" class="Genre" >House &amp; Garage</a></div>
 		<div class="div"><a href="H-House-Garage.html" class="scene" >&nbsp;Garage</a></div>
-				
-		<section id="counter" class="splide" aria-label="Beautiful Images" data-splide='{"pagination":false,"arrows":false,"direction":"ttb","paginationDirection":"ttb"}'>
-  <div class="splide__track" align="right" >
-		<ul class="splide__list">
-			<li class="splide__slide">
-				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb8Q0CoFa4vKJ_y9EyzheHyX"><image src="images/counter/80s.png" alt=""></image></a>
+			
+		<!-- Playlists por decada --> 
+		<div ><image src="images/counter/borde superior.png" alt="Playlist" width=510px class="decada" ></image> 
+		<div ><image src="images/counter/borde izquierdo.png" alt="" width=61px class="decada2" ></image> </div>
+		<div class="carousel-contenedor">
+		<section id="counter" class="splide" aria-label="Beautiful Images" data-splide='{"pagination":false,"arrows":false,"direction":"ttb","paginationDirection":"ttb"}' >
+		  <div class="splide__track" align="right">	<ul class="splide__list"  >
+			<li class="splide__slide" >
+				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb8Q0CoFa4vKJ_y9EyzheHyX"><image src="images/counter/80sb2.png" alt="" class="decada2"></image></a>
 			</li>
 			<li class="splide__slide">
-				<a href="https://music.youtube.com/browse/VLPLV5aIGkszfb-Ev9aiHOYuJBtop_9dR2Ec"><image src="images/counter/90s.png" alt=""></image></a>
+				<a href="https://music.youtube.com/browse/VLPLV5aIGkszfb-Ev9aiHOYuJBtop_9dR2Ec"><image src="images/counter/90sb2.png" alt="" class="decada2"></image></a>
 			</li>
 			</ul>
-  </div>
-</section>
+		  </div>
+        </section>
+		<div ><image src="images/counter/borde derecho.png" alt="" width=187px class="decada2" ></image> </div></div>
+	    <div><image src="images/counter/borde inferior.png" alt="" width=510px class="decada2" ></image></div> 
+        </div>
 		<br />
+		<!-- Fin Playlists por decada --> 
+				
 		<div class="div"><a href="House.html" class="scene" >&nbsp;House</a></div>
 		<div class="div"><a href="Progressive.html" class="scene" >&nbsp;Progressive</a></div>
 		<div class="div"><a href="House-UKG.html" class="scene" >&nbsp;UK Garage</a></div>
@@ -64,12 +72,14 @@ a:active {
     </div>
 		</nav>
   </footer>
+	<!-- Script para Playlists por decada --> 
 	<script>
-  new Splide( '#counter'	, {
-		width : '510px',
-		height: '285px',
-  } ).mount();	
-</script>
+    new Splide( '#counter'	, {
+		width : '262px',
+		height: '187px',
+	   } ).mount();	
+    </script>
+	<!-- Fin Script para Playlists por decada --> 
 	<script src="background-manager.js"></script>
 </body>
 </html>
