@@ -44,22 +44,30 @@ a:active {
 		<div class="div"><a href="DT-TripHop.html" class="SubGenre" >&nbsp;Trip Hop</a></div>
 		<div class="div"><a href="H-DT-EF.html" class="SubGenre" >&nbsp;Electro Funk</a></div>
 		
-		<section id="counter" class="splide" aria-label="Beautiful Images" data-splide='{"pagination":false,"arrows":false,"direction":"ttb","paginationDirection":"ttb"}'>
-		<div class="splide__track" align="right" >
-		<ul class="splide__list">
-			<li class="splide__slide">
-				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb_5T2_yfwJbZuorfMFTD1LN" class="links"><image src="images/counter/70s.png" alt=""></image></a>
+		<!-- Playlists por decada --> 
+		<div ><image src="images/counter/borde superior.png" alt="Playlist" width=510px class="decada" ></image> 
+		<div ><image src="images/counter/borde izquierdo.png" alt="" width=61px class="decada2" ></image> </div>
+		<div class="carousel-contenedor">
+		<section id="counter" class="splide" aria-label="Beautiful Images" data-splide='{"pagination":false,"arrows":false,"direction":"ttb","paginationDirection":"ttb"}' >
+		  <div class="splide__track" align="right">	<ul class="splide__list"  >
+			<li class="splide__slide" >
+				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb_5T2_yfwJbZuorfMFTD1LN"><image src="images/counter/70sb2.png" alt="" class="decada2"></image></a>
 			</li>
-		    <li class="splide__slide">
-				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb_d56F096jcmPyDvEaQE4i2"><image src="images/counter/80s.png" alt=""></image></a>
-			</li>
 			<li class="splide__slide">
-				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb96FO7qtvgwuMt1v4Y9F1Jd"><image src="images/counter/90s.png" alt=""></image></a>
+				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb_d56F096jcmPyDvEaQE4i2"><image src="images/counter/80sb2.png" alt="" class="decada2"></image></a>
+			</li>
+			 <li class="splide__slide">
+				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb96FO7qtvgwuMt1v4Y9F1Jd"><image src="images/counter/90sb2.png" alt="" class="decada2"></image></a>
 			</li>
 			</ul>
-  </div>
-			</section>
+		  </div>
+        </section>
+		<div ><image src="images/counter/borde derecho.png" alt="" width=187px class="decada2" ></image> </div></div>
+	    <div><image src="images/counter/borde inferior.png" alt="" width=510px class="decada2" ></image></div> 
+        </div>
 		<br />
+		<!-- Fin Playlists por decada --> 
+				
 		<div class="div"><a href="DT-AJ.html" class="SubGenre" >&nbsp;Acid Jazz</a></div>
 		<div class="div"><a href="Trance-PsT-PsyDub.html" class="SubGenre" >&nbsp;PsyDub & Psybient</a></div>
 		<div class="div"><a href="Techno-AmbientTechno.html" class="SubGenre" >&nbsp;Ambient Techno</a></div>
@@ -74,12 +82,14 @@ a:active {
     </div>
 		</nav>
   </footer>
+	<!-- Script para Playlists por decada --> 
 	<script>
-  new Splide( '#counter'	, {
-		width : '510px',
-		height: '285px',
-  } ).mount();	
-</script>
+    new Splide( '#counter'	, {
+		width : '262px',
+		height: '187px',
+	   } ).mount();	
+    </script>
+	<!-- Fin Script para Playlists por decada --> 
 	<script src="background-manager.js"></script>
 </body>
 </html>
