@@ -42,8 +42,28 @@ a:active {
 		<div class="div"><a href="DnB-AJ.html" class="SubGenre" >&nbsp;Atmospheric Jungle</a></div>
 		<div class="div"><a href="DnB - JS.html" class="SubGenre" >&nbsp;Jazzstep</a></div>
 		<div class="div"><a href="H - DnB - LF.html" class="SubGenre" >&nbsp;Liquid Funk</a></div>
-		<div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb-saHwDQlXPnnJsUvqtuMMj" class="links" >&nbsp;&nbsp;Liquid Funk 00´s</a></div>
-		<div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb8zI3JfGLtHdPzrwE9Hvh1u" class="links" >&nbsp;&nbsp;Liquid Funk 10´s</a></div>
+		
+		<!-- Playlists por decada --> 
+		<div ><image src="images/counter/borde superior.png" alt="Playlist" width=510px class="decada" ></image> 
+		<div ><image src="images/counter/borde izquierdo.png" alt="" width=61px class="decada2" ></image> </div>
+		<div class="carousel-contenedor">
+		<section id="counter" class="splide" aria-label="Beautiful Images" data-splide='{"pagination":false,"arrows":false,"direction":"ttb","paginationDirection":"ttb"}' >
+		  <div class="splide__track" align="right">	<ul class="splide__list"  >
+			<li class="splide__slide" >
+				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb-saHwDQlXPnnJsUvqtuMMj"><image src="images/counter/00sb2.png" alt="" class="decada2"></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb8zI3JfGLtHdPzrwE9Hvh1u"><image src="images/counter/10sb2.png" alt="" class="decada2"></image></a>
+			</li>
+			</ul>
+		  </div>
+        </section>
+		<div ><image src="images/counter/borde derecho.png" alt="" width=187px class="decada2" ></image> </div></div>
+	    <div><image src="images/counter/borde inferior.png" alt="" width=510px class="decada2" ></image></div> 
+        </div>
+		<br />
+		<!-- Fin Playlists por decada --> 
+	
 		<div class="div"><a href="DnB - Sambass.html" class="SubGenre" >&nbsp;Sambass</a></div>
 		<div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb8Gk5jjFp45EibVSKMJIMzZ" class="links" >&nbsp;Drum n´Bass 90´s</a></div>
 		<div class="div"><a href="https://music.youtube.com/playlist?list=PLV5aIGkszfb813VJsuu1FF4NnPIuPN6X7" class="links" >&nbsp;Drum n´Bass</a> <a class="minilink">PL</a></div>
@@ -51,6 +71,14 @@ a:active {
 		 </div>
 		</nav>
   </footer>
+	<!-- Script para Playlists por decada --> 
+	<script>
+    new Splide( '#counter'	, {
+		width : '262px',
+		height: '187px',
+	   } ).mount();	
+    </script>
+	<!-- Fin Script para Playlists por decada --> 
 	<script src="background-manager.js"></script>
 </body>
 </html>
