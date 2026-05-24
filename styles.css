@@ -88,11 +88,11 @@ display: flex;}
 	} 
 
 .decada{ display: block;
+	     }
+.decada2{ 
 	float: left;
-  
-  padding: 0px;
-	
-	        }
+    padding: 0px;       }
+
 	 
 @media (max-height:1080px){
 	/* PC */
