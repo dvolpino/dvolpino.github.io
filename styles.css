@@ -26,7 +26,7 @@ a { text-decoration: none;   }
 .div { height: 110px; } 
 .minidiv { height: 110px; display: flex;} 
 
-.history{ font-family: Inter; color: #FFFCFC; font-size: 40px;  /* margin-left: auto; margin-right: auto; position: relative;*/	} 
+.history{ font-family: Inter; color: #FFFCFC; font-size: 40px; /* margin-left: auto; margin-right: auto; position: relative;*/	} 
 
 .aka{ /* margin-left: auto; margin-right: auto; position: relative;*/ font-family: Inter; color: #FFFCFC; font: bold; font-size: 50px;		}
 
@@ -70,5 +70,7 @@ a { text-decoration: none;   }
 .minidiv{height: 70px; display: flex;	} 
 	
 	
-.history{ /* margin-left: auto; margin-right: auto; position: relative;*/ font-family: Inter; color: #FFFCFC; font-size: 20px;	}
+.history{ /* margin-left: auto; margin-right: auto; position: relative;*/ font-family: Inter; color: #FFFCFC; font-size: 20px; }
 .aka{ /* margin-left: auto; margin-right: auto; position: relative;*/; font-family: Inter; color: #FFFCFC; font: bold; font-size: 30px;		}
+.photo {width: 400px; border: 1px solid yellow; float:left; margin-right: 1rem; padding: 5px;  }
+	.photo2 {width: 400px; border: 1px solid yellow; float:right; margin-right: 1rem; padding: 5px;  }
