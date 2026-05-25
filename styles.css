@@ -27,8 +27,10 @@ a { text-decoration: none;   }
 .minidiv { height: 110px; display: flex;} 
 
 .history{ font-family: Inter; color: #FFFCFC; font-size: 40px; /* margin-left: auto; margin-right: auto; position: relative;*/	} 
-
 .aka{ /* margin-left: auto; margin-right: auto; position: relative;*/ font-family: Inter; color: #FFFCFC; font: bold; font-size: 50px;		}
+.photo {width: 500px;  }
+.photo2 {width: 450px; border: 1px yellow; padding: 5px;  }
+
 
 .decada{ display: block;   }
 .decada2{ float: left; }
@@ -73,4 +75,4 @@ a { text-decoration: none;   }
 .history{ /* margin-left: auto; margin-right: auto; position: relative;*/ font-family: Inter; color: #FFFCFC; font-size: 20px; }
 .aka{ /* margin-left: auto; margin-right: auto; position: relative;*/; font-family: Inter; color: #FFFCFC; font: bold; font-size: 30px;		}
 .photo {width: 500px; float:left; margin-right: 1rem; padding: 5px;  }
-	.photo2 {width: 450px;  float:right; margin-left: 1rem; padding: 5px;  }
+.photo2 {width: 450px;  float:right; margin-left: 1rem; padding: 5px;  }
