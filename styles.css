@@ -27,13 +27,15 @@ a { text-decoration: none;   }
 .minidiv { height: 110px; display: flex;} 
 
 .history{
-    margin-left: auto;
+    /* margin-left: auto;
     margin-right: auto;
     position: relative;
-	font-family: Inter;
+	font-family: Inter; */
 	color: #FFFCFC;
-	font-size: 45px;
+	font-size: 40px;
 	} 
+
+.aka{ margin-left: auto; margin-right: auto; position: relative; font-family: Inter; color: #FFFCFC; font: bold; font-size: 50px;		}
 
 .decada{ display: block;   }
 .decada2{ float: left; }
