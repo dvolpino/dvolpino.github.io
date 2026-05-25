@@ -12,6 +12,7 @@ a { text-decoration: none;   }
 .links { font-family: Inter; color: #0691FF; margin: auto;	}
 .links2 { font-family: Inter; color: #0691FF; font-size: 50px;	}
 .links3 { font-family: Inter; color: #0691FF; margin: auto;	margin-top: 5px; margin-bottom: 5px;  	}
+.linkshisto { font-family: Inter; color: #0691FF; font-size: 40px;	}
 
 .minilink { font-family: Inter; color: #0691FF;	font-size: 30px;  }
 .minilink2 { font-family: Inter; color:red;	font-size: 30px;  }
@@ -30,7 +31,6 @@ a { text-decoration: none;   }
 .aka{ /* margin-left: auto; margin-right: auto; position: relative;*/ font-family: Inter; color: #FFFCFC; font: bold; font-size: 50px;		}
 .photo {width: 500px;  }
 .photo2 {width: 450px; border: 1px yellow; padding: 5px;  }
-
 
 .decada{ display: block;   }
 .decada2{ float: left; }
