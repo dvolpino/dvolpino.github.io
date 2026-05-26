@@ -57,6 +57,7 @@ a { text-decoration: none;   }
 .links { font-family: Inter; color: #0691FF; font-size: 40px; font: normal; margin: auto; margin-top: 5px;	margin-bottom: 5px;  	}
 .links2 { font-family: Inter; color: #0691FF; font-size: 40px; font: normal; margin: auto; margin-top: 5px;	margin-bottom: 5px;  	}
 .links3 { font-family: Inter; color: #0691FF; font-size: 40px; font: normal; margin: auto; margin-top: 5px;	margin-bottom: 5px;  	}
+.linkshisto { font-family: Inter; color: #0691FF; font-size: 20px;	}
 	
 .minilink { font-family: Inter; color: #0691FF; font-size: 20px; font: normal;    	}
 .minilink2 { font-family: Inter; color: red; font-size: 20px; font: normal;    	}
