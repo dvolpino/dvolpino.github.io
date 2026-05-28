@@ -56,11 +56,11 @@
   .yt-track-num { font-size: 0.9rem; color:rgba(255,255,255,1.00) ;  width: 18px; text-align: right; flex-shrink: 0; } /* font-size: 0.7rem */
   .yt-track-row.active .yt-track-num { color: #ff0000; }
 
-  .yt-track-thumb { width: 90px; height: 90px; object-fit: cover; border-radius: 3px; background: #eee; flex-shrink: 0;  }
+  .yt-track-thumb { width: 100px; height: 100px; object-fit: cover; border-radius: 3px; background: #eee; flex-shrink: 0;  }
 
   .yt-track-meta { flex: 1; min-width: 0; }
 
-  .yt-track-name { font-size: 2.2rem; color: #ddd; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.3;  } /* font-size: 0.82rem */
+  .yt-track-name { font-size: 2.2rem; font-weight: 600; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.3;  } /* font-size: 0.82rem */
 
   .yt-track-row.active .yt-track-name { font-weight: 600; color: #fff; }
 
