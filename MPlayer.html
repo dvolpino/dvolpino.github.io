@@ -1,0 +1,175 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>YTML</title>
+<style type="text/css">body { background-image: url(background%20YTML.jpg); background-size: cover; background-attachment: fixed; background-position: top; } </style>
+<link href="playerstyles.css" rel="stylesheet" type="text/css">
+<link href="styles.css" rel="stylesheet" type="text/css">	
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+<header class="head"><a href="Home.html"><img src="logo.png" alt="" width="675" height="127"/></a></header>
+<footer class="cuerpo">
+  <nav>
+	<div class="navigation">
+	  	
+	<div class="yt-player-wrap">
+
+  <div id="yt-player">
+    <div class="yt-empty" id="yt-empty">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <polygon points="5 3 19 12 5 21 5 3"/>
+      </svg>
+      <span>No playlist selected</span>
+    </div>
+  </div>
+
+  <div class="yt-controls">
+    <button id="yt-prev" onclick="ytPrev()" title="Previous">&#9664;&#9664;</button>
+    <button id="yt-playpause" onclick="ytPlayPause()">&#9654;</button>
+    <button id="yt-next" onclick="ytNext()" title="Next">&#9654;&#9654;</button>
+    <div class="yt-track-info">
+      <span id="yt-track-title">—</span>
+    </div>
+  </div>
+
+  <div class="yt-playlist">
+    <div class="yt-playlist-header">
+      <span id="yt-playlist-name">Playlist</span>
+      <span id="yt-playlist-count"></span>
+    </div>
+    <div class="yt-playlist-list" id="yt-playlist-list">
+      <div class="yt-playlist-loading" id="yt-playlist-loading">Select a playlist to begin.</div>
+    </div>
+  </div>
+
+</div>
+
+
+		
+    </div>
+    	
+	</nav>
+  
+	<script src="background-manager.js"></script>
+	
+	<script>
+  var ytPlayer, ytTracks = [], ytCurrentIndex = 0, ytReady = false;
+
+  // Read playlist ID and name from URL: player.html?list=PL...&name=My+Playlist
+  var params     = new URLSearchParams(window.location.search);
+  var YT_LIST_ID = params.get('list') || '';
+  var YT_NAME    = params.get('name') || 'Playlist';
+
+  if (YT_NAME) document.getElementById('yt-playlist-name').textContent = decodeURIComponent(YT_NAME);
+
+  window.onYouTubeIframeAPIReady = function () {
+    if (!YT_LIST_ID) return; // no playlist in URL — show empty state
+
+    document.getElementById('yt-empty').style.display = 'none';
+    document.getElementById('yt-playlist-loading').textContent = 'Loading tracks…';
+
+    ytPlayer = new YT.Player('yt-player', {
+      height: '100%',
+      width: '100%',
+      playerVars: {
+        listType: 'playlist',
+        list: YT_LIST_ID,
+        autoplay: 0,
+        rel: 0,
+        modestbranding: 1,
+        origin: window.location.origin
+      },
+      events: {
+        onReady: function () {
+          var iframe = document.querySelector('#yt-player iframe');
+          if (iframe) iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+          ytReady = true;
+          setTimeout(ytBuildPlaylist, 1500);
+        },
+        onStateChange: function (e) {
+          document.getElementById('yt-playpause').innerHTML =
+            (e.data === YT.PlayerState.PLAYING) ? '&#9646;&#9646;' : '&#9654;';
+          ytUpdateTitle();
+          if (e.data === YT.PlayerState.PLAYING || e.data === YT.PlayerState.PAUSED) {
+            try { ytCurrentIndex = ytPlayer.getPlaylistIndex(); ytHighlightActive(); } catch(err) {}
+          }
+        }
+      }
+    });
+  };
+
+  function ytBuildPlaylist() {
+    try {
+      var ids = ytPlayer.getPlaylist();
+      if (!ids || ids.length === 0) { setTimeout(ytBuildPlaylist, 1000); return; }
+      ytTracks = ids.map(function(id, i) { return { id: id, title: 'Track ' + (i+1), channel: '' }; });
+      ytRenderPlaylist();
+      document.getElementById('yt-playlist-count').textContent = ids.length + ' tracks';
+      ytFetchTitles();
+    } catch(e) { setTimeout(ytBuildPlaylist, 1000); }
+  }
+
+  function ytRenderPlaylist() {
+    var list = document.getElementById('yt-playlist-list');
+    list.innerHTML = '';
+    ytTracks.forEach(function(track, i) {
+      var row = document.createElement('div');
+      row.className = 'yt-track-row' + (i === ytCurrentIndex ? ' active' : '');
+      row.id = 'yt-row-' + i;
+      row.onclick = (function(idx) { return function() { ytPlayer.playVideoAt(idx); }; })(i);
+      row.innerHTML =
+        '<span class="yt-track-num">' + (i+1) + '</span>' +
+        '<img class="yt-track-thumb" src="https://img.youtube.com/vi/' + track.id + '/mqdefault.jpg" loading="lazy" alt=""/>' +
+        '<div class="yt-track-meta">' +
+          '<div class="yt-track-name" id="yt-name-' + i + '">' + track.title + '</div>' +
+          '<div class="yt-track-ch"  id="yt-ch-'   + i + '">' + track.channel + '</div>' +
+        '</div>';
+      list.appendChild(row);
+    });
+  }
+
+  function ytFetchTitles() {
+    ytTracks.forEach(function(track, i) {
+      fetch('https://noembed.com/embed?url=https://www.youtube.com/watch?v=' + track.id)
+        .then(function(r) { return r.json(); })
+        .then(function(d) {
+          if (d && d.title) {
+            var n = document.getElementById('yt-name-' + i);
+            var c = document.getElementById('yt-ch-' + i);
+            if (n) n.textContent = d.title;
+            if (c) c.textContent = d.author_name || '';
+          }
+        }).catch(function() {});
+    });
+  }
+
+  function ytHighlightActive() {
+    document.querySelectorAll('.yt-track-row').forEach(function(el, i) {
+      el.classList.toggle('active', i === ytCurrentIndex);
+    });
+    var active = document.getElementById('yt-row-' + ytCurrentIndex);
+    if (active) active.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function ytUpdateTitle() {
+    try {
+      var d = ytPlayer.getVideoData();
+      document.getElementById('yt-track-title').textContent = d.title || '';
+    } catch(e) {}
+  }
+
+  function ytPlayPause() {
+    if (!ytPlayer) return;
+    ytPlayer.getPlayerState() === YT.PlayerState.PLAYING ? ytPlayer.pauseVideo() : ytPlayer.playVideo();
+  }
+
+  function ytPrev() { if (ytPlayer) ytPlayer.previousVideo(); }
+  function ytNext() { if (ytPlayer) ytPlayer.nextVideo(); }
+</script>
+<script src="https://www.youtube.com/iframe_api"></script>	
+</body>
+</html>
