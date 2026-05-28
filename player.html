@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="referrer" content="strict-origin-when-cross-origin"/>
+<title>Player</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: inherit;
+    padding: 1.5rem 1rem;
+    background: transparent;
+  }
+
+  .yt-player-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.1);
+  }
+
+  #yt-player {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    display: block;
+  }
+
+  #yt-player iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+
+  /* No playlist selected */
+  .yt-empty {
+    aspect-ratio: 16 / 9;
+    background: #111;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: #555;
+    font-size: 0.875rem;
+  }
+
+  .yt-empty svg { opacity: 0.3; }
+
+  /* Controls */
+  .yt-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.6rem 1rem;
+    background: #fff;
+    border-top: 1px solid rgba(0,0,0,0.07);
+  }
+
+  .yt-controls button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #222;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: background 0.15s;
+    line-height: 1;
+  }
+
+  .yt-controls button:hover { background: rgba(0,0,0,0.07); }
+  #yt-playpause { font-size: 1.3rem; }
+
+  .yt-track-info { flex: 1; overflow: hidden; margin-left: 4px; }
+
+  #yt-track-title {
+    font-size: 0.85rem;
+    color: #444;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+  }
+
+  /* Playlist panel */
+  .yt-playlist { border-top: 1px solid rgba(0,0,0,0.07); background: #fff; }
+
+  .yt-playlist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #888;
+  }
+
+  #yt-playlist-name { color: #444; }
+  #yt-playlist-count { font-weight: 400; font-size: 0.72rem; }
+
+  .yt-playlist-list {
+    max-height: 280px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0,0,0,0.15) transparent;
+  }
+
+  .yt-playlist-list::-webkit-scrollbar { width: 4px; }
+  .yt-playlist-list::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 2px; }
+
+  .yt-playlist-loading {
+    padding: 1.5rem;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #aaa;
+  }
+
+  .yt-track-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.45rem 1rem;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+    transition: background 0.1s;
+    position: relative;
+  }
+
+  .yt-track-row:last-child { border-bottom: none; }
+  .yt-track-row:hover { background: rgba(0,0,0,0.03); }
+  .yt-track-row.active { background: rgba(255,0,0,0.04); }
+
+  .yt-track-row.active::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: #ff0000;
+    border-radius: 0 2px 2px 0;
+  }
+
+  .yt-track-num { font-size: 0.7rem; color: #bbb; width: 18px; text-align: right; flex-shrink: 0; }
+  .yt-track-row.active .yt-track-num { color: #ff0000; }
+
+  .yt-track-thumb {
+    width: 50px; height: 36px;
+    object-fit: cover; border-radius: 3px;
+    background: #eee; flex-shrink: 0;
+  }
+
+  .yt-track-meta { flex: 1; min-width: 0; }
+
+  .yt-track-name {
+    font-size: 0.82rem; color: #222;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    line-height: 1.3;
+  }
+
+  .yt-track-row.active .yt-track-name { font-weight: 600; color: #111; }
+
+  .yt-track-ch {
+    font-size: 0.7rem; color: #999;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    margin-top: 1px;
+  }
+
+  /* Dark mode */
+  @media (prefers-color-scheme: dark) {
+    .yt-player-wrap { border-color: rgba(255,255,255,0.1); }
+    .yt-controls, .yt-playlist { background: #1a1a1a; border-color: rgba(255,255,255,0.07); }
+    .yt-playlist-header { border-color: rgba(255,255,255,0.07); color: #555; }
+    #yt-playlist-name { color: #aaa; }
+    .yt-controls button { color: #ddd; }
+    .yt-controls button:hover { background: rgba(255,255,255,0.1); }
+    #yt-track-title { color: #bbb; }
+    .yt-track-row { border-color: rgba(255,255,255,0.04); }
+    .yt-track-row:hover { background: rgba(255,255,255,0.04); }
+    .yt-track-row.active { background: rgba(255,0,0,0.08); }
+    .yt-track-name { color: #ddd; }
+    .yt-track-row.active .yt-track-name { color: #fff; }
+    .yt-track-ch { color: #555; }
+    .yt-track-num { color: #444; }
+    .yt-playlist-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); }
+    .yt-playlist-loading { color: #555; }
+    .yt-empty { background: #111; }
+  }
+</style>
+</head>
+<body>
+
+<div class="yt-player-wrap">
+
+  <div id="yt-player">
+    <div class="yt-empty" id="yt-empty">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <polygon points="5 3 19 12 5 21 5 3"/>
+      </svg>
+      <span>No playlist selected</span>
+    </div>
+  </div>
+
+  <div class="yt-controls">
+    <button id="yt-prev" onclick="ytPrev()" title="Previous">&#9664;&#9664;</button>
+    <button id="yt-playpause" onclick="ytPlayPause()">&#9654;</button>
+    <button id="yt-next" onclick="ytNext()" title="Next">&#9654;&#9654;</button>
+    <div class="yt-track-info">
+      <span id="yt-track-title">—</span>
+    </div>
+  </div>
+
+  <div class="yt-playlist">
+    <div class="yt-playlist-header">
+      <span id="yt-playlist-name">Playlist</span>
+      <span id="yt-playlist-count"></span>
+    </div>
+    <div class="yt-playlist-list" id="yt-playlist-list">
+      <div class="yt-playlist-loading" id="yt-playlist-loading">Select a playlist to begin.</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  var ytPlayer, ytTracks = [], ytCurrentIndex = 0, ytReady = false;
+
+  // Read playlist ID and name from URL: player.html?list=PL...&name=My+Playlist
+  var params     = new URLSearchParams(window.location.search);
+  var YT_LIST_ID = params.get('list') || '';
+  var YT_NAME    = params.get('name') || 'Playlist';
+
+  if (YT_NAME) document.getElementById('yt-playlist-name').textContent = decodeURIComponent(YT_NAME);
+
+  window.onYouTubeIframeAPIReady = function () {
+    if (!YT_LIST_ID) return; // no playlist in URL — show empty state
+
+    document.getElementById('yt-empty').style.display = 'none';
+    document.getElementById('yt-playlist-loading').textContent = 'Loading tracks…';
+
+    ytPlayer = new YT.Player('yt-player', {
+      height: '100%',
+      width: '100%',
+      playerVars: {
+        listType: 'playlist',
+        list: YT_LIST_ID,
+        autoplay: 0,
+        rel: 0,
+        modestbranding: 1,
+        origin: window.location.origin
+      },
+      events: {
+        onReady: function () {
+          var iframe = document.querySelector('#yt-player iframe');
+          if (iframe) iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+          ytReady = true;
+          setTimeout(ytBuildPlaylist, 1500);
+        },
+        onStateChange: function (e) {
+          document.getElementById('yt-playpause').innerHTML =
+            (e.data === YT.PlayerState.PLAYING) ? '&#9646;&#9646;' : '&#9654;';
+          ytUpdateTitle();
+          if (e.data === YT.PlayerState.PLAYING || e.data === YT.PlayerState.PAUSED) {
+            try { ytCurrentIndex = ytPlayer.getPlaylistIndex(); ytHighlightActive(); } catch(err) {}
+          }
+        }
+      }
+    });
+  };
+
+  function ytBuildPlaylist() {
+    try {
+      var ids = ytPlayer.getPlaylist();
+      if (!ids || ids.length === 0) { setTimeout(ytBuildPlaylist, 1000); return; }
+      ytTracks = ids.map(function(id, i) { return { id: id, title: 'Track ' + (i+1), channel: '' }; });
+      ytRenderPlaylist();
+      document.getElementById('yt-playlist-count').textContent = ids.length + ' tracks';
+      ytFetchTitles();
+    } catch(e) { setTimeout(ytBuildPlaylist, 1000); }
+  }
+
+  function ytRenderPlaylist() {
+    var list = document.getElementById('yt-playlist-list');
+    list.innerHTML = '';
+    ytTracks.forEach(function(track, i) {
+      var row = document.createElement('div');
+      row.className = 'yt-track-row' + (i === ytCurrentIndex ? ' active' : '');
+      row.id = 'yt-row-' + i;
+      row.onclick = (function(idx) { return function() { ytPlayer.playVideoAt(idx); }; })(i);
+      row.innerHTML =
+        '<span class="yt-track-num">' + (i+1) + '</span>' +
+        '<img class="yt-track-thumb" src="https://img.youtube.com/vi/' + track.id + '/mqdefault.jpg" loading="lazy" alt=""/>' +
+        '<div class="yt-track-meta">' +
+          '<div class="yt-track-name" id="yt-name-' + i + '">' + track.title + '</div>' +
+          '<div class="yt-track-ch"  id="yt-ch-'   + i + '">' + track.channel + '</div>' +
+        '</div>';
+      list.appendChild(row);
+    });
+  }
+
+  function ytFetchTitles() {
+    ytTracks.forEach(function(track, i) {
+      fetch('https://noembed.com/embed?url=https://www.youtube.com/watch?v=' + track.id)
+        .then(function(r) { return r.json(); })
+        .then(function(d) {
+          if (d && d.title) {
+            var n = document.getElementById('yt-name-' + i);
+            var c = document.getElementById('yt-ch-' + i);
+            if (n) n.textContent = d.title;
+            if (c) c.textContent = d.author_name || '';
+          }
+        }).catch(function() {});
+    });
+  }
+
+  function ytHighlightActive() {
+    document.querySelectorAll('.yt-track-row').forEach(function(el, i) {
+      el.classList.toggle('active', i === ytCurrentIndex);
+    });
+    var active = document.getElementById('yt-row-' + ytCurrentIndex);
+    if (active) active.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function ytUpdateTitle() {
+    try {
+      var d = ytPlayer.getVideoData();
+      document.getElementById('yt-track-title').textContent = d.title || '';
+    } catch(e) {}
+  }
+
+  function ytPlayPause() {
+    if (!ytPlayer) return;
+    ytPlayer.getPlayerState() === YT.PlayerState.PLAYING ? ytPlayer.pauseVideo() : ytPlayer.playVideo();
+  }
+
+  function ytPrev() { if (ytPlayer) ytPlayer.previousVideo(); }
+  function ytNext() { if (ytPlayer) ytPlayer.nextVideo(); }
+</script>
+<script src="https://www.youtube.com/iframe_api"></script>
+</body>
+</html>
