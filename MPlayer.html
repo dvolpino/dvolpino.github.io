@@ -141,7 +141,7 @@
             var n = document.getElementById('yt-name-' + i);
             var c = document.getElementById('yt-ch-' + i);
             if (n) n.textContent = d.title;
-            if (c) c.textContent = d.author_name || '';
+            if (c) c.textContent = (d.author_name || '').replace(/ - Topic$/, '').trim();  // .replace(/ - Topic$/, '').trim() Remueve ""- Topic"
           }
         }).catch(function() {});
     });
