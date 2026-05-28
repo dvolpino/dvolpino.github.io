@@ -73,7 +73,8 @@
 	/* PC */
 
 	.yt-player-wrap { max-width: 720px;  }
-	.yt-track-info { font-size: 2rem; }
+	.yt-track-info { font-size: 1rem;  }
+    #yt-track-title { font-size: 1rem;  }
 	.yt-controls button { font-size: 1rem; }
 	.yt-playlist-header { font-size: 1rem; }
 	.yt-playlist-list { max-height: 280px; }
