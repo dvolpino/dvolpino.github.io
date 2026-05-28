@@ -27,7 +27,7 @@
 
   .yt-track-info { flex: 1; overflow: hidden; margin-left: 4px; font-size: 2.2rem; font-weight: 600; }
 
-  #yt-track-title { font-size: 1rem; color: #bbb; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;  } /* font-size: 0.85rem */
+  #yt-track-title { font-size: 2.2rem; color: #bbb; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;  } /* font-size: 0.85rem */
 
   /* Playlist panel */
   .yt-playlist { border-top: 1px solid rgba(0,0,0,0.07); background: rgba(0,0,0,0.66); border-color: rgba(255,255,255,0.07);}  /* background: #1a1a1a */
