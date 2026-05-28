@@ -77,6 +77,8 @@
     #yt-track-title { font-size: 1rem;  }
 	.yt-controls button { font-size: 1rem; }
 	.yt-playlist-header { font-size: 1rem; }
+	#yt-playlist-name { font-size: 1rem;  } /* no especificaba font-size ni font-family: inter; */
+    #yt-playlist-count {  font-size: 1rem; }  /* font-size: 0.72rem */
 	.yt-playlist-list { max-height: 280px; }
 	.yt-track-name { font-size: 1rem; }
 	.yt-track-ch { font-size: 0.9rem; }
