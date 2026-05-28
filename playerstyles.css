@@ -38,7 +38,7 @@
   #yt-playlist-name { color: #aaa; }
   #yt-playlist-count { font-weight: 400; font-size: 0.85rem; }  /* font-size: 0.72rem */
 
-  .yt-playlist-list { max-height: 900px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: rgba(0,0,0,0.15) transparent;  }
+  .yt-playlist-list { max-height: 1100px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: rgba(0,0,0,0.15) transparent;  }
 
   .yt-playlist-list::-webkit-scrollbar { width: 4px; }
   .yt-playlist-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
