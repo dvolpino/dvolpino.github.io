@@ -25,7 +25,7 @@
   
    #yt-playpause { font-size: 1.3rem; }
 
-  .yt-track-info { flex: 1; overflow: hidden; margin-left: 4px; font-size: 2rem; }
+  .yt-track-info { flex: 1; overflow: hidden; margin-left: 4px; font-size: 2.2rem; font-weight: 600; }
 
   #yt-track-title { font-size: 1rem; color: #bbb; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;  } /* font-size: 0.85rem */
 
@@ -33,7 +33,7 @@
   .yt-playlist { border-top: 1px solid rgba(0,0,0,0.07); background: rgba(0,0,0,0.66); border-color: rgba(255,255,255,0.07);}  /* background: #1a1a1a */
 
   .yt-playlist-header { border-color: rgba(255,255,255,0.07); color: #555; display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 1rem; border-bottom: 1px solid rgba(0,0,0,0.07);
-    font-size: 2rem; font-weight: 600; letter-spacing: 0.05em;   }  /* Elimine text-transform: uppercase; */
+    font-size: 2.2rem; font-weight: 600; letter-spacing: 0.05em;   }  /* Elimine text-transform: uppercase; */
 
   #yt-playlist-name { color: #aaa; font-size: 2rem; font-family: inter; } /* no especificaba font-size ni font-family: inter; */
   #yt-playlist-count { font-weight: 600; font-size: 2rem; }  /* font-size: 0.72rem */
@@ -64,6 +64,8 @@
 
   .yt-track-row.active .yt-track-name { font-weight: 600; color: #fff; }
 
+  .yt-track-row.active .yt-track-ch { font-weight: 600; color: #fff; }  /* que se ilumine el nombre del autor tambien */
+
   .yt-track-ch { font-size: 1.9rem; color:rgba(223,223,223,1.00); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px;  } /* font-size: 0.7rem */
 
 
@@ -71,6 +73,8 @@
 	/* PC */
 
 	.yt-player-wrap { max-width: 720px;  }
+	.yt-track-info { font-size: 2rem; }
+	.yt-playlist-header { font-size: 1rem; }
 	.yt-playlist-list { max-height: 280px; }
 	.yt-track-name { font-size: 1rem; }
 	.yt-track-ch { font-size: 0.9rem; }
