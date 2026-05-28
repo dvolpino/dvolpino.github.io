@@ -4,11 +4,11 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: inherit;
+    font-family: inter;
     padding: 1.5rem 1rem;
     }
 
-  .yt-player-wrap {
+  .yt-player-wrap { border-color: rgba(255,255,255,0.1);
     max-width: 970px;
     margin: 0 auto;
     border-radius: 12px;
@@ -31,7 +31,7 @@
   }
 
   /* No playlist selected */
-  .yt-empty {
+  .yt-empty { 
     aspect-ratio: 16 / 9;
     background: #111;
     display: flex;
@@ -46,35 +46,33 @@
   .yt-empty svg { opacity: 0.3; }
 
   /* Controls */
-  .yt-controls {
+  .yt-controls { background: #1a1a1a; border-color: rgba(255,255,255,0.07);
     display: flex;
     align-items: center;
     gap: 8px;
     padding: 0.6rem 1rem;
-    background: #fff;
     border-top: 1px solid rgba(0,0,0,0.07);
   }
 
-  .yt-controls button {
+  .yt-controls button { color: #ddd;
     background: none;
     border: none;
     cursor: pointer;
     font-size: 1rem;
-    color: #222;
     padding: 4px 8px;
     border-radius: 6px;
     transition: background 0.15s;
     line-height: 1;
   }
 
-  .yt-controls button:hover { background: rgba(0,0,0,0.07); }
+  .yt-controls button:hover { background: rgba(255,255,255,0.1); }
   #yt-playpause { font-size: 1.3rem; }
 
   .yt-track-info { flex: 1; overflow: hidden; margin-left: 4px; }
 
   #yt-track-title {
     font-size: 0.85rem;
-    color: #444;
+    color: #bbb;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -82,9 +80,9 @@
   }
 
   /* Playlist panel */
-  .yt-playlist { border-top: 1px solid rgba(0,0,0,0.07); background: #fff; }
+  .yt-playlist { border-top: 1px solid rgba(0,0,0,0.07); background: #1a1a1a; border-color: rgba(255,255,255,0.07);}
 
-  .yt-playlist-header {
+  .yt-playlist-header { border-color: rgba(255,255,255,0.07); color: #555;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -94,10 +92,9 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: #888;
-  }
+      }
 
-  #yt-playlist-name { color: #444; }
+  #yt-playlist-name { color: #aaa; }
   #yt-playlist-count { font-weight: 400; font-size: 0.72rem; }
 
   .yt-playlist-list {
@@ -108,16 +105,16 @@
   }
 
   .yt-playlist-list::-webkit-scrollbar { width: 4px; }
-  .yt-playlist-list::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 2px; }
+  .yt-playlist-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
 
   .yt-playlist-loading {
     padding: 1.5rem;
     text-align: center;
     font-size: 0.8rem;
-    color: #aaa;
+    color: #555;;
   }
 
-  .yt-track-row {
+  .yt-track-row { border-color: rgba(255,255,255,0.04);
     display: flex;
     align-items: center;
     gap: 10px;
@@ -129,8 +126,8 @@
   }
 
   .yt-track-row:last-child { border-bottom: none; }
-  .yt-track-row:hover { background: rgba(0,0,0,0.03); }
-  .yt-track-row.active { background: rgba(255,0,0,0.04); }
+  .yt-track-row:hover { background: rgba(255,255,255,0.04); }
+  .yt-track-row.active { background: rgba(255,0,0,0.08); }
 
   .yt-track-row.active::before {
     content: '';
@@ -141,7 +138,7 @@
     border-radius: 0 2px 2px 0;
   }
 
-  .yt-track-num { font-size: 0.7rem; color: #bbb; width: 18px; text-align: right; flex-shrink: 0; }
+  .yt-track-num { font-size: 0.7rem; color: #444;  width: 18px; text-align: right; flex-shrink: 0; }
   .yt-track-row.active .yt-track-num { color: #ff0000; }
 
   .yt-track-thumb {
@@ -153,39 +150,19 @@
   .yt-track-meta { flex: 1; min-width: 0; }
 
   .yt-track-name {
-    font-size: 0.82rem; color: #222;
+    font-size: 0.82rem; color: #ddd;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     line-height: 1.3;
   }
 
-  .yt-track-row.active .yt-track-name { font-weight: 600; color: #111; }
+  .yt-track-row.active .yt-track-name { font-weight: 600; color: #fff; }
 
   .yt-track-ch {
-    font-size: 0.7rem; color: #999;
+    font-size: 0.7rem; color: #555;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     margin-top: 1px;
   }
 
-  /* Dark mode */
-  @media (prefers-color-scheme: dark) {
-    .yt-player-wrap { border-color: rgba(255,255,255,0.1); }
-    .yt-controls, .yt-playlist { background: #1a1a1a; border-color: rgba(255,255,255,0.07); }
-    .yt-playlist-header { border-color: rgba(255,255,255,0.07); color: #555; }
-    #yt-playlist-name { color: #aaa; }
-    .yt-controls button { color: #ddd; }
-    .yt-controls button:hover { background: rgba(255,255,255,0.1); }
-    #yt-track-title { color: #bbb; }
-    .yt-track-row { border-color: rgba(255,255,255,0.04); }
-    .yt-track-row:hover { background: rgba(255,255,255,0.04); }
-    .yt-track-row.active { background: rgba(255,0,0,0.08); }
-    .yt-track-name { color: #ddd; }
-    .yt-track-row.active .yt-track-name { color: #fff; }
-    .yt-track-ch { color: #555; }
-    .yt-track-num { color: #444; }
-    .yt-playlist-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); }
-    .yt-playlist-loading { color: #555; }
-    .yt-empty { background: #111; }
-  }
 
 @media (max-height:1080px){
 	/* PC */
