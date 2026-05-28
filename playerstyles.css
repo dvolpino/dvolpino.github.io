@@ -9,7 +9,7 @@
     }
 
   .yt-player-wrap {
-    max-width: 720px;
+    max-width: 970px;
     margin: 0 auto;
     border-radius: 12px;
     overflow: hidden;
@@ -187,3 +187,8 @@
     .yt-empty { background: #111; }
   }
 
+@media (max-height:1080px){
+	/* PC */
+
+	.yt-player-wrap { max-width: 720px;
+  }
