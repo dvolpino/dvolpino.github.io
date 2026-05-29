@@ -3,7 +3,16 @@
 <head>
 <meta charset="utf-8">
 <title>YTML</title>
-<style type="text/css">body { background-image: url(background%20YTML.jpg); background-size: cover; background-attachment: fixed; background-position: top; } </style>
+<style type="text/css">body { background-image: url(background%20YTML.jpg); background-size: cover; background-attachment: fixed; background-position: top; } 
+	
+	 /* Fix background-attachment: fixed breaking on mobile */
+  @media (max-width: 768px) {
+    body {
+      background-attachment: scroll;
+    }
+  }
+</style>
+	
 <link href="playerstyles.css" rel="stylesheet" type="text/css">
 <link href="styles.css" rel="stylesheet" type="text/css">	
 <link rel="icon" href="favicon.ico" type="image/x-icon">
