@@ -80,3 +80,12 @@ a { text-decoration: none;   }
 .photo1 {width: 500px; float:left; margin-right: 1rem; padding: 5px;  }
 .photo2 {width: 450px; float:right; margin-left: 1rem; padding: 5px;  }
 .photo3 {width: 970px; float:left; margin-right: 1rem; } /* Fotos que quiero ocupen el 100% del ancho del celular */
+	
+	
+	/* Fix background-attachment: fixed breaking on mobile */
+  @media (max-width: 768px) {
+    body {
+      background-attachment: scroll;
+    }
+  }
+ 
