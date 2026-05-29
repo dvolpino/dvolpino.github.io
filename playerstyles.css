@@ -64,7 +64,7 @@
 
   .yt-track-row.active .yt-track-name { font-weight: 600; color: #ff0000; }
 
-  .yt-track-row.active .yt-track-ch { font-weight: 600; color: #ff0000; }  /* que se ilumine el nombre del autor tambien */
+  .yt-track-row.active .yt-track-ch { font-weight: 600;  }  /* que se ilumine el nombre del autor tambien */
 
   .yt-track-ch { font-size: 1.9rem; color:rgba(223,223,223,1.00); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px;  } /* font-size: 0.7rem */
 
