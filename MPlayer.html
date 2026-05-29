@@ -9,7 +9,43 @@
 <link rel="icon" href="favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 </head>
+<!--
+  HOW TO LINK TO THE PLAYER FROM ANY PAGE
+  =========================================
+  URL format:
+    player.html?list=PLAYLIST_ID&name=Playlist+Name&color=COLOR&labelcolor=COLOR
+ 
+  AVAILABLE PARAMETERS:
+  ─────────────────────
+  list        (required) YouTube playlist ID — the part after ?list= in the YouTube URL
+  name        (optional) Label shown in the playlist header. Use + for spaces.
+  color       (optional) Accent color for: active track left bar, track number, track title.
+                         Accepts any CSS color: named (red, royalblue), hex (%23ff6600), rgb(...)
+  labelcolor  (optional) Color of the playlist header label text.
+                         Accepts any CSS color.
+ 
+  NOTE ON HEX COLORS IN URLs:
+  The # character must be written as %23 in URLs.
+  Example: #ff6600 → %23ff6600
+ 
+  ─────────────────────────────────────────────────────────────────────────────
+  EXAMPLE 1 — Custom accent color only (active bar, number & title)
+  ─────────────────────────────────────────────────────────────────────────────
 
+<a href="/player.html?list=PLV5aIGkszfb9T1mg0aS86FjuNd5Wy4WgZ&name=My+Playlist&color=%2300c896">
+  My Playlist — Green accent (#00c896)
+</a>
+
+─────────────────────────────────────────────────────────────────────────────
+  EXAMPLE 3 — Both color and labelcolor together
+  ─────────────────────────────────────────────────────────────────────────────
+
+ 
+<a href="/player.html?list=PLV5aIGkszfb9T1mg0aS86FjuNd5Wy4WgZ&name=My+Playlist&color=royalblue&labelcolor=%23e040fb">
+  My Playlist — Blue accent + Purple label
+</a>
+
+-->
 <body>
 <header class="head"><a ><img src="logo.png" alt="" width="675" height="127" onclick="history.back()"/></a></header>
 <footer class="cuerpo">
