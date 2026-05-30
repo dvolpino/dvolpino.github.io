@@ -11,6 +11,44 @@
 
   #yt-player iframe { width: 100%; height: 100%; border: none; display: block;  }
 
+ /* Thumbnail cover overlay */
+  .yt-cover {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    z-index: 2;
+    display: block;
+  }
+ 
+  .yt-cover-play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    cursor: pointer;
+    background: rgba(0,0,0,0.25);
+    transition: background 0.2s;
+  }
+ 
+  .yt-cover-play:hover { background: rgba(0,0,0,0.4); }
+ 
+  .yt-cover-play svg {
+    width: 64px;
+    height: 64px;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+  }
+ 
+  .yt-cover-wrap {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+  }
+
   /* No playlist selected */
   .yt-empty { aspect-ratio: 16 / 9; background:rgba(0,0,0,0.68) ; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; color: #555; font-size: 0.875rem;  } /* background: #111 */
 
