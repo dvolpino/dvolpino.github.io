@@ -40,32 +40,29 @@
   ─────────────────────────────────────────────────────────────────────────────
   EXAMPLE 1 — Custom accent color only (active bar, number & title)
   ─────────────────────────────────────────────────────────────────────────────
-
+ 
 <a href="/player.html?list=PLV5aIGkszfb9T1mg0aS86FjuNd5Wy4WgZ&name=My+Playlist&color=%2300c896">
   My Playlist — Green accent (#00c896)
 </a>
-
+ 
 ─────────────────────────────────────────────────────────────────────────────
   EXAMPLE 3 — Both color and labelcolor together
   ─────────────────────────────────────────────────────────────────────────────
-
+ 
  
 <a href="/player.html?list=PLV5aIGkszfb9T1mg0aS86FjuNd5Wy4WgZ&name=My+Playlist&color=royalblue&labelcolor=%23e040fb">
   My Playlist — Blue accent + Purple label
 </a>
-
+ 
 -->
 <body>
-<audio id="yt-silent-audio" loop preload="auto" style="display:none;">
-  <source src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=" type="audio/wav"/>
-</audio>
 <header class="head"><a ><img src="logo.png" alt="" width="675" height="127" onclick="history.back()"/></a></header>
 <footer class="cuerpo">
   <nav>
 	
 	  	
 	<div class="yt-player-wrap">
-
+ 
   <div class="yt-video-wrapper">
     <div id="yt-player">
       <div class="yt-empty" id="yt-empty">
@@ -85,7 +82,7 @@
       </div>
     </div>
   </div>
-
+ 
   <div class="yt-controls">
     <button id="yt-prev" onclick="ytPrev()" title="Previous">&#9664;&#9664;</button>
     <button id="yt-playpause" onclick="ytPlayPause()">&#9654;</button>
@@ -93,8 +90,9 @@
     <div class="yt-track-info">
       <span id="yt-track-title">—</span>
     </div>
-    </div>
-
+    <span id="yt-time-display" style="font-size:0.85rem; color:#888; white-space:nowrap; flex-shrink:0; font-variant-numeric:tabular-nums;"></span>
+  </div>
+ 
   <div class="yt-playlist">
     <div class="yt-playlist-header">
       <span id="yt-playlist-name">Playlist</span>
@@ -106,7 +104,7 @@
   </div>
     </div>
 	</nav>
-
+ 
 <script src="background-manager.js"></script>
 	
 	<script>
@@ -141,13 +139,13 @@
   }
  
   var YT_THUMB = params.get('thumb') || '';
-
+ 
   // Show thumbnail cover if thumb param is provided
   if (YT_THUMB && YT_LIST_ID) {
     document.getElementById('yt-cover-img').src = decodeURIComponent(YT_THUMB);
     document.getElementById('yt-cover-wrap').style.display = 'block';
   }
-
+ 
   window.onYouTubeIframeAPIReady = function () {
     if (!YT_LIST_ID) return; // no playlist in URL — show empty state
  
@@ -171,6 +169,7 @@
           var iframe = document.querySelector('#yt-player iframe');
           if (iframe) iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
           ytReady = true;
+          ytSetupMediaSession();
           setTimeout(ytBuildPlaylist, 1500);
         },
         onStateChange: function (e) {
@@ -179,7 +178,6 @@
             ytStartTimer();
           } else if (e.data === YT.PlayerState.ENDED || e.data === YT.PlayerState.PAUSED) {
             ytStopTimer();
-            ytReleaseWakeLock();
           }
           document.getElementById('yt-playpause').innerHTML =
             (e.data === YT.PlayerState.PLAYING) ? '&#9646;&#9646;' : '&#9654;';
@@ -210,7 +208,7 @@
       var row = document.createElement('div');
       row.className = 'yt-track-row' + (i === ytCurrentIndex ? ' active' : '');
       row.id = 'yt-row-' + i;
-      row.onclick = (function(idx) { return function() { ytStartSilentAudio(); ytPlayer.playVideoAt(idx); }; })(i);
+      row.onclick = (function(idx) { return function() { ytPlayer.playVideoAt(idx); }; })(i);
       row.innerHTML =
         '<span class="yt-track-num">' + (i+1) + '</span>' +
         '<img class="yt-track-thumb" src="https://img.youtube.com/vi/' + track.id + '/mqdefault.jpg" loading="lazy" alt=""/>' +
@@ -224,7 +222,7 @@
   }
  
   var YT_API_KEY = 'AIzaSyAc24B5nbXmo_JribpDDxskj6huBH2vNhE';
-
+ 
   function ytFetchTitles() {
     // Fetch in batches of 50 (API max per request)
     var ids = ytTracks.map(function(t) { return t.id; });
@@ -232,13 +230,13 @@
       ytFetchBatch(ids.slice(i, i + 50), i);
     }
   }
-
+ 
   function ytFetchBatch(batchIds, offset) {
     var url = 'https://www.googleapis.com/youtube/v3/videos'
       + '?part=snippet,contentDetails'
       + '&id=' + batchIds.join(',')
       + '&key=' + YT_API_KEY;
-
+ 
     fetch(url)
       .then(function(r) { return r.json(); })
       .then(function(data) {
@@ -255,7 +253,7 @@
       })
       .catch(function() {});
   }
-
+ 
   function ytParseDuration(iso) {
     // Parses ISO 8601 duration e.g. PT3M45S → 3:45
     if (!iso) return '';
@@ -267,10 +265,10 @@
     if (h > 0) return h + ':' + ('0'+min).slice(-2) + ':' + ('0'+sec).slice(-2);
     return min + ':' + ('0'+sec).slice(-2);
   }
-
+ 
   // Elapsed time timer
   var ytTimerInterval = null;
-
+ 
   function ytStartTimer() {
     if (ytTimerInterval) clearInterval(ytTimerInterval);
     ytTimerInterval = setInterval(function() {
@@ -285,13 +283,13 @@
       } catch(e) {}
     }, 500);
   }
-
+ 
   function ytStopTimer() {
     if (ytTimerInterval) { clearInterval(ytTimerInterval); ytTimerInterval = null; }
     var el = document.getElementById('yt-time-display');
     if (el) el.textContent = '';
   }
-
+ 
   function ytFmtTime(s) {
     s = Math.floor(s);
     var h = Math.floor(s / 3600);
@@ -313,65 +311,67 @@
     try {
       var d = ytPlayer.getVideoData();
       document.getElementById('yt-track-title').textContent = d.title || '';
+      ytUpdateMediaSession();
     } catch(e) {}
   }
  
   function ytPlayPause() {
     if (!ytPlayer) return;
-    ytStartSilentAudio(); // start on user gesture so browser allows it
     ytPlayer.getPlayerState() === YT.PlayerState.PLAYING ? ytPlayer.pauseVideo() : ytPlayer.playVideo();
   }
  
   function ytStartFromCover() {
     document.getElementById('yt-cover-wrap').style.display = 'none';
-    ytStartSilentAudio();
     if (ytPlayer) ytPlayer.playVideo();
   }
-
-  // ── Background keep-alive ─────────────────────────────────────────────────
-  var ytSilentStarted = false;
-
-  function ytStartSilentAudio() {
-    if (ytSilentStarted) return;
-    var audio = document.getElementById('yt-silent-audio');
-    if (!audio) return;
-    audio.volume = 0.001;
-    audio.play().then(function() {
-      ytSilentStarted = true;
-    }).catch(function() {});
-  }
-
-  function ytStopSilentAudio() {
-    var audio = document.getElementById('yt-silent-audio');
-    if (audio && !audio.paused) {
-      audio.pause();
-      ytSilentStarted = false;
-    }
-  }
-
-  // Wake Lock
-  var ytWakeLock = null;
-  async function ytRequestWakeLock() {
-    if ('wakeLock' in navigator) {
-      try { ytWakeLock = await navigator.wakeLock.request('screen'); } catch(e) {}
-    }
-  }
-  function ytReleaseWakeLock() {
-    if (ytWakeLock) { ytWakeLock.release(); ytWakeLock = null; }
-  }
-
-  // Re-acquire wake lock when returning to the page
-  document.addEventListener('visibilitychange', function() {
-    if (document.visibilityState === 'visible') {
-      if (ytPlayer && ytPlayer.getPlayerState() === YT.PlayerState.PLAYING) {
-        ytRequestWakeLock();
-        ytStartSilentAudio();
-      }
-    }
-  });
-
+ 
   function ytPrev() { if (ytPlayer) ytPlayer.previousVideo(); }
   function ytNext() { if (ytPlayer) ytPlayer.nextVideo(); }
+ 
+  // ── Media Session API ──────────────────────────────────────────────
+  // Tells the OS this PWA is playing media → enables background audio
+  // and shows lock screen / notification controls on Android & iOS.
+ 
+  function ytUpdateMediaSession() {
+    if (!('mediaSession' in navigator)) return;
+    try {
+      var data = ytPlayer.getVideoData();
+      var idx  = ytPlayer.getPlaylistIndex();
+      var track = ytTracks[idx] || {};
+      var thumb = track.id
+        ? 'https://img.youtube.com/vi/' + track.id + '/mqdefault.jpg'
+        : '';
+ 
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title:  data.title        || track.title   || 'Unknown',
+        artist: track.channel     || '',
+        album:  decodeURIComponent(YT_NAME || ''),
+        artwork: thumb ? [
+          { src: thumb, sizes: '320x180', type: 'image/jpeg' }
+        ] : []
+      });
+    } catch(e) {}
+  }
+ 
+  function ytSetupMediaSession() {
+    if (!('mediaSession' in navigator)) return;
+ 
+    navigator.mediaSession.setActionHandler('play', function() {
+      if (ytPlayer) ytPlayer.playVideo();
+    });
+    navigator.mediaSession.setActionHandler('pause', function() {
+      if (ytPlayer) ytPlayer.pauseVideo();
+    });
+    navigator.mediaSession.setActionHandler('previoustrack', function() {
+      if (ytPlayer) ytPlayer.previousVideo();
+    });
+    navigator.mediaSession.setActionHandler('nexttrack', function() {
+      if (ytPlayer) ytPlayer.nextVideo();
+    });
+    navigator.mediaSession.setActionHandler('seekto', function(details) {
+      if (ytPlayer && details.seekTime) ytPlayer.seekTo(details.seekTime, true);
+    });
+  }
 </script>
 <script src="https://www.youtube.com/iframe_api"></script>
 </body>
