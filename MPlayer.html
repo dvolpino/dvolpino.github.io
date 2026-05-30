@@ -70,14 +70,16 @@ If your image is in a subfolder, encode the / as %2F:
 	  	
 	<div class="yt-player-wrap">
  
-  <div id="yt-player">
-    <div class="yt-empty" id="yt-empty">
-      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <polygon points="5 3 19 12 5 21 5 3"/>
-      </svg>
-      <span>No playlist selected</span>
+  <div style="position:relative;">
+    <div id="yt-player">
+      <div class="yt-empty" id="yt-empty">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <polygon points="5 3 19 12 5 21 5 3"/>
+        </svg>
+        <span>No playlist selected</span>
+      </div>
     </div>
-    <!-- Thumbnail cover — shown before play, hidden once player starts -->
+    <!-- Thumbnail cover — sits on top of the iframe, hidden once play starts -->
     <div class="yt-cover-wrap" id="yt-cover-wrap" style="display:none;" onclick="ytStartFromCover()">
       <img class="yt-cover" id="yt-cover-img" src="" alt="Playlist cover"/>
       <div class="yt-cover-play">
@@ -88,7 +90,7 @@ If your image is in a subfolder, encode the / as %2F:
       </div>
     </div>
   </div>
-
+		
   <div class="yt-controls">
     <button id="yt-prev" onclick="ytPrev()" title="Previous">&#9664;&#9664;</button>
     <button id="yt-playpause" onclick="ytPlayPause()">&#9654;</button>
