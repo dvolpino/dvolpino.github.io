@@ -63,12 +63,23 @@
 	  	
 	<div class="yt-player-wrap">
 
-  <div id="yt-player">
-    <div class="yt-empty" id="yt-empty">
-      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <polygon points="5 3 19 12 5 21 5 3"/>
-      </svg>
-      <span>No playlist selected</span>
+  <div class="yt-video-wrapper">
+    <div id="yt-player">
+      <div class="yt-empty" id="yt-empty">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <polygon points="5 3 19 12 5 21 5 3"/>
+        </svg>
+        <span>No playlist selected</span>
+      </div>
+    </div>
+    <div id="yt-cover-wrap" style="display:none; position:absolute; inset:0; cursor:pointer; z-index:10;" onclick="ytStartFromCover()">
+      <img id="yt-cover-img" src="" alt="" style="width:100%; height:100%; object-fit:cover; display:block;"/>
+      <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.25);">
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="36" cy="36" r="36" fill="rgba(0,0,0,0.5)"/>
+          <polygon points="28,20 56,36 28,52" fill="white"/>
+        </svg>
+      </div>
     </div>
   </div>
 
@@ -127,6 +138,14 @@
     document.head.appendChild(lblEl);
   }
  
+  var YT_THUMB = params.get('thumb') || '';
+
+  // Show thumbnail cover if thumb param is provided
+  if (YT_THUMB && YT_LIST_ID) {
+    document.getElementById('yt-cover-img').src = decodeURIComponent(YT_THUMB);
+    document.getElementById('yt-cover-wrap').style.display = 'block';
+  }
+
   window.onYouTubeIframeAPIReady = function () {
     if (!YT_LIST_ID) return; // no playlist in URL — show empty state
  
@@ -154,6 +173,7 @@
         },
         onStateChange: function (e) {
           if (e.data === YT.PlayerState.PLAYING) {
+            document.getElementById('yt-cover-wrap').style.display = 'none';
             ytStartTimer();
           } else if (e.data === YT.PlayerState.ENDED || e.data === YT.PlayerState.PAUSED) {
             ytStopTimer();
@@ -194,8 +214,8 @@
         '<div class="yt-track-meta">' +
           '<div class="yt-track-name" id="yt-name-' + i + '">' + track.title + '</div>' +
           '<div class="yt-track-ch"  id="yt-ch-'   + i + '">' + track.channel + '</div>' +
-
-        '</div>';
+        '</div>' +
+        '<span class="yt-track-duration" id="yt-dur-' + i + '"></span>';
       list.appendChild(row);
     });
   }
@@ -298,6 +318,11 @@
     ytPlayer.getPlayerState() === YT.PlayerState.PLAYING ? ytPlayer.pauseVideo() : ytPlayer.playVideo();
   }
  
+  function ytStartFromCover() {
+    document.getElementById('yt-cover-wrap').style.display = 'none';
+    if (ytPlayer) ytPlayer.playVideo();
+  }
+
   function ytPrev() { if (ytPlayer) ytPlayer.previousVideo(); }
   function ytNext() { if (ytPlayer) ytPlayer.nextVideo(); }
 </script>
