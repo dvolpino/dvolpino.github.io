@@ -90,7 +90,7 @@
     <div class="yt-track-info">
       <span id="yt-track-title">—</span>
     </div>
-    <span id="yt-time-display"></span>
+    <span id="yt-time-display" style="font-size:0.85rem; color:#888; white-space:nowrap; flex-shrink:0; font-variant-numeric:tabular-nums;"></span>
   </div>
 
   <div class="yt-playlist">
@@ -279,6 +279,16 @@
         if (el && dur > 0) {
           el.textContent = ytFmtTime(cur) + ' / ' + ytFmtTime(dur);
         }
+        // Update lock screen seek position
+        if ('mediaSession' in navigator && dur > 0) {
+          try {
+            navigator.mediaSession.setPositionState({
+              duration: dur,
+              playbackRate: 1,
+              position: cur
+            });
+          } catch(e) {}
+        }
       } catch(e) {}
     }, 500);
   }
@@ -325,6 +335,55 @@
 
   function ytPrev() { if (ytPlayer) ytPlayer.previousVideo(); }
   function ytNext() { if (ytPlayer) ytPlayer.nextVideo(); }
+
+  // ── Media Session API ──────────────────────────────────────────────────────
+  // Tells the OS this PWA is playing media → enables background audio +
+  // lock screen / notification controls on Android and iOS.
+
+  function ytUpdateMediaSession() {
+    if (!('mediaSession' in navigator)) return;
+    try {
+      var data  = ytPlayer.getVideoData();
+      var title = data.title || 'Unknown';
+      var idx   = ytPlayer.getPlaylistIndex();
+      var track = ytTracks[idx] || {};
+      var thumb = track.id
+        ? [{ src: 'https://img.youtube.com/vi/' + track.id + '/mqdefault.jpg', sizes: '320x180', type: 'image/jpeg' }]
+        : [];
+
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title:  title,
+        artist: (track.channel || ''),
+        album:  decodeURIComponent(YT_NAME || ''),
+        artwork: thumb
+      });
+    } catch(e) {}
+  }
+
+  function ytSetupMediaSession() {
+    if (!('mediaSession' in navigator)) return;
+
+    navigator.mediaSession.setActionHandler('play', function() {
+      if (ytPlayer) ytPlayer.playVideo();
+    });
+    navigator.mediaSession.setActionHandler('pause', function() {
+      if (ytPlayer) ytPlayer.pauseVideo();
+    });
+    navigator.mediaSession.setActionHandler('previoustrack', function() {
+      if (ytPlayer) ytPlayer.previousVideo();
+    });
+    navigator.mediaSession.setActionHandler('nexttrack', function() {
+      if (ytPlayer) ytPlayer.nextVideo();
+    });
+    navigator.mediaSession.setActionHandler('seekto', function(details) {
+      if (ytPlayer && details.seekTime !== undefined) {
+        ytPlayer.seekTo(details.seekTime, true);
+      }
+    });
+  }
+
+  // Call setup once on load
+  ytSetupMediaSession();
 </script>
 <script src="https://www.youtube.com/iframe_api"></script>
 </body>
