@@ -54,13 +54,6 @@
   My Playlist — Blue accent + Purple label
 </a>
 
-Here's how the thumb parameter works:
-Usage:
-/player.html?list=PLxxx&name=My+Playlist&thumb=cover.jpg
-If your image is in a subfolder, encode the / as %2F:
-/player.html?list=PLxxx&thumb=images%2Fcover.jpg
-
-
 -->
 <body>
 <header class="head"><a ><img src="logo.png" alt="" width="675" height="127" onclick="history.back()"/></a></header>
@@ -69,28 +62,16 @@ If your image is in a subfolder, encode the / as %2F:
 	
 	  	
 	<div class="yt-player-wrap">
- 
-  <div class="yt-video-wrapper">
-    <div id="yt-player">
-      <div class="yt-empty" id="yt-empty">
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <polygon points="5 3 19 12 5 21 5 3"/>
-        </svg>
-        <span>No playlist selected</span>
-      </div>
-    </div>
-    <!-- Thumbnail cover — sits on top of the iframe, hidden once play starts -->
-    <div class="yt-cover-wrap" id="yt-cover-wrap" style="display:none;" onclick="ytStartFromCover()">
-      <img class="yt-cover" id="yt-cover-img" src="" alt="Playlist cover"/>
-      <div class="yt-cover-play">
-        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="12" cy="12" r="12" fill="rgba(0,0,0,0.5)"/>
-          <polygon points="9.5,7 18,12 9.5,17" fill="white"/>
-        </svg>
-      </div>
+
+  <div id="yt-player">
+    <div class="yt-empty" id="yt-empty">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <polygon points="5 3 19 12 5 21 5 3"/>
+      </svg>
+      <span>No playlist selected</span>
     </div>
   </div>
-		
+
   <div class="yt-controls">
     <button id="yt-prev" onclick="ytPrev()" title="Previous">&#9664;&#9664;</button>
     <button id="yt-playpause" onclick="ytPlayPause()">&#9654;</button>
@@ -114,25 +95,143 @@ If your image is in a subfolder, encode the / as %2F:
 
 <script src="background-manager.js"></script>
 	
-	<div class="yt-player-wrap">
+	<script>
+  var ytPlayer, ytTracks = [], ytCurrentIndex = 0, ytReady = false;
  
-  <div id="yt-player">
-    <div class="yt-empty" id="yt-empty">
-      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <polygon points="5 3 19 12 5 21 5 3"/>
-      </svg>
-      <span>No playlist selected</span>
-    </div>
-    <!-- Thumbnail cover — shown before play, hidden once player starts -->
-    <div class="yt-cover-wrap" id="yt-cover-wrap" style="display:none;" onclick="ytStartFromCover()">
-      <img class="yt-cover" id="yt-cover-img" src="" alt="Playlist cover"/>
-      <div class="yt-cover-play">
-        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="12" cy="12" r="12" fill="rgba(0,0,0,0.5)"/>
-          <polygon points="9.5,7 18,12 9.5,17" fill="white"/>
-        </svg>
-      </div>
-    </div>
-  </div>
+  // Read playlist ID and name from URL: player.html?list=PL...&name=My+Playlist
+  var params      = new URLSearchParams(window.location.search);
+  var YT_LIST_ID  = params.get('list') || '';
+  var YT_NAME     = params.get('name') || 'Playlist';
+  var YT_COLOR    = params.get('color') || '';
+  var YT_LBLCOLOR = params.get('labelcolor') || '';
+ 
+  if (YT_NAME) document.getElementById('yt-playlist-name').textContent = decodeURIComponent(YT_NAME);
+ 
+  // Apply color parameter — accent color for active bar, number, title
+  if (YT_COLOR) {
+    var styleEl = document.createElement('style');
+    styleEl.textContent = [
+      '.yt-track-row.active::before { background: ' + YT_COLOR + ' !important; }',
+      '.yt-track-row.active .yt-track-num { color: ' + YT_COLOR + ' !important; }',
+      '.yt-track-row.active .yt-track-name { color: ' + YT_COLOR + ' !important; }',
+      '.yt-track-row.active { background: color-mix(in srgb, ' + YT_COLOR + ' 8%, transparent) !important; }'
+    ].join('\n');
+    document.head.appendChild(styleEl);
+  }
+ 
+  // Apply labelcolor parameter — playlist header label text
+  if (YT_LBLCOLOR) {
+    var lblEl = document.createElement('style');
+    lblEl.textContent = '#yt-playlist-name { color: ' + YT_LBLCOLOR + ' !important; }';
+    document.head.appendChild(lblEl);
+  }
+ 
+  window.onYouTubeIframeAPIReady = function () {
+    if (!YT_LIST_ID) return; // no playlist in URL — show empty state
+ 
+    document.getElementById('yt-empty').style.display = 'none';
+    document.getElementById('yt-playlist-loading').textContent = 'Loading tracks…';
+ 
+    ytPlayer = new YT.Player('yt-player', {
+      height: '100%',
+      width: '100%',
+      playerVars: {
+        listType: 'playlist',
+        list: YT_LIST_ID,
+        autoplay: 0,
+        playsinline: 1,
+        rel: 0,
+        modestbranding: 1,
+        origin: 'https://dvolpino.github.io'
+      },
+      events: {
+        onReady: function () {
+          var iframe = document.querySelector('#yt-player iframe');
+          if (iframe) iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+          ytReady = true;
+          setTimeout(ytBuildPlaylist, 1500);
+        },
+        onStateChange: function (e) {
+          document.getElementById('yt-playpause').innerHTML =
+            (e.data === YT.PlayerState.PLAYING) ? '&#9646;&#9646;' : '&#9654;';
+          ytUpdateTitle();
+          if (e.data === YT.PlayerState.PLAYING || e.data === YT.PlayerState.PAUSED) {
+            try { ytCurrentIndex = ytPlayer.getPlaylistIndex(); ytHighlightActive(); } catch(err) {}
+          }
+        }
+      }
+    });
+  };
+ 
+  function ytBuildPlaylist() {
+    try {
+      var ids = ytPlayer.getPlaylist();
+      if (!ids || ids.length === 0) { setTimeout(ytBuildPlaylist, 1000); return; }
+      ytTracks = ids.map(function(id, i) { return { id: id, title: 'Track ' + (i+1), channel: '' }; });
+      ytRenderPlaylist();
+      document.getElementById('yt-playlist-count').textContent = ids.length + ' tracks';
+      ytFetchTitles();
+    } catch(e) { setTimeout(ytBuildPlaylist, 1000); }
+  }
+ 
+  function ytRenderPlaylist() {
+    var list = document.getElementById('yt-playlist-list');
+    list.innerHTML = '';
+    ytTracks.forEach(function(track, i) {
+      var row = document.createElement('div');
+      row.className = 'yt-track-row' + (i === ytCurrentIndex ? ' active' : '');
+      row.id = 'yt-row-' + i;
+      row.onclick = (function(idx) { return function() { ytPlayer.playVideoAt(idx); }; })(i);
+      row.innerHTML =
+        '<span class="yt-track-num">' + (i+1) + '</span>' +
+        '<img class="yt-track-thumb" src="https://img.youtube.com/vi/' + track.id + '/mqdefault.jpg" loading="lazy" alt=""/>' +
+        '<div class="yt-track-meta">' +
+          '<div class="yt-track-name" id="yt-name-' + i + '">' + track.title + '</div>' +
+          '<div class="yt-track-ch"  id="yt-ch-'   + i + '">' + track.channel + '</div>' +
+
+        '</div>';
+      list.appendChild(row);
+    });
+  }
+ 
+  function ytFetchTitles() {
+    ytTracks.forEach(function(track, i) {
+      fetch('https://noembed.com/embed?url=https://www.youtube.com/watch?v=' + track.id)
+        .then(function(r) { return r.json(); })
+        .then(function(d) {
+          if (d && d.title) {
+            var n = document.getElementById('yt-name-' + i);
+            var c = document.getElementById('yt-ch-' + i);
+            if (n) n.textContent = d.title;
+            if (c) c.textContent = (d.author_name || '').replace(/ - Topic$/, '').trim();
+          }
+        }).catch(function() {});
+    });
+  }
+ 
+  function ytHighlightActive() {
+    document.querySelectorAll('.yt-track-row').forEach(function(el, i) {
+      el.classList.toggle('active', i === ytCurrentIndex);
+    });
+    var active = document.getElementById('yt-row-' + ytCurrentIndex);
+    if (active) active.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+ 
+  function ytUpdateTitle() {
+    try {
+      var d = ytPlayer.getVideoData();
+      document.getElementById('yt-track-title').textContent = d.title || '';
+    } catch(e) {}
+  }
+ 
+  function ytPlayPause() {
+    if (!ytPlayer) return;
+    ytPlayer.getPlayerState() === YT.PlayerState.PLAYING ? ytPlayer.pauseVideo() : ytPlayer.playVideo();
+  }
+ 
+  function ytPrev() { if (ytPlayer) ytPlayer.previousVideo(); }
+  function ytNext() { if (ytPlayer) ytPlayer.nextVideo(); }
+</script>
+<script src="https://www.youtube.com/iframe_api"></script>
 </body>
 </html>
