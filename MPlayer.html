@@ -54,14 +54,11 @@
   My Playlist — Blue accent + Purple label
 </a>
 
-Here's how the thumb parameter works:
-Usage:
-/player.html?list=PLxxx&name=My+Playlist&thumb=cover.jpg
-If your image is in a subfolder, encode the / as %2F:
-/player.html?list=PLxxx&thumb=images%2Fcover.jpg
-
 -->
 <body>
+<audio id="yt-silent-audio" loop preload="auto" style="display:none;">
+  <source src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=" type="audio/wav"/>
+</audio>
 <header class="head"><a ><img src="logo.png" alt="" width="675" height="127" onclick="history.back()"/></a></header>
 <footer class="cuerpo">
   <nav>
@@ -96,7 +93,7 @@ If your image is in a subfolder, encode the / as %2F:
     <div class="yt-track-info">
       <span id="yt-track-title">—</span>
     </div>
-    <span id="yt-time-display"></span>
+    <span id="yt-time-display" style="font-size:0.85rem; color:#888; white-space:nowrap; flex-shrink:0; font-variant-numeric:tabular-nums;"></span>
   </div>
 
   <div class="yt-playlist">
@@ -183,6 +180,7 @@ If your image is in a subfolder, encode the / as %2F:
             ytStartTimer();
           } else if (e.data === YT.PlayerState.ENDED || e.data === YT.PlayerState.PAUSED) {
             ytStopTimer();
+            ytReleaseWakeLock();
           }
           document.getElementById('yt-playpause').innerHTML =
             (e.data === YT.PlayerState.PLAYING) ? '&#9646;&#9646;' : '&#9654;';
@@ -213,7 +211,7 @@ If your image is in a subfolder, encode the / as %2F:
       var row = document.createElement('div');
       row.className = 'yt-track-row' + (i === ytCurrentIndex ? ' active' : '');
       row.id = 'yt-row-' + i;
-      row.onclick = (function(idx) { return function() { ytPlayer.playVideoAt(idx); }; })(i);
+      row.onclick = (function(idx) { return function() { ytStartSilentAudio(); ytPlayer.playVideoAt(idx); }; })(i);
       row.innerHTML =
         '<span class="yt-track-num">' + (i+1) + '</span>' +
         '<img class="yt-track-thumb" src="https://img.youtube.com/vi/' + track.id + '/mqdefault.jpg" loading="lazy" alt=""/>' +
@@ -321,13 +319,57 @@ If your image is in a subfolder, encode the / as %2F:
  
   function ytPlayPause() {
     if (!ytPlayer) return;
+    ytStartSilentAudio(); // start on user gesture so browser allows it
     ytPlayer.getPlayerState() === YT.PlayerState.PLAYING ? ytPlayer.pauseVideo() : ytPlayer.playVideo();
   }
  
   function ytStartFromCover() {
     document.getElementById('yt-cover-wrap').style.display = 'none';
+    ytStartSilentAudio();
     if (ytPlayer) ytPlayer.playVideo();
   }
+
+  // ── Background keep-alive ─────────────────────────────────────────────────
+  var ytSilentStarted = false;
+
+  function ytStartSilentAudio() {
+    if (ytSilentStarted) return;
+    var audio = document.getElementById('yt-silent-audio');
+    if (!audio) return;
+    audio.volume = 0.001;
+    audio.play().then(function() {
+      ytSilentStarted = true;
+    }).catch(function() {});
+  }
+
+  function ytStopSilentAudio() {
+    var audio = document.getElementById('yt-silent-audio');
+    if (audio && !audio.paused) {
+      audio.pause();
+      ytSilentStarted = false;
+    }
+  }
+
+  // Wake Lock
+  var ytWakeLock = null;
+  async function ytRequestWakeLock() {
+    if ('wakeLock' in navigator) {
+      try { ytWakeLock = await navigator.wakeLock.request('screen'); } catch(e) {}
+    }
+  }
+  function ytReleaseWakeLock() {
+    if (ytWakeLock) { ytWakeLock.release(); ytWakeLock = null; }
+  }
+
+  // Re-acquire wake lock when returning to the page
+  document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'visible') {
+      if (ytPlayer && ytPlayer.getPlayerState() === YT.PlayerState.PLAYING) {
+        ytRequestWakeLock();
+        ytStartSilentAudio();
+      }
+    }
+  });
 
   function ytPrev() { if (ytPlayer) ytPlayer.previousVideo(); }
   function ytNext() { if (ytPlayer) ytPlayer.nextVideo(); }
