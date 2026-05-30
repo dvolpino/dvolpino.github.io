@@ -56,6 +56,11 @@
 
 -->
 <body>
+<!-- Silent audio loop — prevents Chrome from suspending the tab in background -->
+<audio id="yt-silent-audio" loop preload="auto" style="display:none;">
+  <source src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=" type="audio/wav"/>
+</audio>
+
 <header class="head"><a ><img src="logo.png" alt="" width="675" height="127" onclick="history.back()"/></a></header>
 <footer class="cuerpo">
   <nav>
@@ -268,7 +273,42 @@
   // Elapsed time timer
   var ytTimerInterval = null;
 
+  // Wake Lock — prevents screen/tab sleep
+  var ytWakeLock = null;
+  async function ytRequestWakeLock() {
+    if ('wakeLock' in navigator) {
+      try {
+        ytWakeLock = await navigator.wakeLock.request('screen');
+      } catch(e) {}
+    }
+  }
+  function ytReleaseWakeLock() {
+    if (ytWakeLock) { ytWakeLock.release(); ytWakeLock = null; }
+  }
+
+  // Re-request wake lock when page becomes visible again
+  document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'visible' && ytTimerInterval) {
+      ytRequestWakeLock();
+    }
+  });
+
+  // Silent audio — keeps browser audio session alive in background
+  function ytStartSilentAudio() {
+    var audio = document.getElementById('yt-silent-audio');
+    if (audio && audio.paused) {
+      audio.volume = 0.001; // near-silent but not zero
+      audio.play().catch(function() {});
+    }
+  }
+  function ytStopSilentAudio() {
+    var audio = document.getElementById('yt-silent-audio');
+    if (audio && !audio.paused) audio.pause();
+  }
+
   function ytStartTimer() {
+    ytRequestWakeLock();
+    ytStartSilentAudio();
     if (ytTimerInterval) clearInterval(ytTimerInterval);
     ytTimerInterval = setInterval(function() {
       if (!ytPlayer) return;
@@ -279,16 +319,6 @@
         if (el && dur > 0) {
           el.textContent = ytFmtTime(cur) + ' / ' + ytFmtTime(dur);
         }
-        // Update lock screen seek position
-        if ('mediaSession' in navigator && dur > 0) {
-          try {
-            navigator.mediaSession.setPositionState({
-              duration: dur,
-              playbackRate: 1,
-              position: cur
-            });
-          } catch(e) {}
-        }
       } catch(e) {}
     }, 500);
   }
@@ -297,6 +327,8 @@
     if (ytTimerInterval) { clearInterval(ytTimerInterval); ytTimerInterval = null; }
     var el = document.getElementById('yt-time-display');
     if (el) el.textContent = '';
+    ytReleaseWakeLock();
+    ytStopSilentAudio();
   }
 
   function ytFmtTime(s) {
@@ -335,55 +367,6 @@
 
   function ytPrev() { if (ytPlayer) ytPlayer.previousVideo(); }
   function ytNext() { if (ytPlayer) ytPlayer.nextVideo(); }
-
-  // ── Media Session API ──────────────────────────────────────────────────────
-  // Tells the OS this PWA is playing media → enables background audio +
-  // lock screen / notification controls on Android and iOS.
-
-  function ytUpdateMediaSession() {
-    if (!('mediaSession' in navigator)) return;
-    try {
-      var data  = ytPlayer.getVideoData();
-      var title = data.title || 'Unknown';
-      var idx   = ytPlayer.getPlaylistIndex();
-      var track = ytTracks[idx] || {};
-      var thumb = track.id
-        ? [{ src: 'https://img.youtube.com/vi/' + track.id + '/mqdefault.jpg', sizes: '320x180', type: 'image/jpeg' }]
-        : [];
-
-      navigator.mediaSession.metadata = new MediaMetadata({
-        title:  title,
-        artist: (track.channel || ''),
-        album:  decodeURIComponent(YT_NAME || ''),
-        artwork: thumb
-      });
-    } catch(e) {}
-  }
-
-  function ytSetupMediaSession() {
-    if (!('mediaSession' in navigator)) return;
-
-    navigator.mediaSession.setActionHandler('play', function() {
-      if (ytPlayer) ytPlayer.playVideo();
-    });
-    navigator.mediaSession.setActionHandler('pause', function() {
-      if (ytPlayer) ytPlayer.pauseVideo();
-    });
-    navigator.mediaSession.setActionHandler('previoustrack', function() {
-      if (ytPlayer) ytPlayer.previousVideo();
-    });
-    navigator.mediaSession.setActionHandler('nexttrack', function() {
-      if (ytPlayer) ytPlayer.nextVideo();
-    });
-    navigator.mediaSession.setActionHandler('seekto', function(details) {
-      if (ytPlayer && details.seekTime !== undefined) {
-        ytPlayer.seekTo(details.seekTime, true);
-      }
-    });
-  }
-
-  // Call setup once on load
-  ytSetupMediaSession();
 </script>
 <script src="https://www.youtube.com/iframe_api"></script>
 </body>
