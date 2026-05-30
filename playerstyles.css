@@ -69,7 +69,7 @@
   .yt-track-row.active .yt-track-ch { font-weight: 600;  }  /* que se ilumine el nombre del autor tambien */
 
   .yt-track-duration {
-    font-size: 0.8rem;
+    font-size: 2rem;
     color: rgba(180,180,180,0.8);
     white-space: nowrap;
     flex-shrink: 0;
@@ -96,3 +96,5 @@
 	.yt-track-info { font-size: 1.8rem; }
 	.yt-track-num { font-size: 0.9rem; }
 	.yt-track-thumb { width: 60px; height: 60px; object-fit: cover; border-radius: 3px; background: #eee; flex-shrink: 0;  }
+	.yt-track-duration {
+		font-size: 0.8rem;}
