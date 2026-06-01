@@ -1,33 +1,23 @@
 // JavaScript Document
-// This function handles saving new choices (used on the selector page)
-///function updateBackground() {
-///    const selector = document.getElementById('bgSelector');
-///   if (selector) {
-///        const selectedImage = selector.value;
-///        document.body.style.backgroundImage = "url('" + selectedImage + "')";
- ///       localStorage.setItem('userBackground', selectedImage);
- ///   }
-///}
 
-// This function automatically runs on EVERY page load to apply the saved background
-///window.addEventListener('DOMContentLoaded', () => {
- ///   const savedBg = localStorage.getItem('userBackground');
-  ///  if (savedBg) {
-  ///      document.body.style.backgroundImage = "url('" + savedBg + "')";
-        
-        // If we are currently on the selector page, also update the dropdown menu state
-  ///      const selector = document.getElementById('bgSelector');
-   ///     if (selector) {
- ///           selector.value = savedBg;
- ///       }
- ///   }
-///});
+const BASE_URL = 'https://dvolpino.github.io/';
+
+function toAbsolute(path) {
+    if (!path) return '';
+    if (path.startsWith('http')) return path;
+    return BASE_URL + path;
+}
 
 // 1. RUN THIS IMMEDIATELY: Apply background before the page even finishes drawing
 (function applySavedBackground() {
     const savedBg = localStorage.getItem('userBackground');
     if (savedBg) {
-        document.body.style.backgroundImage = "url('" + savedBg + "')";
+        const absolute = toAbsolute(savedBg);
+        // Fix and re-save if it was stored as a relative path
+        if (!savedBg.startsWith('http')) {
+            localStorage.setItem('userBackground', absolute);
+        }
+        document.body.style.backgroundImage = "url('" + absolute + "')";
     }
 })();
 
@@ -35,7 +25,7 @@
 function updateBackground() {
     const selector = document.getElementById('bgSelector');
     if (selector) {
-        const selectedImage = selector.value;
+        const selectedImage = toAbsolute(selector.value);
         document.body.style.backgroundImage = "url('" + selectedImage + "')";
         localStorage.setItem('userBackground', selectedImage);
     }
@@ -45,8 +35,10 @@ function updateBackground() {
 window.addEventListener('DOMContentLoaded', () => {
     const savedBg = localStorage.getItem('userBackground');
     const selector = document.getElementById('bgSelector');
-    
+
     if (savedBg && selector) {
-        selector.value = savedBg;
+        // Match against both relative and absolute versions
+        const relative = savedBg.replace(BASE_URL, '');
+        selector.value = relative;
     }
 });
