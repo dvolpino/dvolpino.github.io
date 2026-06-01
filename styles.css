@@ -36,6 +36,7 @@ a { text-decoration: none;   }
 
 .decada{ display: block;   }
 .decada2{ float: left;   }
+.decada3{ fdisplay: flex;   }
 .carousel-contenedor { display: flex; }
 
 .splide {
