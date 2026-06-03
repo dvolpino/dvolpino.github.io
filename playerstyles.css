@@ -97,6 +97,6 @@
 	.yt-track-ch { font-size: 0.9rem; }
 	.yt-track-info { font-size: 1.8rem; }
 	.yt-track-num { font-size: 0.9rem; }
-	.yt-track-thumb { width: 60px; height: 60px; object-fit: cover; border-radius: 3px; background: #eee; flex-shrink: 0;  }
+	.yt-track-thumb { width: 60px; height: 60px; object-fit: contain; order-radius: 3px; background: #eee; flex-shrink: 0;  } /* object-fit: cover */
 	.yt-track-duration { font-size: 0.8rem; } /* 0.8rem  */
 	#yt-time-display { font-size: 0.85rem; }
