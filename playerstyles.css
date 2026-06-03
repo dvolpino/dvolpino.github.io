@@ -42,7 +42,7 @@
   #yt-playlist-name { color: #aaa; font-size: 2rem; font-family: inter; } /* no especificaba font-size ni font-family: inter; */
   #yt-playlist-count { font-weight: 600; font-size: 2rem; }  /* font-size: 0.72rem */
 
-  .yt-playlist-list { max-height: 753px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: rgba(0,0,0,0.15) transparent;  }  /*  max-height: 1130px; */
+  .yt-playlist-list { max-height: 750px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: rgba(0,0,0,0.15) transparent;  }  /*  max-height: 1130px; 753px */
 
   .yt-playlist-list::-webkit-scrollbar { width: 4px; }
   .yt-playlist-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
