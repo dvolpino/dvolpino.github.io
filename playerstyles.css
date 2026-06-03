@@ -86,6 +86,7 @@
 	/* PC */
 
 	.yt-player-wrap { max-width: 720px;  }
+	#yt-player { aspect-ratio: 16 / 9;}
 	.yt-track-info { font-size: 1rem;  }
     #yt-track-title { font-size: 1rem;  }
 	.yt-controls button { font-size: 1rem; }
