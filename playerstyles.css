@@ -1,6 +1,14 @@
 @charset "utf-8";
 /* CSS Document */
 
+.head {
+  text-align: center;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   body { font-family: inter; padding: 1.5rem 1rem;    }
