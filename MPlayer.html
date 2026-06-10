@@ -202,7 +202,7 @@ Usage:
       ytTracks = ids.map(function(id, i) { return { id: id, title: 'Track ' + (i+1), channel: '' }; });
       ytRenderPlaylist();
       /* Show song count immediately while durations are still loading */
-      document.getElementById('yt-playlist-count').textContent = ids.length + ' songs';
+      document.getElementById('yt-playlist-count').textContent = ids.length + ' tracks';
       ytFetchTitles();
     } catch(e) { setTimeout(ytBuildPlaylist, 1000); }
   }
