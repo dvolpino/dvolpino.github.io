@@ -44,11 +44,11 @@
   /* Playlist panel */
   .yt-playlist { border-top: 1px solid rgba(0,0,0,0.07); background: rgba(0,0,0,0.66); border-color: rgba(255,255,255,0.07);}  /* background: #1a1a1a */
 
-  .yt-playlist-header { border-color: rgba(255,255,255,0.07); display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 1rem; border-bottom: 1px solid rgba(0,0,0,0.07);
+  .yt-playlist-header { border-color: rgba(255,255,255,0.07); display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 1rem; border-bottom: 1px solid rgba(0,0,0,0.07); font-family: inter;
      font-weight: 600; letter-spacing: 0.05em;   }  /* Elimine text-transform: uppercase; */
 
-  #yt-playlist-name { color: #aaa; font-size: 2rem; font-family: inter; } /* NOMBRE DEL PLAYLIST no especificaba font-size ni font-family: inter; */
-  #yt-playlist-count { font-weight: 600; font-size: 2rem; color: #aaa; }  /* CANTIDAD DE CANCIONES Y DURACION DEL PLAYLIST font-size: 0.72rem // agregué color: #aaa;*/
+  #yt-playlist-name { font-size: 2.2rem; color: #aaa; } /* NOMBRE DEL PLAYLIST no especificaba font-size ni font-family: inter; */
+  #yt-playlist-count { font-size: 2.2rem; color: #aaa; }  /* CANTIDAD DE CANCIONES Y DURACION DEL PLAYLIST font-size: 0.72rem // agregué color: #aaa;*/
 
   .yt-playlist-list { max-height: 750px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: rgba(0,0,0,0.15) transparent;  }  /*  max-height: 1130px; 753px */
 
