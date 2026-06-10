@@ -201,7 +201,8 @@ Usage:
       if (!ids || ids.length === 0) { setTimeout(ytBuildPlaylist, 1000); return; }
       ytTracks = ids.map(function(id, i) { return { id: id, title: 'Track ' + (i+1), channel: '' }; });
       ytRenderPlaylist();
-      document.getElementById('yt-playlist-count').textContent = ids.length + ' tracks';
+      /* Show song count immediately while durations are still loading */
+      document.getElementById('yt-playlist-count').textContent = ids.length + ' songs';
       ytFetchTitles();
     } catch(e) { setTimeout(ytBuildPlaylist, 1000); }
   }
@@ -227,6 +228,9 @@ Usage:
   }
  
   var YT_API_KEY = 'AIzaSyAc24B5nbXmo_JribpDDxskj6huBH2vNhE';
+
+  /* Accumulates total playlist duration in seconds across all batches */
+  var ytTotalSeconds = 0;
 
   function ytFetchTitles() {
     // Fetch in batches of 50 (API max per request)
@@ -255,6 +259,16 @@ Usage:
           if (c) c.textContent = (item.snippet.channelTitle || '').replace(/ - Topic$/, '').trim();
           if (d) d.textContent = ytParseDuration(item.contentDetails.duration);
         });
+
+        /* After each batch lands, recount total seconds from all duration spans
+           so the header updates progressively as batches arrive */
+        ytTotalSeconds = 0;
+        ytTracks.forEach(function(t, i) {
+          var d = document.getElementById('yt-dur-' + i);
+          if (d && d.textContent) ytTotalSeconds += ytSecondsFromText(d.textContent);
+        });
+        document.getElementById('yt-playlist-count').textContent =
+          ytTracks.length + ' songs · ' + ytFmtTotal(ytTotalSeconds);
       })
       .catch(function() {});
   }
@@ -269,6 +283,24 @@ Usage:
     var sec = parseInt(m[3] || 0);
     if (h > 0) return h + ':' + ('0'+min).slice(-2) + ':' + ('0'+sec).slice(-2);
     return min + ':' + ('0'+sec).slice(-2);
+  }
+
+  /* Converts a formatted duration string ("m:ss" or "h:mm:ss") back to seconds
+     so we can sum all track durations into a playlist total */
+  function ytSecondsFromText(str) {
+    var parts = str.split(':').map(Number);
+    if (parts.length === 3) return parts[0] * 3600 + parts[1] * 60 + parts[2];
+    if (parts.length === 2) return parts[0] * 60 + parts[1];
+    return 0;
+  }
+
+  /* Formats a total number of seconds into a human-readable string.
+     Examples: 9060s → "2 hrs, 31 min" / 3180s → "53 min" */
+  function ytFmtTotal(secs) {
+    var h = Math.floor(secs / 3600);
+    var m = Math.floor((secs % 3600) / 60);
+    if (h > 0) return h + ' hr' + (h > 1 ? 's' : '') + ', ' + m + ' min';
+    return m + ' min';
   }
 
   // Elapsed time timer
