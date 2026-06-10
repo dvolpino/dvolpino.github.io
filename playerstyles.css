@@ -48,7 +48,7 @@
     font-size: 2.2rem; font-weight: 600; letter-spacing: 0.05em;   }  /* Elimine text-transform: uppercase; */
 
   #yt-playlist-name { color: #aaa; font-size: 2rem; font-family: inter; } /* no especificaba font-size ni font-family: inter; */
-  #yt-playlist-count { font-weight: 600; font-size: 2rem; }  /* font-size: 0.72rem */
+  #yt-playlist-count { font-weight: 600; font-size: 2rem; color: #aaa; }  /* font-size: 0.72rem // agregué color: #aaa;*/
 
   .yt-playlist-list { max-height: 750px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: rgba(0,0,0,0.15) transparent;  }  /*  max-height: 1130px; 753px */
 
