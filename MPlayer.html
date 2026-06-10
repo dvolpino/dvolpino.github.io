@@ -202,7 +202,7 @@ Usage:
       ytTracks = ids.map(function(id, i) { return { id: id, title: 'Track ' + (i+1), channel: '' }; });
       ytRenderPlaylist();
       /* Show song count immediately while durations are still loading */
-      document.getElementById('yt-playlist-count').textContent = ids.length + ' tracks';
+      document.getElementById('yt-playlist-count').textContent = ids.length + ' tracks'; /* decia "songs" en vez de "tracks" */
       ytFetchTitles();
     } catch(e) { setTimeout(ytBuildPlaylist, 1000); }
   }
@@ -268,7 +268,7 @@ Usage:
           if (d && d.textContent) ytTotalSeconds += ytSecondsFromText(d.textContent);
         });
         document.getElementById('yt-playlist-count').textContent =
-          ytTracks.length + ' songs · ' + ytFmtTotal(ytTotalSeconds);
+          ytTracks.length + ' tracks · ' + ytFmtTotal(ytTotalSeconds); /* decia "songs" en vez de "tracks" */
       })
       .catch(function() {});
   }
