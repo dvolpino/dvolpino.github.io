@@ -39,7 +39,7 @@
 
   #yt-track-title { font-size: 2.2rem; color: #bbb; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;  } /* font-size: 0.85rem */
 
-  #yt-time-display { font-size: 2.2rem; color: #888; white-space: nowrap; flex-shrink: 0; font-variant-numeric: tabular-nums;  }
+  #yt-time-display { font-size: 2.2rem; color: #bbb; white-space: nowrap; flex-shrink: 0; font-variant-numeric: tabular-nums;  }
 
   /* Playlist panel */
   .yt-playlist { border-top: 1px solid rgba(0,0,0,0.07); background: rgba(0,0,0,0.66); border-color: rgba(255,255,255,0.07);}  /* background: #1a1a1a */
