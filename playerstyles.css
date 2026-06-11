@@ -29,11 +29,13 @@
   /* Controls */
   .yt-controls { background: #1a1a1a; border-color: rgba(255,255,255,0.07); display: flex; align-items: center; gap: 8px; padding: 0.6rem 1rem; border-top: 1px solid rgba(0,0,0,0.07);  }
 
-  .yt-controls button { color: #ddd; background: none; border: none; cursor: pointer; font-size: 7.5rem; padding: 4px 8px; border-radius: 6px; transition: background 0.15s; line-height: 1;  } /* was 2.5rem, tripled */
+  .yt-controls button { color: #ddd; background: none; border: none; cursor: pointer; font-size: 2.5rem; padding: 4px 8px; border-radius: 6px; transition: background 0.15s; line-height: 1;  }
 
   .yt-controls button:hover { background: rgba(255,255,255,0.1); }
-  
-   #yt-playpause { font-size: 3.9rem; } /* was 1.3rem, tripled */
+
+  /* Shuffle button: transparent background, no hover highlight */
+  #yt-shuffle { background: transparent !important; opacity: 0.35; transition: opacity 0.2s; }
+  #yt-shuffle:hover { background: transparent !important; }
 
   .yt-track-info { flex: 1; overflow: hidden; margin-left: 4px; font-size: 2.2rem; font-weight: 600; }
 
@@ -97,7 +99,7 @@
 	#yt-player { aspect-ratio: 16 / 9;}
 	.yt-track-info { font-size: 1rem;  }
     #yt-track-title { font-size: 1rem;  }
-	.yt-controls button { font-size: 3rem; } /* was 1rem, tripled */
+	.yt-controls button { font-size: 1rem; }
 	.yt-playlist-header { font-size: 1rem; }
 	#yt-playlist-name { font-size: 1rem;  } /* no especificaba font-size ni font-family: inter; */
     #yt-playlist-count {  font-size: 1rem; }  /* font-size: 0.72rem */
