@@ -191,7 +191,14 @@ Usage:
             (e.data === YT.PlayerState.PLAYING) ? '&#9646;&#9646;' : '&#9654;';
           ytUpdateTitle();
           if (e.data === YT.PlayerState.PLAYING || e.data === YT.PlayerState.PAUSED) {
-            try { ytCurrentIndex = ytPlayer.getPlaylistIndex(); ytHighlightActive(); } catch(err) {}
+            try {
+              /* Match by video ID instead of playlist index so the highlight
+                 stays correct even when shuffle reorders the queue */
+              var currentId = ytPlayer.getVideoData().video_id;
+              ytCurrentIndex = ytTracks.findIndex(function(t) { return t.id === currentId; });
+              if (ytCurrentIndex === -1) ytCurrentIndex = 0; /* fallback if ID not found */
+              ytHighlightActive();
+            } catch(err) {}
           }
         }
       }
