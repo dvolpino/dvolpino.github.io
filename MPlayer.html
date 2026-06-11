@@ -3,7 +3,10 @@
 <head>
 <meta charset="utf-8">
 <title>YTML</title>
-<style type="text/css">body { background-image: url(background%20YTML.jpg); background-size: cover; background-attachment: fixed; background-position: top; } 
+<style type="text/css">body { background-image: url(background%20YTML.jpg); background-size: cover; background-attachment: fixed; background-position: top; }
+
+  /* Shuffle button starts dimmed (off); ytToggleShuffle() sets opacity to 1 when on */
+  #yt-shuffle { opacity: 0.35; } 
 	
 	 /* Fix background-attachment: fixed breaking on mobile 
   @media (max-width: 768px) {
@@ -89,9 +92,9 @@ Usage:
   </div>
 
   <div class="yt-controls">
-    <button id="yt-prev" onclick="ytPrev()" title="Previous">&#9664;&#9664;</button>
+    <!-- Shuffle toggle button: lights up when shuffle is on, dims when off -->
+    <button id="yt-shuffle" onclick="ytToggleShuffle()" title="Shuffle">&#x1F500;</button>
     <button id="yt-playpause" onclick="ytPlayPause()">&#9654;</button>
-    <button id="yt-next" onclick="ytNext()" title="Next">&#9654;&#9654;</button>
     <div class="yt-track-info">
       <span id="yt-track-title">—</span>
     </div>
@@ -361,8 +364,19 @@ Usage:
     if (ytPlayer) ytPlayer.playVideo();
   }
 
-  function ytPrev() { if (ytPlayer) ytPlayer.previousVideo(); }
-  function ytNext() { if (ytPlayer) ytPlayer.nextVideo(); }
+  /* Tracks whether shuffle mode is currently on or off */
+  var ytShuffleOn = false;
+
+  /* Toggles shuffle on/off and updates the button's visual state.
+     Uses the YouTube IFrame API's setShuffle method to enable/disable shuffle.
+     Button turns fully opaque when on, dimmed when off. */
+  function ytToggleShuffle() {
+    ytShuffleOn = !ytShuffleOn;
+    if (ytPlayer) ytPlayer.setShuffle(ytShuffleOn);
+    var btn = document.getElementById('yt-shuffle');
+    btn.style.opacity = ytShuffleOn ? '1' : '0.35';
+    btn.title = ytShuffleOn ? 'Shuffle: On' : 'Shuffle: Off';
+  }
 </script>
 <script src="https://www.youtube.com/iframe_api"></script>
 </body>
