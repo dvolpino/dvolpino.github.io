@@ -193,11 +193,14 @@ Usage:
           if (e.data === YT.PlayerState.PLAYING || e.data === YT.PlayerState.PAUSED) {
             try {
               /* Match by video ID instead of playlist index so the highlight
-                 stays correct even when shuffle reorders the queue */
+                 stays correct even when shuffle reorders the queue.
+                 If ID is not found we are in a transient between-tracks state — skip update */
               var currentId = ytPlayer.getVideoData().video_id;
-              ytCurrentIndex = ytTracks.findIndex(function(t) { return t.id === currentId; });
-              if (ytCurrentIndex === -1) ytCurrentIndex = 0; /* fallback if ID not found */
-              ytHighlightActive();
+              var foundIndex = ytTracks.findIndex(function(t) { return t.id === currentId; });
+              if (foundIndex !== -1) {
+                ytCurrentIndex = foundIndex;
+                ytHighlightActive();
+              }
             } catch(err) {}
           }
         }
