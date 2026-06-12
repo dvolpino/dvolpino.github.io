@@ -29,12 +29,12 @@
   /* Controls */
   .yt-controls { background: #1a1a1a; border-color: rgba(255,255,255,0.07); display: flex; align-items: center; gap: 8px; padding: 0.6rem 1rem; border-top: 1px solid rgba(0,0,0,0.07);  }
 
-  .yt-controls button { color: #ddd; background: none; border: none; cursor: pointer; font-size: 3.5rem; padding: 4px 8px; border-radius: 6px; transition: background 0.15s; line-height: 1;  }
+  .yt-controls button { color: #ddd; background: none; border: none; cursor: pointer; font-size: 2.5rem; padding: 4px 8px; border-radius: 6px; transition: background 0.15s; line-height: 1;  }
 
   .yt-controls button:hover { background: rgba(255,255,255,0.1); }
 
-  /* Shuffle button: transparent background, no hover highlight */
-  #yt-shuffle { background: transparent !important; opacity: 0.35; transition: opacity 0.2s; }
+  /* Shuffle button: fully transparent background, no hover fill */
+  #yt-shuffle { background: transparent !important; color: #ddd; }
   #yt-shuffle:hover { background: transparent !important; }
 
   .yt-track-info { flex: 1; overflow: hidden; margin-left: 4px; font-size: 2.2rem; font-weight: 600; }

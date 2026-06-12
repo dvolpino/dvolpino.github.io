@@ -92,8 +92,7 @@ Usage:
   </div>
 
   <div class="yt-controls">
-    <!-- Shuffle toggle button: lights up when shuffle is on, dims when off -->
-    <!-- SVG shuffle icon: no emoji, fully transparent background -->
+    <!-- Shuffle toggle: SVG icon instead of emoji to avoid OS-rendered colored background -->
     <button id="yt-shuffle" onclick="ytToggleShuffle()" title="Shuffle">
       <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <polyline points="16 3 21 3 21 8"/>
@@ -102,6 +101,7 @@ Usage:
         <line x1="15" y1="15" x2="21" y2="21"/>
       </svg>
     </button>
+    <button id="yt-playpause" onclick="ytPlayPause()">&#9654;</button>
     <div class="yt-track-info">
       <span id="yt-track-title">—</span>
     </div>
@@ -194,6 +194,8 @@ Usage:
           } else if (e.data === YT.PlayerState.ENDED || e.data === YT.PlayerState.PAUSED) {
             ytStopTimer();
           }
+          document.getElementById('yt-playpause').innerHTML =
+            (e.data === YT.PlayerState.PLAYING) ? '&#9646;&#9646;' : '&#9654;';
           ytUpdateTitle();
           if (e.data === YT.PlayerState.PLAYING || e.data === YT.PlayerState.PAUSED) {
             try {
@@ -369,6 +371,11 @@ Usage:
     } catch(e) {}
   }
  
+  function ytPlayPause() {
+    if (!ytPlayer) return;
+    ytPlayer.getPlayerState() === YT.PlayerState.PLAYING ? ytPlayer.pauseVideo() : ytPlayer.playVideo();
+  }
+ 
   function ytStartFromCover() {
     document.getElementById('yt-cover-wrap').style.display = 'none';
     if (ytPlayer) ytPlayer.playVideo();
@@ -377,13 +384,14 @@ Usage:
   /* Tracks whether shuffle mode is currently on or off */
   var ytShuffleOn = false;
 
-  /* Toggles shuffle on/off. SVG icon dims when off, brightens when on. */
+  /* Toggles shuffle on/off and updates the button's visual state.
+     Uses the YouTube IFrame API's setShuffle method to enable/disable shuffle.
+     Button turns fully opaque when on, dimmed when off. */
   function ytToggleShuffle() {
     ytShuffleOn = !ytShuffleOn;
     if (ytPlayer) ytPlayer.setShuffle(ytShuffleOn);
     var btn = document.getElementById('yt-shuffle');
     btn.style.opacity = ytShuffleOn ? '1' : '0.35';
-    btn.style.filter  = ytShuffleOn ? 'brightness(2)' : 'brightness(1)';
     btn.title = ytShuffleOn ? 'Shuffle: On' : 'Shuffle: Off';
   }
 </script>
