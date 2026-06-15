@@ -145,7 +145,8 @@
   var YT_COLOR    = params.get('color')  || '';
   var YT_LBLCOLOR = params.get('labelcolor') || '';
   var YT_THUMB    = params.get('thumb')  || '';
-  var NAS_PLAYLIST_URL = params.get('playlist') || '';  /* URL to the NAS JSON playlist file */
+  var NAS_PLAYLIST_URL = params.get('playlist') || '';  /* URL to NAS JSON or M3U playlist file */
+  var NAS_BASE_URL     = params.get('base')     || '';  /* Base folder URL for resolving relative M3U paths */
 
   /* Set playlist header name */
   if (YT_NAME) document.getElementById('yt-playlist-name').textContent = decodeURIComponent(YT_NAME);
@@ -227,19 +228,27 @@
     nasAudio.addEventListener('play',  function() { nasSetIcon(true);  });
     nasAudio.addEventListener('pause', function() { nasSetIcon(false); });
 
-    /* Load the JSON playlist from the NAS */
+    /* Load playlist from the NAS — supports both JSON and M3U/M3U8 formats.
+       Detection is based on the file extension of the playlist URL. */
     if (NAS_PLAYLIST_URL) {
       document.getElementById('yt-playlist-loading').textContent = 'Loading playlist…';
+      var isM3U = NAS_PLAYLIST_URL.toLowerCase().match(/\.m3u8?(\?|$)/);
+
       fetch(NAS_PLAYLIST_URL)
-        .then(function(r) { return r.json(); })
-        .then(function(data) {
-          /* data = { name: "...", tracks: [ { title, artist, src, folder }, ... ] } */
-          if (data.name) document.getElementById('yt-playlist-name').textContent = data.name;
-          ytTracks = data.tracks || [];
-          nasApplyShuffle();  /* build initial playback order */
+        .then(function(r) { return r.text(); })
+        .then(function(text) {
+          if (isM3U) {
+            /* Parse extended M3U format (#EXTM3U / #EXTINF) */
+            ytTracks = nasParseM3U(text, NAS_BASE_URL || nasBaseFromUrl(NAS_PLAYLIST_URL));
+          } else {
+            /* Parse JSON format { name, tracks: [...] } */
+            var data = JSON.parse(text);
+            if (data.name) document.getElementById('yt-playlist-name').textContent = data.name;
+            ytTracks = data.tracks || [];
+          }
+          nasApplyShuffle();
           nasRenderPlaylist();
           nasUpdateCount();
-          /* Load first track (without autoplay) */
           nasLoadTrack(0, false);
         })
         .catch(function(err) {
@@ -249,6 +258,64 @@
     } else {
       document.getElementById('yt-playlist-loading').textContent = 'No playlist URL provided.';
     }
+  }
+
+  /* Extracts the folder URL from a playlist URL by stripping the filename.
+     e.g. "https://nas/Music/Album/playlist.m3u" -> "https://nas/Music/Album/" */
+  function nasBaseFromUrl(url) {
+    return url.substring(0, url.lastIndexOf('/') + 1);
+  }
+
+  /* Parses an extended M3U file into the same track format used by JSON playlists.
+     Handles both #EXTINF lines (title/artist/duration) and plain path lines.
+     Relative paths are resolved against baseUrl (the folder containing the M3U file).
+     Album art (folder.jpg) is loaded from baseUrl for all tracks in the file. */
+  function nasParseM3U(text, baseUrl) {
+    /* Ensure baseUrl ends with a slash */
+    if (baseUrl && baseUrl.slice(-1) !== '/') baseUrl += '/';
+
+    var lines   = text.split(/\r?\n/);
+    var tracks  = [];
+    var pending = { title: '', artist: '', duration: 0 };
+
+    lines.forEach(function(line) {
+      line = line.trim();
+      if (!line || line === '#EXTM3U') return;
+
+      if (line.startsWith('#EXTINF:')) {
+        /* Format: #EXTINF:duration,Artist - Title */
+        var comma = line.indexOf(',');
+        if (comma !== -1) {
+          pending.duration = parseInt(line.substring(8, comma)) || 0;
+          var meta = line.substring(comma + 1).trim();
+          var dash = meta.indexOf(' - ');
+          if (dash !== -1) {
+            pending.artist = meta.substring(0, dash).trim();
+            pending.title  = meta.substring(dash + 3).trim();
+          } else {
+            pending.artist = '';
+            pending.title  = meta;
+          }
+        }
+      } else if (!line.startsWith('#')) {
+        /* This is a file path line */
+        var src = line;
+        /* If it's a relative path (no protocol), prepend baseUrl */
+        if (src && !src.match(/^https?:\/\//)) {
+          src = baseUrl + src;
+        }
+        tracks.push({
+          title:    pending.title  || src.split('/').pop(),
+          artist:   pending.artist || '',
+          src:      src,
+          folder:   baseUrl,   /* all tracks share the same folder.jpg */
+          duration: pending.duration
+        });
+        /* Reset pending metadata for next track */
+        pending = { title: '', artist: '', duration: 0 };
+      }
+    });
+    return tracks;
   }
 
   /* Builds nasOrder: sequential [0,1,2,...] or shuffled */
@@ -324,21 +391,31 @@
     ytHighlightActive();
   }
 
-  /* Loads durations for all tracks by probing audio metadata */
+  /* Loads durations for all tracks.
+     If the track already has a duration from M3U #EXTINF, use it directly.
+     Otherwise probe the audio file metadata (used for JSON playlists). */
   function nasLoadDurations() {
     ytTracks.forEach(function(track, i) {
-      var a = new Audio();
-      a.preload = 'metadata';
-      a.src = track.src;
-      a.addEventListener('loadedmetadata', (function(idx, audio) {
-        return function() {
-          var el = document.getElementById('yt-dur-' + idx);
-          if (el) el.textContent = ytFmtTime(audio.duration);
-          /* Recount total after each duration loads */
-          nasUpdateCount();
-        };
-      })(i, a));
+      if (track.duration && track.duration > 0) {
+        /* M3U already provided the duration in seconds — use it directly */
+        var el = document.getElementById('yt-dur-' + i);
+        if (el) el.textContent = ytFmtTime(track.duration);
+      } else {
+        /* JSON mode: probe audio metadata to get duration */
+        var a = new Audio();
+        a.preload = 'metadata';
+        a.src = track.src;
+        a.addEventListener('loadedmetadata', (function(idx, audio) {
+          return function() {
+            var el = document.getElementById('yt-dur-' + idx);
+            if (el) el.textContent = ytFmtTime(audio.duration);
+            nasUpdateCount();
+          };
+        })(i, a));
+      }
     });
+    /* Update count now for M3U tracks (durations already known) */
+    nasUpdateCount();
   }
 
   /* Updates the "N tracks · X hrs Y min" header */
