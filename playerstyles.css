@@ -111,3 +111,42 @@
 	.yt-track-thumb { width: 60px; height: 60px; object-fit: cover; order-radius: 3px; background: #eee; flex-shrink: 0;  } 
 	.yt-track-duration { font-size: 0.8rem; } /* 0.8rem  */
 	#yt-time-display { font-size: 0.85rem; }
+
+
+
+@media (orientation: landscape) and (max-height: 1080px) {
+  /* Landscape layout: video+controls on left, playlist on right.
+     Uses CSS grid to place 3 siblings (.yt-video-wrapper, .yt-controls, .yt-playlist)
+     into a 2-column layout without changing the HTML. */
+
+  .yt-player-wrap {
+    display: grid;
+    grid-template-columns: 55% 1fr;
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas:
+      "video   playlist"
+      "controls playlist";
+    align-items: start;
+    max-width: 100%;
+  }
+
+  .yt-video-wrapper { grid-area: video; }
+  .yt-controls      { grid-area: controls; }
+
+  .yt-playlist {
+    grid-area: playlist;
+    border-top: none;
+    border-left: 1px solid rgba(255,255,255,0.07);
+    display: flex;
+    flex-direction: column;
+    /* Fill the full height of the left column */
+    align-self: stretch;
+  }
+
+  /* Playlist list scrolls within available height */
+  .yt-playlist-list {
+    flex: 1;
+    max-height: none;
+    overflow-y: auto;
+  }
+}
