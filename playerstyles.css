@@ -126,7 +126,7 @@
       "controls playlist";
     align-items: start;
     max-width: 100%;
-    max-height: 100dvh;
+    max-height: calc(100dvh - 127px - 3rem);   /* 127px es el alto del logo.... está ajustando el alto maximo del logo mas el reproductor al alto maximo de la pantalla */
     overflow: hidden;
   }
 
