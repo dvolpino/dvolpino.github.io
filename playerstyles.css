@@ -115,7 +115,8 @@
 @media (orientation: landscape) and (max-height: 1080px) {
   /* Landscape layout: video+controls on left, playlist on right.
      Uses CSS grid without changing the HTML.
-     The whole player is capped to 100dvh so nothing overflows the screen. */
+     Player height is capped to screen height minus the header logo (127px)
+     and body padding (1.5rem top+bottom ≈ 48px), so nothing requires scrolling. */
 
   .yt-player-wrap {
     display: grid;
@@ -126,7 +127,8 @@
       "controls playlist";
     align-items: start;
     max-width: 100%;
-    max-height: calc(100dvh - 127px - 3rem);   /* 127px es el alto del logo.... está ajustando el alto maximo del logo mas el reproductor al alto maximo de la pantalla */
+    /* 127px = logo height, 1.5rem = body top padding, 1.5rem = body bottom padding */
+    max-height: calc(100dvh - 127px - 3rem);
     overflow: hidden;
   }
 
@@ -151,7 +153,6 @@
     display: flex;
     flex-direction: column;
     align-self: stretch;
-    max-height: 100dvh;
     overflow: hidden;
   }
 
