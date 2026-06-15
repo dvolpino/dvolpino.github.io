@@ -112,39 +112,56 @@
 	.yt-track-duration { font-size: 0.8rem; } /* 0.8rem  */
 	#yt-time-display { font-size: 0.85rem; }
 
+
 @media (orientation: landscape) and (max-height: 1080px) {
-  /* Landscape layout: video+controls on left, playlist on right.
-     Uses CSS grid without changing the HTML.
-     Player height is capped to screen height minus the header logo (127px)
-     and body padding (1.5rem top+bottom ≈ 48px), so nothing requires scrolling. */
+  /* Landscape layout: video (square 16/16) on left, playlist on right, same height.
+     Controls sit below the video.
+     Available height = 100dvh minus header logo (127px) and body padding (3rem).
+     We use a CSS custom property to share this value across rules. */
 
   .yt-player-wrap {
+    --avail-h: calc(100dvh - 127px - 3rem);
+    /* Controls height is roughly 2.8rem (padding + button) */
+    --controls-h: 2.8rem;
+    /* Video height = available height minus controls */
+    --video-h: calc(var(--avail-h) - var(--controls-h));
+
     display: grid;
-    grid-template-columns: 55% 1fr;
-    grid-template-rows: 1fr auto;
+    /* Video column width = video height (square); playlist fills the rest */
+    grid-template-columns: var(--video-h) 1fr;
+    grid-template-rows: var(--video-h) var(--controls-h);
     grid-template-areas:
       "video    playlist"
       "controls playlist";
-    align-items: start;
     max-width: 100%;
-    /* 127px = logo height, 1.5rem = body top padding, 1.5rem = body bottom padding */
-    max-height: calc(100dvh - 127px - 3rem);
+    height: var(--avail-h);
     overflow: hidden;
   }
 
   .yt-video-wrapper {
     grid-area: video;
+    width: var(--video-h);
+    height: var(--video-h);
     overflow: hidden;
   }
 
-  /* Remove fixed aspect-ratio so video fills available height */
+  /* Square aspect ratio preserved */
   #yt-player {
-    aspect-ratio: unset;
-    height: 100%;
+    aspect-ratio: 1 / 1;
     width: 100%;
+    height: 100%;
   }
 
-  .yt-controls { grid-area: controls; }
+  /* NAS album art also square */
+  #nas-player {
+    width: 100%;
+    height: 100%;
+  }
+
+  .yt-controls {
+    grid-area: controls;
+    width: var(--video-h);
+  }
 
   .yt-playlist {
     grid-area: playlist;
@@ -152,11 +169,11 @@
     border-left: 1px solid rgba(255,255,255,0.07);
     display: flex;
     flex-direction: column;
-    align-self: stretch;
+    height: var(--avail-h);
     overflow: hidden;
   }
 
-  /* Playlist list fills remaining height and scrolls internally */
+  /* Playlist list fills remaining height after header and scrolls */
   .yt-playlist-list {
     flex: 1;
     max-height: none;
