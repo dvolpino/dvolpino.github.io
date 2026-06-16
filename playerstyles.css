@@ -67,7 +67,7 @@
 
   .yt-track-row.active::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: #ff0000; border-radius: 0 2px 2px 0;  }
 
-  .yt-track-num { font-size: 1.9rem; color:rgba(255,255,255,1.00) ;  width: 18px; text-align: right; flex-shrink: 0; text-orientation: upright; } /* font-size: 0.7rem  agregue: text-orientation: upright; */
+  .yt-track-num { font-size: 1.9rem; color:rgba(255,255,255,1.00) ;  width: 18px; text-align: right; flex-shrink: 0; writing-mode: vertical-lr; text-orientation: upright; } /* font-size: 0.7rem  agregue: writing-mode: vertical-lr; y text-orientation: upright; */
   .yt-track-row.active .yt-track-num { color: #ff0000; }
 
   .yt-track-thumb { width: 110px; height: 110px; object-fit: cover; border-radius: 3px; background: #eee; flex-shrink: 0;  }  
