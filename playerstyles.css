@@ -179,5 +179,5 @@
     max-height: none;
     overflow-y: auto;
   }
-	.yt-track-num { writing-mode: horizontal-tb; } /* agregue: writing-mode: vertical-lr; y text-orientation: upright; */
+	.yt-track-num { writing-mode: horizontal-tb; } /* agregue: horizontal-tb; y text-orientation: upright; */
 }
