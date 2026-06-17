@@ -55,7 +55,7 @@ a { text-decoration: none;   }
 .scene { font-family: Inter; color: #00F5B4; font-size: 40px; font: normal; margin: auto; margin-top: 5px; margin-bottom: 5px;  	}
 .Genre { font-family: Inter; color: #FFDD00; font-size: 40px; font: normal; }
 .Rock { font-family: Inter; color:#FA60FF; font-size: 40px; margin: auto; 	}
-.SubGenre { font-family: Inter; color: #FFFFFF; font-size: 40px; font: normal; margin: auto; margin-top: 5px; margin-bottom: 5px;  	}
+.SubGenre { font-family: Inter; color: #FFFFFF; font-size: 40px; font: normal; margin: auto; margin-top: 5px; margin-bottom: 15px;  	}
 
 .SubGenre2 { font-family: Inter; color: #FFFFFF; font-size: 40px; font: normal; margin: auto; margin-top: 5px;	margin-bottom: 5px;	  	}
 	
