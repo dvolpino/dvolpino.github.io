@@ -1,0 +1,202 @@
+/* =============================================
+   RESET & BASE
+   ============================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  min-height: 100vh;
+  background-color: #1a1a2e;
+  color: #e8e8e8;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+}
+
+/* =============================================
+   PAGE WRAPPER  – centers all content
+   ============================================= */
+.page-wrapper {
+  width: 100%;
+  max-width: 960px;
+  padding: 40px 24px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* =============================================
+   HEADER / LOGO
+   ============================================= */
+.site-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 36px;
+}
+
+.logo-link {
+  display: inline-block;
+  line-height: 0; /* remove gap under img */
+}
+
+.logo-img {
+  /* Scales with viewport but never too large or too small */
+  width: min(320px, 80vw);
+  height: auto;
+  display: block;
+  border-radius: 6px;
+  /* Subtle glow so the logo feels anchored on dark bg */
+  filter: drop-shadow(0 4px 18px rgba(255,255,255,0.08));
+  transition: filter 0.2s ease;
+}
+
+.logo-img:hover {
+  filter: drop-shadow(0 4px 24px rgba(255,255,255,0.18));
+}
+
+/* =============================================
+   NAVIGATION
+   ============================================= */
+.site-nav {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 48px;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* left-aligned text within the column */
+  gap: 10px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  padding: 6px 14px;
+  border-left: 3px solid transparent;
+  border-radius: 2px;
+  transition: color 0.18s ease,
+              border-color 0.18s ease,
+              background-color 0.18s ease;
+}
+
+.nav-link:hover {
+  color: #a8d8ff;
+  border-left-color: #a8d8ff;
+  background-color: rgba(168, 216, 255, 0.07);
+}
+
+/* Active / current-page state */
+.nav-link.active {
+  color: #FFD700;   /* yellow for the active link */
+  border-left-color: #FFD700;
+  background-color: rgba(255, 215, 0, 0.07);
+}
+
+.Genre { font-family: Inter; text-decoration: none; color: #FFDD00; font-size: clamp(1rem, 2.5vw, 1.2rem); font-weight: 500; letter-spacing: 0.03em; padding: 6px 14px; border-left: 3px solid transparent; border-radius: 2px; transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;	}
+.Genre:hover {  color: #FFDD00; border-left-color: #FFDD00; background-color: rgba(168, 216, 255, 0.07); }
+.Genre.active { border-left-color: #FFD700;  background-color: rgba(255, 215, 0, 0.07); }
+
+.Artists { font-family: Inter; text-decoration: none; color: #FF0000; font-size: clamp(1rem, 2.5vw, 1.2rem); font-weight: 500; letter-spacing: 0.03em; padding: 6px 14px; border-left: 3px solid transparent; border-radius: 2px; transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;	}
+.Artists:hover {  color: #FF0000; border-left-color: #FF0000; background-color: rgba(168, 216, 255, 0.07); }
+.Artists.active { border-left-color: #FF0000;  background-color: rgba(255, 215, 0, 0.07); }
+
+.Playlists { font-family: Inter; text-decoration: none; color: #0691FF; font-size: clamp(1rem, 2.5vw, 1.2rem); font-weight: 500; letter-spacing: 0.03em; padding: 6px 14px; border-left: 3px solid transparent; border-radius: 2px; transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;	}
+.Playlists:hover {  color: #0691FF; border-left-color: #0691FF; background-color: rgba(168, 216, 255, 0.07); }
+.Playlists.active { border-left-color: #0691FF;  background-color: rgba(255, 215, 0, 0.07); }
+
+.Resto { font-family: Inter; text-decoration: none; color: #FA60FF; font-size: clamp(1rem, 2.5vw, 1.2rem); font-weight: 500; letter-spacing: 0.03em; padding: 6px 14px; border-left: 3px solid transparent; border-radius: 2px; transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;	}
+.Resto:hover {  color: #FA60FF; border-left-color: #FA60FF; background-color: rgba(168, 216, 255, 0.07); }
+.Resto.active { border-left-color: #FA60FF;  background-color: rgba(255, 215, 0, 0.07); }
+
+.SubGenre { font-family: Inter; text-decoration: none; color: #FFFFFF; font-size: clamp(1rem, 2.5vw, 1.2rem); font-weight: 500; letter-spacing: 0.03em; padding: 6px 14px; border-left: 3px solid transparent; border-radius: 2px; transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;	}
+.SubGenre:hover {  color: #FFFFFF; border-left-color: #FFFFFF; background-color: rgba(168, 216, 255, 0.07); }
+.SubGenre.active { border-left-color: #FFFFFF;  background-color: rgba(255, 215, 0, 0.07); }
+
+.LiveSets { font-family: Inter; text-decoration: none; color: #02FF00; font-size: clamp(1rem, 2.5vw, 1.2rem); font-weight: 500; letter-spacing: 0.03em; padding: 6px 14px; border-left: 3px solid transparent; border-radius: 2px; transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;	}
+.LiveSets:hover {  color: #02FF00; border-left-color: #02FF00; background-color: rgba(168, 216, 255, 0.07); }
+
+
+/* =============================================
+   ARMADO DEL CONTADOR POR DECADA
+   ============================================= */
+
+.decada{ display: block;   }
+.decada2{ float: left;   }
+.carousel-contenedor { display: flex; }
+
+.splide {
+  flex: 1;             /* Takes up the remaining available space */
+  min-width: 0;        /* Critical: Prevents Splide from breaking flex layouts */
+}
+
+/* =============================================
+   MAIN CONTENT AREA
+   ============================================= */
+.site-main {
+  width: 100%;
+  max-width: 700px;
+  text-align: center;
+}
+
+.placeholder-text {
+  color: rgba(232, 232, 232, 0.45);
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  font-style: italic;
+  margin-top: 12px;
+}
+
+/* =============================================
+   RESPONSIVE BREAKPOINTS
+   ============================================= */
+
+/* Landscape phones & small tablets */
+@media (max-width: 600px) {
+  .page-wrapper {
+    padding: 28px 18px 48px;
+  }
+
+  .logo-img {
+    width: min(240px, 72vw);
+  }
+
+  .site-header {
+    margin-bottom: 28px;
+  }
+
+  .site-nav {
+    margin-bottom: 36px;
+  }
+
+  .nav-link {
+    font-size: 1rem;
+    padding: 5px 12px;
+  }
+}
+
+/* Very small portrait phones */
+@media (max-width: 360px) {
+  .page-wrapper {
+    padding: 20px 14px 40px;
+  }
+}
+
+/* Wide screens — give the logo a bit more breathing room */
+@media (min-width: 1200px) {
+  .logo-img {
+    width: 360px;
+  }
+}
