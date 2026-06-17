@@ -50,7 +50,7 @@ body {
 .logo-img {
   /* Scales with viewport but never too large or too small */
   width: min(675px, 80vw);
-  height: max(127px);
+  height: min(127px);
   display: block;
   border-radius: 6px;
   /* Subtle glow so the logo feels anchored on dark bg */
