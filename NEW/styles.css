@@ -49,7 +49,7 @@ body {
 
 .logo-img {
   /* Scales with viewport but never too large or too small */
-  width: 675; /*min(800px, 80vw); */
+  width: 300; /*min(800px, 80vw); */
   height: auto;
   display: block;
   border-radius: 6px;
