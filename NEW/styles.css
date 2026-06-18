@@ -189,17 +189,17 @@ body {
     padding: 5px 12px;
   }
 	
- .Genre { font-size: 1rem; padding: 5px 12px;  }
+ .Genre { font-size: 4rem; padding: 5px 12px;  }
 	
- .SubGenre{ font-size: 1rem; padding: 5px 12px;  }
+ .SubGenre{ font-size: 4rem; padding: 5px 12px;  }
 }
 
-/* Very small portrait phones 
+/* Very small portrait phones */ 
 @media (max-width: 360px) {
   .page-wrapper {
     padding: 20px 14px 40px;
   }
-} */
+} 
 
 /* Wide screens — give the logo a bit more breathing room */
 @media (min-width: 1200px) {
