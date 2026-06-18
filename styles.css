@@ -118,3 +118,18 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
 
 }
 	
+
+@media (orientation: landscape) and (max-height: 1080px) {
+  /* Landscape on phone: shrink the header logo to save vertical space.
+     Adjust the width percentage to taste — currently 60% of original 675px. */
+  .head {
+    height: auto;
+    padding: 0.3rem 0;
+  }
+
+  .head img {
+    width: 60%;       /* 60% of original — change this to resize */
+    max-width: 405px; /* 60% of 675px original width */
+    height: auto;
+  }
+}

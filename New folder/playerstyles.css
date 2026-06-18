@@ -121,7 +121,7 @@
      We use a CSS custom property to share this value across rules. */
 
   .yt-player-wrap {
-    --avail-h: calc(100dvh - 76px - 0.6rem); /* 76px = logo at 60% of 127px; 0.6rem = reduced padding */
+    --avail-h: calc(100dvh - 127px - 3rem);
     /* Controls height is roughly 2.8rem (padding + button) */
     --controls-h: 2.8rem;
     /* Video height = available height minus controls */
