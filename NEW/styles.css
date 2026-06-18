@@ -15,7 +15,7 @@ body {
   min-height: 100vh;
   background-color: #1a1a2e;
   color: #e8e8e8;
-  font-family: 'Segoe UI', Arial, sans-serif;
+  font-family: "Inter VariableFont opsz",wght,  'Segoe UI', Arial, sans-serif;
   display: flex;
   justify-content: center;
 }
@@ -185,6 +185,11 @@ body {
     font-size: 1rem;
     padding: 5px 12px;
   }
+	
+	 .Genre {
+    font-size: 1rem;
+    padding: 5px 12px;
+  }
 }
 
 /* Very small portrait phones */
@@ -197,6 +202,6 @@ body {
 /* Wide screens — give the logo a bit more breathing room */
 @media (min-width: 1200px) {
   .logo-img {
-    width: 360px;
+    width: 660px;
   }
 }
