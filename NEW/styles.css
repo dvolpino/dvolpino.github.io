@@ -209,3 +209,12 @@ body {
     width: 660px;
   }
 }
+
+/* Portrait phones only: double all text size.
+   Since most font sizes use rem/clamp(...rem) units, doubling the root
+   html font-size scales all of them proportionally without editing every rule. */
+@media (orientation: portrait) and (max-width: 600px) {
+  html {
+    font-size: 28px; /* was 14px — doubled */
+  }
+}
