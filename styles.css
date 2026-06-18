@@ -1,6 +1,14 @@
 @charset "utf-8";
 a { text-decoration: none;   }
-body { background-image: url(background%20YTML.jpg); background-size: cover; background-attachment: fixed; background-position: top;     }
+body { background-image: url(background%20YTML.jpg); background-size: cover; background-attachment: fixed; background-position: top;    
+
+  min-height: 100vh;
+  background-color: #1a1a2e;
+  color: #e8e8e8;
+  font-family: "Inter VariableFont opsz",wght, 'Segoe UI', Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+}
 
 .head { text-align: center; vertical-align: middle; height: 150px;    }
 
