@@ -189,9 +189,7 @@ body {
     padding: 5px 12px;
   }
 	
- .Genre { font-size: 4rem; padding: 5px 12px;  }
-	
- .SubGenre{ font-size: 4rem; padding: 5px 12px;  }
+
 }
 
 /* Very small portrait phones */ 
@@ -199,6 +197,10 @@ body {
   .page-wrapper {
     padding: 20px 14px 40px;
   }
+	
+	 .Genre { font-size: 4rem; padding: 5px 12px;  }
+	
+ .SubGenre{ font-size: 4rem; padding: 5px 12px;  }
 } 
 
 /* Wide screens — give the logo a bit more breathing room */
