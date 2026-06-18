@@ -2,8 +2,6 @@
 a { text-decoration: none;   }
 body { background-image: url(background%20YTML.jpg); background-size: cover; background-attachment: fixed; background-position: top;     }
 
-.logo { width: min(875px, 70vw);  height: auto;   }
-
 .head { text-align: center; vertical-align: middle; height: 150px;    }
 
 .scene { font-family: Inter; color: #00F5B4; margin: auto; letter-spacing: 0.03em; border-left: 3px solid transparent; border-radius: 2px; transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;	}
@@ -74,9 +72,8 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
 @media (max-height:1080px){
 	/* PC */
 	
-.head { text-align: center; vertical-align: middle; height: 120px;    }  }
-.logo { width: max(375px, 25vw);  height: auto;  }
-	
+.head { text-align: center; vertical-align: middle;    }  }
+
 .scene { font-family: Inter; color: #00F5B4; font-size: 40px; font: normal; margin: auto; margin-top: 5px; margin-bottom: 5px;  	}
 .Genre { font-family: Inter; color: #FFDD00; font-size: 40px; font: normal; }
 .Rock { font-family: Inter; color:#FA60FF; font-size: 40px; margin: auto; 	}
