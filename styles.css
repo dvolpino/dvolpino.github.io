@@ -2,7 +2,7 @@
 a { text-decoration: none;   }
 body { background-image: url(background%20YTML.jpg); background-size: cover; background-attachment: fixed; background-position: top;     }
 
-.logo { width: min(875px, 75vw);  height: auto;   }
+.logo { width: min(875px, 70vw);  height: auto;   }
 
 .head { text-align: center; vertical-align: middle; height: 150px;    }
 
