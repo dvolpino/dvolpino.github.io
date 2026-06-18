@@ -106,7 +106,7 @@ body {
   background-color: rgba(255, 215, 0, 0.07);
 }
 
-.Genre { font-family: Inter; text-decoration: none; color: #FFDD00; font-size: clamp(2.2rem, 15vw, 2.8rem); font-weight: 400; letter-spacing: 0.03em; padding: 6px 14px; border-left: 3px solid transparent; border-radius: 2px; transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;	}
+.Genre { font-family: Inter; text-decoration: none; color: #FFDD00; font-size: clamp(2.8rem, 20vw, 3rem); font-weight: 400; letter-spacing: 0.03em; padding: 6px 14px; border-left: 3px solid transparent; border-radius: 2px; transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;	}
 .Genre:hover {  color: #FFDD00; border-left-color: #FFDD00; background-color: rgba(168, 216, 255, 0.07); }
 .Genre.active { border-left-color: #FFD700;  background-color: rgba(255, 215, 0, 0.07); }
 
