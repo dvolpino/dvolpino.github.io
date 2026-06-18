@@ -72,7 +72,7 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
 @media (max-height:1080px){
 	/* PC */
 	
-.head { text-align: center; vertical-align: middle;    }  }
+.head { text-align: center; vertical-align: middle;    } 
 
 .scene { font-family: Inter; color: #00F5B4; font-size: 40px; font: normal; margin: auto; margin-top: 5px; margin-bottom: 5px;  	}
 .Genre { font-family: Inter; color: #FFDD00; font-size: 40px; font: normal; }
