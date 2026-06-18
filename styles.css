@@ -6,7 +6,7 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
   background-color: #1a1a2e;
   color: #e8e8e8;
   font-family: "Inter VariableFont opsz",wght, 'Segoe UI', Arial, sans-serif;
-  
+  justify-content: center;
 }
 
 .head { text-align: center; vertical-align: middle; height: 150px;    }
