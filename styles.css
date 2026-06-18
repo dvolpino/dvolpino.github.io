@@ -4,8 +4,12 @@ body {
     background-image: url(background%20YTML.jpg);
 	background-size: cover;
 	background-attachment: fixed;
-    background-position: top;      
-}
+    background-position: top;     }
+
+.logo { width: min(375px, 50vw);  height: auto;    border-radius: 6px;
+  /* Subtle glow so the logo feels anchored on dark bg */
+  filter: drop-shadow(0 4px 18px rgba(255,255,255,0.08));
+  transition: filter 0.2s ease;}
 
 .head { text-align: center; vertical-align: middle; height: 150px;    }
 
