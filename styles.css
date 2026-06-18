@@ -6,7 +6,7 @@ a { text-decoration: none;   }
 .scene { font-family: Inter; color: #00F5B4; margin: auto; 	}
 .Genre { font-family: Inter; color: #FFDD00; margin: auto; 	}
 .Rock { font-family: Inter; color:#FA60FF; margin: auto; 	}
-.SubGenre { font-family: Inter; color: #FFFFFF; margin: auto; letter-spacing: 0.03em; padding: 6px 14px; border-left: 3px solid transparent; border-radius: 2px; transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;	}
+.SubGenre { font-family: Inter; color: #FFFFFF; margin: auto; letter-spacing: 0.03em;  border-left: 3px solid transparent; border-radius: 2px; transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;	}
 .SubGenre:hover { color: #FFFFFF; border-left-color: #FFFFFF; background-color: rgba(168, 216, 255, 0.07); }
 .SubGenre.active { border-left-color: #FFFFFF;  background-color: rgba(255, 215, 0, 0.07); }
 .SubGenre2 { font-family: Inter; color: #FFFFFF; font-size: 50px;}
