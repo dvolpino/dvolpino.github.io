@@ -2,10 +2,7 @@
 a { text-decoration: none;   }
 body { background-image: url(background%20YTML.jpg); background-size: cover; background-attachment: fixed; background-position: top;     }
 
-.logo { width: max(575px, 25vw);  height: auto;    border-radius: 6px;
-  /* Subtle glow so the logo feels anchored on dark bg */
-  filter: drop-shadow(0 4px 18px rgba(255,255,255,0.08));
-  transition: filter 0.2s ease;}
+.logo { width:"675"; height:"127";  }
 
 .head { text-align: center; vertical-align: middle; height: 150px;    }
 
@@ -77,7 +74,8 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
 @media (max-height:1080px){
 	/* PC */
 	
-.head { text-align: center; vertical-align: middle;     }
+.head { text-align: center; vertical-align: middle;   }
+.logo { width: max(375px, 25vw);  height: auto;  }
 	
 .scene { font-family: Inter; color: #00F5B4; font-size: 40px; font: normal; margin: auto; margin-top: 5px; margin-bottom: 5px;  	}
 .Genre { font-family: Inter; color: #FFDD00; font-size: 40px; font: normal; }
