@@ -138,6 +138,15 @@ body {
 
 .decada{ display: block;   }
 .decada2{ float: left;   }
+
+/* Decade tape-counter assembly (frame + scrolling decade images).
+   All pieces are positioned via float at their native pixel size, so we
+   scale the WHOLE assembly uniformly with zoom rather than resizing
+   individual images — this preserves the frame/window alignment. */
+.tape-counter-wrap {
+  /* Native assembled width is 528px; scaled down to a 300px max-width target */
+  zoom: 0.568;
+}
 .carousel-contenedor { display: flex; }
 
 .splide {
@@ -146,18 +155,10 @@ body {
   min-width: 0;        /* Critical: Prevents Splide from breaking flex layouts */
 }
 
-/* Images inside slides scale to fit their container — no fixed JS width now */
-.splide__slide img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* #counter carousel images use the .decada2 class (float: left), which
-   overrides the rule above since floated elements size to their natural
-   dimensions. This more specific selector forces them to fit the slide too. */
-#counter .splide__slide img.decada2 {
-  float: none;
+/* Images inside slides scale to fit their container — no fixed JS width now.
+   #counter is excluded: its images use float-based positioning to align
+   with the surrounding frame border images, handled separately below. */
+#image-carousel .splide__slide img {
   width: 100%;
   height: auto;
   display: block;
@@ -233,6 +234,11 @@ body {
   /* Smaller carousel width on portrait phone screens */
   .splide {
     max-width: 170px;
+  }
+
+  /* Tape-counter assembly: 528px native -> 170px target on portrait phone */
+  .tape-counter-wrap {
+    zoom: 0.322;
   }
 
 }
