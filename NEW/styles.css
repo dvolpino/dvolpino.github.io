@@ -229,7 +229,7 @@ body {
 
 /* WIDE SCREENS  */
 @media (min-width: 1200px) {
- .logo-img { width: 660px;  } /* give the logo a bit more breathing room */
+ .logo-img { width: 600px;  } /* give the logo a bit more breathing room */
  #image-carousel.splide { max-width: 400px;  }  /* AFECTA EL TAMAÑO DEL CAROUSEL DE ALBUMES SOLAMENTE*/
 
 .tape-counter-outer {     /* SELECCIONADOR DE PLAYLIST X DECADA */ /* scale = desired width / 686 */ 
@@ -244,10 +244,13 @@ body {
 }
 } /* <-- closes @media (min-width: 1200px), was missing */
 
-/* TABLETS  */ 
-#image-carousel.splide { max-width: 400px;  }  /* AFECTA EL TAMAÑO DEL CAROUSEL DE ALBUMES SOLAMENTE*/
 
+/* TABLETS  */ 
 @media (max-width: 1199px) {
+#image-carousel.splide { max-width: 400px;  }  /* AFECTA EL TAMAÑO DEL CAROUSEL DE ALBUMES SOLAMENTE*/
+html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes use rem/clamp(...rem) units, changing the root html font-size scales all of them proportionally without editing every rule. */
+
+
 .tape-counter-outer {     /* SELECCIONADOR DE PLAYLIST X DECADA */ /* scale = desired width / 686 */ 
     width: 400px;    /* Desired width */
     height: 223px;   /* 383 x scale */
