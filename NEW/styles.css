@@ -297,6 +297,11 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
   .page-wrapper {
     padding-top: 8px;
   }
+
+  /* Slightly larger logo on portrait phones than the landscape phone size */
+  .logo-img {
+    width: min(280px, 78vw);
+  }
   
   /* Tape-counter assembly: 686px native -> 170px target on portrait phone.
      This overrides the 300px-target rule from the general phone breakpoint above
