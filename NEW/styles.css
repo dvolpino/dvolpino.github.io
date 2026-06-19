@@ -232,15 +232,15 @@ body {
  .logo-img { width: 660px;  } /* give the logo a bit more breathing room */
  #image-carousel.splide { max-width: 400px;  }  /* AFECTA EL TAMAÑO DEL CAROUSEL DE ALBUMES SOLAMENTE*/
 
-.tape-counter-outer {               /* SELECCIONADOR DE PLAYLIST X DECADA */
-    width: 400px;
-    height: 223px;
+.tape-counter-outer {     /* SELECCIONADOR DE PLAYLIST X DECADA */ /* scale = desired width / 686 */ 
+    width: 400px;    /* Desired width */
+    height: 223px;   /* 383 x scale */
 }
 .tape-counter-wrap {
     width: 400px;
-    height: 223px;
-    grid-template-columns: 48px 1fr 146px;
-    grid-template-rows: 38px 1fr 38px;
+    height: 223px;   /* 383 x scale */
+    grid-template-columns: 48px 1fr 146px;    /* (82 x scale)px 1fr (251 x scale)px */ 
+    grid-template-rows: 38px 1fr 38px;        /* (66 x scale)px 1fr (66 x scale)px */ 
 }
 } /* <-- closes @media (min-width: 1200px), was missing */
 
