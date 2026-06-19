@@ -140,8 +140,11 @@ body {
 .decada2{ float: left;   }
 .carousel-contenedor { display: flex; }
 
-.splide {  flex: 0 1 auto;      /* don't grow beyond max-width, can shrink if needed */
-  max-width: 200px;  min-width: 0;  }
+.splide {
+  flex: 0 1 auto;      /* don't grow past max-width, can still shrink on small screens */
+  max-width: 300px;    /* caps the carousel width — flex:1 previously overrode this */
+  min-width: 0;        /* Critical: Prevents Splide from breaking flex layouts */
+}
 
 /* =============================================
    MAIN CONTENT AREA
