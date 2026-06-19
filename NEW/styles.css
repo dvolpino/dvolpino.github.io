@@ -161,21 +161,18 @@ body {
    layout-space problem). */
 
 .tape-counter-outer {
-  /* Reserves the SCALED size in the page layout.
-     Native assembled: 686px wide x 383px tall (66+251+66).
-     Default (no media query) = no scaling, native size reserved. */
-  width: 686px;     /* ANCHO TOTAL DE LAS IMAGENES ORIGINALES DEL CONTADOR CAMBIAR SOLO SI CAMBIO EL TAMAÑO DE LAS MISMAS */
-  height: 383px;    /* ANCHO TOTAL DE LAS IMAGENES ORIGINALES DEL CONTADOR CAMBIAR SOLO SI CAMBIO EL TAMAÑO DE LAS MISMAS */
+  /* Default (no media query) = native size, no scaling */
+  width: 686px;
+  height: 383px;
   overflow: hidden;
 }
 
 .tape-counter-wrap {
-  width: 686px;     /* ANCHO TOTAL DE LAS IMAGENES ORIGINALES DEL CONTADOR CAMBIAR SOLO SI CAMBIO EL TAMAÑO DE LAS MISMAS */
-  height: 383px;    /* ANCHO TOTAL DE LAS IMAGENES ORIGINALES DEL CONTADOR CAMBIAR SOLO SI CAMBIO EL TAMAÑO DE LAS MISMAS */
+  width: 686px;
+  height: 383px;
   display: grid;
-  grid-template-columns: 82px 1fr 251px;   /* left border / window / right border widths */
-  grid-template-rows: 66px 1fr 66px;        /* top border / window / bottom border heights */
-  transform-origin: top left;
+  grid-template-columns: 82px 1fr 251px;
+  grid-template-rows: 66px 1fr 66px;
 }
 
 .tc-top    { grid-column: 1 / 4; grid-row: 1; }
@@ -236,12 +233,16 @@ body {
  #image-carousel.splide { max-width: 400px;  }  /* AFECTA EL TAMAÑO DEL CAROUSEL DE ALBUMES SOLAMENTE*/
 
 .tape-counter-outer {               /* SELECCIONADOR DE PLAYLIST X DECADA */
-    width: 400px;                   /* ← 1. pick your desired width */
-	height: calc(383px * 0.583); }  /* ← 2. same scale factor goes here, Scale factor = desired width / 686 (which is the original pixel width of borde_superior.webp and -borde_inferior.webp) */
-  
-  .tape-counter-wrap {
-	  transform: scale(0.583);  }   /* ← 2. same scale factor goes here, Scale factor = desired width / 686 (which is the original pixel width of borde_superior.webp and -borde_inferior.webp)  */
+    width: 400px;
+    height: 223px;
 }
+.tape-counter-wrap {
+    width: 400px;
+    height: 223px;
+    grid-template-columns: 48px 1fr 146px;
+    grid-template-rows: 38px 1fr 38px;
+}
+} /* <-- closes @media (min-width: 1200px), was missing */
 
 /* Landscape phones & small tablets */
 @media (max-width: 600px) {
@@ -255,11 +256,15 @@ body {
      transform:scale only affects rendering, so .tape-counter-outer
      reserves the actual scaled footprint to avoid overlapping content. */
   .tape-counter-outer {            /* SELECCIONADOR DE PLAYLIST X DECADA */
-    width: 200px;                  /* ← 1. pick your desired width */
-    height: calc(383px * 0.291);   /* ← 2. same scale factor goes here, Scale factor = desired width / 686 (which is the original pixel width of borde_superior.webp and -borde_inferior.webp) */
+    width: 200px;
+    height: 111px;
   }
   .tape-counter-wrap {
-	  transform: scale(0.291);  }  /* ← 2. same scale factor goes here, Scale factor = desired width / 686 (which is the original pixel width of borde_superior.webp and -borde_inferior.webp) */
+    width: 200px;
+    height: 111px;
+    grid-template-columns: 24px 1fr 73px;
+    grid-template-rows: 19px 1fr 19px;
+  }
 
   #image-carousel.splide { max-width: 300px;  } /*AFECTA EL TAMAÑO DEL CAROUSEL DE ALBUMES SOLAMENTE*/
 
@@ -273,11 +278,15 @@ body {
      This overrides the 300px-target rule from the general phone breakpoint above
      since this rule appears later in the cascade for the same specificity. */
   .tape-counter-outer {            /* SELECCIONADOR DE PLAYLIST X DECADA */
-    width: 300px;                  /* ← 1. pick your desired width */
-    height: calc(383px * 0.437); } /* ← 2. same scale factor goes here, Scale factor = desired width / 686 (which is the original pixel width of borde_superior.webp and -borde_inferior.webp) */
-  
+    width: 300px;
+    height: 167px;
+  }
   .tape-counter-wrap {
-	  transform: scale(0.437);   } /* ← 2. same scale factor goes here, Scale factor = desired width / 686 (which is the original pixel width of borde_superior.webp and -borde_inferior.webp)  */
+    width: 300px;
+    height: 167px;
+    grid-template-columns: 36px 1fr 110px;
+    grid-template-rows: 29px 1fr 29px;
+  }
 
   #image-carousel.splide { max-width: 300px;  } /*AFECTA EL TAMAÑO DEL CAROUSEL DE ALBUMES SOLAMENTE*/
 }
@@ -285,4 +294,3 @@ body {
 /* Very small portrait phones */ 
 @media (max-width: 360px) { .page-wrapper { padding: 20px 14px 40px; }
 } 
-
