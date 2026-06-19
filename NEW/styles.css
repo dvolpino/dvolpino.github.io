@@ -20,7 +20,6 @@ body {
   justify-content: center;
 }
 
-.head { text-align: center; vertical-align: middle; height: 150px;    }
 
 /* =============================================
    PAGE WRAPPER  – centers all content
@@ -189,7 +188,6 @@ body {
     padding: 5px 12px;
   }
 	
-
 }
 
 /* Very small portrait phones */ 
@@ -212,9 +210,9 @@ body {
 
 /* Portrait phones only: double all text size.        (orientation: portrait) and
    Since most font sizes use rem/clamp(...rem) units, doubling the root
-   html font-size scales all of them proportionally without editing every rule. */
+   html font-size scales all of them proportionally without editing every rule. 
 @media   (max-width: 650px) {
   html {
-    font-size: 28px; /* was 14px — doubled */
-  }
+    font-size: 28px; /* was 14px — doubled 
+  }*/
 }
