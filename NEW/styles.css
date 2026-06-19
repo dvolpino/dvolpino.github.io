@@ -195,10 +195,7 @@ body {
   .page-wrapper {
     padding: 20px 14px 40px;
   }
-	
-	 .Genre { font-size: 4rem; padding: 5px 12px;  }
-	
- .SubGenre{ font-size: 4rem; padding: 5px 12px;  }
+		
 } 
 
 /* Wide screens — give the logo a bit more breathing room */
@@ -208,11 +205,11 @@ body {
   }
 }
 
-/* Portrait phones only: double all text size.        (orientation: portrait) and
-   Since most font sizes use rem/clamp(...rem) units, doubling the root
-   html font-size scales all of them proportionally without editing every rule. 
-@media   (max-width: 650px) {
+/* Portrait phones only: double all text size.     
+   Since most font sizes use rem/clamp(...rem) units, changing the root
+   html font-size scales all of them proportionally without editing every rule. */
+@media   (orientation: portrait) and(max-width: 650px) {
   html {
-    font-size: 28px; /* was 14px — doubled 
-  }*/
+    font-size: 10px; /* was 14px — doubled 
+  }
 }
