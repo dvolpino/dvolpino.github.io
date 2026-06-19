@@ -292,6 +292,11 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
 /* PORTRAIT PHONES  */
 @media (orientation: portrait) and (max-width: 600px) {
   html { font-size: 10px; /* was 14px */  } /* Text size - Since most font sizes use rem/clamp(...rem) units, changing the root html font-size scales all of them proportionally without editing every rule. */
+
+  /* Brings the logo closer to the top of the screen, portrait phones only */
+  .page-wrapper {
+    padding-top: 8px;
+  }
   
   /* Tape-counter assembly: 686px native -> 170px target on portrait phone.
      This overrides the 300px-target rule from the general phone breakpoint above
