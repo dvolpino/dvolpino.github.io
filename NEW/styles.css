@@ -212,9 +212,12 @@ body {
 
 @media (orientation: portrait) and (max-width: 600px) {
   html { font-size: 10px; /* was 14px */  }
-	
-	
-	
+
+  /* Smaller carousel width on portrait phone screens */
+  .splide {
+    max-width: 170px;
+  }
+
 }
 
 
