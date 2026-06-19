@@ -144,8 +144,8 @@ body {
    scale the WHOLE assembly uniformly with zoom rather than resizing
    individual images — this preserves the frame/window alignment. */
 .tape-counter-wrap {
-  /* Native assembled width is 528px; scaled down to a 300px max-width target */
-  zoom: 0.568;
+  /* Native assembled width is now 264px (50% shrunk images); scaled up slightly to a 300px max-width target */
+  zoom: 1.136;
 }
 .carousel-contenedor { display: flex; }
 
@@ -236,9 +236,9 @@ body {
     max-width: 170px;
   }
 
-  /* Tape-counter assembly: 528px native -> 170px target on portrait phone */
+  /* Tape-counter assembly: 264px native (50% shrunk images) -> 170px target on portrait phone */
   .tape-counter-wrap {
-    zoom: 0.322;
+    zoom: 0.644;
   }
 
 }
