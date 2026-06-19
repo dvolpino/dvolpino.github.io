@@ -147,7 +147,7 @@ body {
   /* Native assembled width is now 264px (50% shrunk images); scaled up slightly to a 300px max-width target */
   zoom: 1.136;
 }
-.carousel-contenedor { display: flex; float: left; } /* float: left added so it sits inline with borde_izquierdo/borde_derecho, which are also floated */
+.carousel-contenedor { display: inline-flex; float: left; } /* inline-flex (not flex) so the container shrinks to fit #counter's actual width instead of stretching to fill the line */
 
 .splide {
   flex: 0 1 auto;      /* don't grow past max-width, can still shrink on small screens */
