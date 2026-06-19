@@ -153,6 +153,16 @@ body {
   display: block;
 }
 
+/* #counter carousel images use the .decada2 class (float: left), which
+   overrides the rule above since floated elements size to their natural
+   dimensions. This more specific selector forces them to fit the slide too. */
+#counter .splide__slide img.decada2 {
+  float: none;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 /* =============================================
    MAIN CONTENT AREA
    ============================================= */
