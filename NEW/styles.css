@@ -230,6 +230,19 @@ body {
    RESPONSIVE BREAKPOINTS
    ============================================= */
 
+/* WIDE SCREENS  */
+@media (min-width: 1200px) {
+ .logo-img { width: 660px;  } /* give the logo a bit more breathing room */
+ #image-carousel.splide { max-width: 400px;  }  /* AFECTA EL TAMAÑO DEL CAROUSEL DE ALBUMES SOLAMENTE*/
+
+.tape-counter-outer {               /* SELECCIONADOR DE PLAYLIST X DECADA */
+    width: 400px;                   /* ← 1. pick your desired width */
+	height: calc(383px * 0.583); }  /* ← 2. same scale factor goes here, Scale factor = desired width / 686 (which is the original pixel width of borde_superior.webp and -borde_inferior.webp) */
+  
+  .tape-counter-wrap {
+	  transform: scale(0.583);  }   /* ← 2. same scale factor goes here, Scale factor = desired width / 686 (which is the original pixel width of borde_superior.webp and -borde_inferior.webp)  */
+}
+
 /* Landscape phones & small tablets */
 @media (max-width: 600px) {
   .page-wrapper { padding: 28px 18px 48px;  }
@@ -246,42 +259,30 @@ body {
     height: calc(383px * 0.291);   /* ← 2. same scale factor goes here, Scale factor = desired width / 686 (which is the original pixel width of borde_superior.webp and -borde_inferior.webp) */
   }
   .tape-counter-wrap {
-    transform: scale(0.291);      /* ← 2. same scale factor goes here, Scale factor = desired width / 686 (which is the original pixel width of borde_superior.webp and -borde_inferior.webp) */
-  }
-}
+	  transform: scale(0.291);  }  /* ← 2. same scale factor goes here, Scale factor = desired width / 686 (which is the original pixel width of borde_superior.webp and -borde_inferior.webp) */
 
-/* Very small portrait phones */ 
-@media (max-width: 360px) { .page-wrapper { padding: 20px 14px 40px; }
-} 
+  #image-carousel.splide { max-width: 300px;  } /*AFECTA EL TAMAÑO DEL CAROUSEL DE ALBUMES SOLAMENTE*/
 
-/* WIDE SCREENS  */
-@media (min-width: 1200px) {
- .logo-img { width: 660px;  } /* give the logo a bit more breathing room */
- #image-carousel.splide { max-width: 400px;  }  /* AFECTA EL TAMAÑO DEL CAROUSEL DE ALBUMES SOLAMENTE*/
-
-.tape-counter-outer {               /* SELECCIONADOR DE PLAYLIST X DECADA */
-    width: 400px;                   /* ← 1. pick your desired width */
-	height: calc(383px * 0.583); }  /* ← 2. same scale factor goes here, Scale factor = desired width / 686 (which is the original pixel width of borde_superior.webp and -borde_inferior.webp) */
-  
-  .tape-counter-wrap {
-	  transform: scale(0.583);  }   /* ← 2. same scale factor goes here, Scale factor = desired width / 686 (which is the original pixel width of borde_superior.webp and -borde_inferior.webp)  */
 }
 
 /* PORTRAIT PHONES  */
 @media (orientation: portrait) and (max-width: 600px) {
   html { font-size: 10px; /* was 14px */  } /* Text size - Since most font sizes use rem/clamp(...rem) units, changing the root html font-size scales all of them proportionally without editing every rule. */
-  #image-carousel.splide { max-width: 300px;  } /*AFECTA EL TAMAÑO DEL CAROUSEL DE ALBUMES SOLAMENTE*/
-
+  
   /* Tape-counter assembly: 686px native -> 170px target on portrait phone.
      This overrides the 300px-target rule from the general phone breakpoint above
      since this rule appears later in the cascade for the same specificity. */
   .tape-counter-outer {            /* SELECCIONADOR DE PLAYLIST X DECADA */
-    width: 170px;                  /* ← 1. pick your desired width */
-    height: calc(383px * 0.248); } /* ← 2. same scale factor goes here, Scale factor = desired width / 686 (which is the original pixel width of borde_superior.webp and -borde_inferior.webp) */
+    width: 200px;                  /* ← 1. pick your desired width */
+    height: calc(383px * 0.2915); } /* ← 2. same scale factor goes here, Scale factor = desired width / 686 (which is the original pixel width of borde_superior.webp and -borde_inferior.webp) */
   
   .tape-counter-wrap {
-	  transform: scale(0.248);   } /* ← 2. same scale factor goes here, Scale factor = desired width / 686 (which is the original pixel width of borde_superior.webp and -borde_inferior.webp)  */
+	  transform: scale(0.2915);   } /* ← 2. same scale factor goes here, Scale factor = desired width / 686 (which is the original pixel width of borde_superior.webp and -borde_inferior.webp)  */
+
+  #image-carousel.splide { max-width: 300px;  } /*AFECTA EL TAMAÑO DEL CAROUSEL DE ALBUMES SOLAMENTE*/
 }
 
-
+/* Very small portrait phones */ 
+@media (max-width: 360px) { .page-wrapper { padding: 20px 14px 40px; }
+} 
 
