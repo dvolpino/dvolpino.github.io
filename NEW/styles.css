@@ -146,6 +146,13 @@ body {
   min-width: 0;        /* Critical: Prevents Splide from breaking flex layouts */
 }
 
+/* Images inside slides scale to fit their container — no fixed JS width now */
+.splide__slide img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 /* =============================================
    MAIN CONTENT AREA
    ============================================= */
