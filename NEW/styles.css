@@ -147,7 +147,7 @@ body {
   /* Native assembled width is now 264px (50% shrunk images); scaled up slightly to a 300px max-width target */
   zoom: 1.136;
 }
-.carousel-contenedor { display: inline-flex; float: left; } /* inline-flex (not flex) so the container shrinks to fit #counter's actual width instead of stretching to fill the line */
+div.carousel-contenedor { display: inline-flex !important; float: left; background: red !important; } /* TEMPORARY TEST: red background confirms whether this rule is reaching the browser at all */
 
 .splide {
   flex: 0 1 auto;      /* don't grow past max-width, can still shrink on small screens */
