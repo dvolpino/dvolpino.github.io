@@ -273,11 +273,11 @@ body {
      This overrides the 300px-target rule from the general phone breakpoint above
      since this rule appears later in the cascade for the same specificity. */
   .tape-counter-outer {            /* SELECCIONADOR DE PLAYLIST X DECADA */
-    width: 200px;                  /* ← 1. pick your desired width */
-    height: calc(383px * 0.2915); } /* ← 2. same scale factor goes here, Scale factor = desired width / 686 (which is the original pixel width of borde_superior.webp and -borde_inferior.webp) */
+    width: 300px;                  /* ← 1. pick your desired width */
+    height: calc(383px * 0.437); } /* ← 2. same scale factor goes here, Scale factor = desired width / 686 (which is the original pixel width of borde_superior.webp and -borde_inferior.webp) */
   
   .tape-counter-wrap {
-	  transform: scale(0.2915);   } /* ← 2. same scale factor goes here, Scale factor = desired width / 686 (which is the original pixel width of borde_superior.webp and -borde_inferior.webp)  */
+	  transform: scale(0.437);   } /* ← 2. same scale factor goes here, Scale factor = desired width / 686 (which is the original pixel width of borde_superior.webp and -borde_inferior.webp)  */
 
   #image-carousel.splide { max-width: 300px;  } /*AFECTA EL TAMAÑO DEL CAROUSEL DE ALBUMES SOLAMENTE*/
 }
