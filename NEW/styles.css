@@ -141,7 +141,7 @@ body {
 .carousel-contenedor { display: flex; }
 
 .splide {
-  flex: 1;             /* Takes up the remaining available space */
+  flex: 1;             /* Takes up the remaining available space. Makes it stretch to fill the flex container regardless of max-width  */
   min-width: 0;        /* Critical: Prevents Splide from breaking flex layouts */
 }
 
@@ -212,7 +212,9 @@ body {
 @media (orientation: portrait) and (max-width: 600px) {
   html { font-size: 10px; /* was 14px */  }
 	
-	.splide {max-width: 300px }
+	
+	.splide {  flex: 0 1 auto;      /* don't grow beyond max-width, can shrink if needed */
+  max-width: 300px;  min-width: 0;  }
 }
 
 
