@@ -290,18 +290,18 @@ body {
 
   /* Smaller carousel width on portrait phone screens (album covers carousel) */
   #image-carousel.splide {
-    max-width: 170px;
+    max-width: 300px;
   }
 
   /* Tape-counter assembly: 686px native -> 170px target on portrait phone.
      This overrides the 300px-target rule from the general phone breakpoint above
      since this rule appears later in the cascade for the same specificity. */
   .tape-counter-outer {
-    width: 170px;
-    height: calc(383px * 0.248);
+    width: 170px;                 /* ← 1. pick your desired width */
+    height: calc(383px * 0.248);  /* ← 2. same scale factor goes here, Scale factor = desired width / 686 (which is the original pixel width of borde_superior.webp and -borde_inferior.webp) */
   }
   .tape-counter-wrap {
-    transform: scale(0.248);
+    transform: scale(0.248);      /* ← 2. same scale factor goes here, Scale factor = desired width / 686 (which is the original pixel width of borde_superior.webp and -borde_inferior.webp)  */
   }
 
 }
