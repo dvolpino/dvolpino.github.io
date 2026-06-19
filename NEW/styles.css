@@ -140,10 +140,8 @@ body {
 .decada2{ float: left;   }
 .carousel-contenedor { display: flex; }
 
-.splide {
-  flex: 1;             /* Takes up the remaining available space. Makes it stretch to fill the flex container regardless of max-width  */
-  min-width: 0;        /* Critical: Prevents Splide from breaking flex layouts */
-}
+.splide {  flex: 0 1 auto;      /* don't grow beyond max-width, can shrink if needed */
+  max-width: 200px;  min-width: 0;  }
 
 /* =============================================
    MAIN CONTENT AREA
@@ -213,8 +211,7 @@ body {
   html { font-size: 10px; /* was 14px */  }
 	
 	
-	.splide {  flex: 0 1 auto;      /* don't grow beyond max-width, can shrink if needed */
-  max-width: 200px;  min-width: 0;  }
+	
 }
 
 
