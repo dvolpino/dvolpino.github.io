@@ -147,7 +147,7 @@ body {
 }
 
 /* =============================================
-   DECADE TAPE-COUNTER ASSEMBLY (rebuilt with CSS Grid)
+   DECADE TAPE-COUNTER ASSEMBLY (rebuilt with CSS Grid) cambiar tamaños de visualizacion en RESPONSIVE BREAKPOINTS
    ============================================= 
    Frame pieces + scrolling decade window, laid out as a 3x3 grid:
      top    top    top
@@ -164,14 +164,14 @@ body {
   /* Reserves the SCALED size in the page layout.
      Native assembled: 686px wide x 383px tall (66+251+66).
      Default (no media query) = no scaling, native size reserved. */
-  width: 686px;
-  height: 383px;
+  width: 686px;     /* ANCHO TOTAL DE LAS IMAGENES ORIGINALES DEL CONTADOR CAMBIAR SOLO SI CAMBIO EL TAMAÑO DE LAS MISMAS */
+  height: 383px;    /* ANCHO TOTAL DE LAS IMAGENES ORIGINALES DEL CONTADOR CAMBIAR SOLO SI CAMBIO EL TAMAÑO DE LAS MISMAS */
   overflow: hidden;
 }
 
 .tape-counter-wrap {
-  width: 686px;
-  height: 383px;
+  width: 686px;     /* ANCHO TOTAL DE LAS IMAGENES ORIGINALES DEL CONTADOR CAMBIAR SOLO SI CAMBIO EL TAMAÑO DE LAS MISMAS */
+  height: 383px;    /* ANCHO TOTAL DE LAS IMAGENES ORIGINALES DEL CONTADOR CAMBIAR SOLO SI CAMBIO EL TAMAÑO DE LAS MISMAS */
   display: grid;
   grid-template-columns: 82px 1fr 251px;   /* left border / window / right border widths */
   grid-template-rows: 66px 1fr 66px;        /* top border / window / bottom border heights */
@@ -232,78 +232,55 @@ body {
 
 /* Landscape phones & small tablets */
 @media (max-width: 600px) {
-  .page-wrapper {
-    padding: 28px 18px 48px;
-  }
-
-  .logo-img {
-    width: min(240px, 72vw);
-  }
-
-  .site-header {
-    margin-bottom: 28px;
-  }
-
-  .site-nav {
-    margin-bottom: 36px;
-  }
-
-  .nav-link {
-    font-size: 1rem;
-    padding: 5px 12px;
-  }
+  .page-wrapper { padding: 28px 18px 48px;  }
+  .logo-img { width: min(240px, 72vw);  }
+  .site-header { margin-bottom: 28px;  }
+  .site-nav { margin-bottom: 36px;  }
+  .nav-link { font-size: 1rem; padding: 5px 12px;  }
 
   /* Tape counter: scale down from 686px native to ~300px target.
      transform:scale only affects rendering, so .tape-counter-outer
      reserves the actual scaled footprint to avoid overlapping content. */
-  .tape-counter-outer {
-    width: 300px;
-    height: calc(383px * 0.437);
+  .tape-counter-outer {            /* SELECCIONADOR DE PLAYLIST X DECADA */
+    width: 200px;                  /* ← 1. pick your desired width */
+    height: calc(383px * 0.291);   /* ← 2. same scale factor goes here, Scale factor = desired width / 686 (which is the original pixel width of borde_superior.webp and -borde_inferior.webp) */
   }
   .tape-counter-wrap {
-    transform: scale(0.437);
+    transform: scale(0.291);      /* ← 2. same scale factor goes here, Scale factor = desired width / 686 (which is the original pixel width of borde_superior.webp and -borde_inferior.webp) */
   }
-	
 }
 
 /* Very small portrait phones */ 
-@media (max-width: 360px) {
-  .page-wrapper {
-    padding: 20px 14px 40px;
-  }
-		
+@media (max-width: 360px) { .page-wrapper { padding: 20px 14px 40px; }
 } 
 
-/* Wide screens — give the logo a bit more breathing room */
+/* WIDE SCREENS  */
 @media (min-width: 1200px) {
-  .logo-img {
-    width: 660px;
-  }
+ .logo-img { width: 660px;  } /* give the logo a bit more breathing room */
+ #image-carousel.splide { max-width: 400px;  }  /* AFECTA EL TAMAÑO DEL CAROUSEL DE ALBUMES SOLAMENTE*/
+
+.tape-counter-outer {               /* SELECCIONADOR DE PLAYLIST X DECADA */
+    width: 400px;                   /* ← 1. pick your desired width */
+	height: calc(383px * 0.583); }  /* ← 2. same scale factor goes here, Scale factor = desired width / 686 (which is the original pixel width of borde_superior.webp and -borde_inferior.webp) */
+  
+  .tape-counter-wrap {
+	  transform: scale(0.583);  }   /* ← 2. same scale factor goes here, Scale factor = desired width / 686 (which is the original pixel width of borde_superior.webp and -borde_inferior.webp)  */
 }
 
-/* Portrait phones only: double all text size.     
-   Since most font sizes use rem/clamp(...rem) units, changing the root
-   html font-size scales all of them proportionally without editing every rule. */
-
+/* PORTRAIT PHONES  */
 @media (orientation: portrait) and (max-width: 600px) {
-  html { font-size: 10px; /* was 14px */  }
-
-  /* Smaller carousel width on portrait phone screens (album covers carousel) */
-  #image-carousel.splide {
-    max-width: 300px;
-  }
+  html { font-size: 10px; /* was 14px */  } /* Text size - Since most font sizes use rem/clamp(...rem) units, changing the root html font-size scales all of them proportionally without editing every rule. */
+  #image-carousel.splide { max-width: 300px;  } /*AFECTA EL TAMAÑO DEL CAROUSEL DE ALBUMES SOLAMENTE*/
 
   /* Tape-counter assembly: 686px native -> 170px target on portrait phone.
      This overrides the 300px-target rule from the general phone breakpoint above
      since this rule appears later in the cascade for the same specificity. */
-  .tape-counter-outer {
-    width: 170px;                 /* ← 1. pick your desired width */
-    height: calc(383px * 0.248);  /* ← 2. same scale factor goes here, Scale factor = desired width / 686 (which is the original pixel width of borde_superior.webp and -borde_inferior.webp) */
-  }
+  .tape-counter-outer {            /* SELECCIONADOR DE PLAYLIST X DECADA */
+    width: 170px;                  /* ← 1. pick your desired width */
+    height: calc(383px * 0.248); } /* ← 2. same scale factor goes here, Scale factor = desired width / 686 (which is the original pixel width of borde_superior.webp and -borde_inferior.webp) */
+  
   .tape-counter-wrap {
-    transform: scale(0.248);      /* ← 2. same scale factor goes here, Scale factor = desired width / 686 (which is the original pixel width of borde_superior.webp and -borde_inferior.webp)  */
-  }
-
+	  transform: scale(0.248);   } /* ← 2. same scale factor goes here, Scale factor = desired width / 686 (which is the original pixel width of borde_superior.webp and -borde_inferior.webp)  */
 }
 
 
