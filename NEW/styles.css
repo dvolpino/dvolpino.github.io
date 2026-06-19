@@ -237,12 +237,28 @@ body {
     height: 223px;   /* 383 x scale */
 }
 .tape-counter-wrap {
-    width: 400px;
+    width: 400px;    /* Desired width */
     height: 223px;   /* 383 x scale */
-    grid-template-columns: 48px 1fr 146px;    /* (82 x scale)px 1fr (251 x scale)px */ 
-    grid-template-rows: 38px 1fr 38px;        /* (66 x scale)px 1fr (66 x scale)px */ 
+    grid-template-columns: 48px 1fr 146px;    /* (82 x scale)px 1fr (251 x scale)px  Round each to the nearest whole pixel */ 
+    grid-template-rows: 38px 1fr 38px;        /* (66 x scale)px 1fr (66 x scale)px Round each to the nearest whole pixel */ 
 }
 } /* <-- closes @media (min-width: 1200px), was missing */
+
+/* TABLETS  */ 
+#image-carousel.splide { max-width: 400px;  }  /* AFECTA EL TAMAÑO DEL CAROUSEL DE ALBUMES SOLAMENTE*/
+
+@media (max-width: 1199px) {
+.tape-counter-outer {     /* SELECCIONADOR DE PLAYLIST X DECADA */ /* scale = desired width / 686 */ 
+    width: 400px;    /* Desired width */
+    height: 223px;   /* 383 x scale */
+}
+.tape-counter-wrap {
+    width: 400px;    /* Desired width */
+    height: 223px;   /* 383 x scale */
+    grid-template-columns: 48px 1fr 146px;    /* (82 x scale)px 1fr (251 x scale)px  Round each to the nearest whole pixel */ 
+    grid-template-rows: 38px 1fr 38px;        /* (66 x scale)px 1fr (66 x scale)px Round each to the nearest whole pixel */ 
+}
+}
 
 /* Landscape phones & small tablets */
 @media (max-width: 600px) {
@@ -266,7 +282,7 @@ body {
     grid-template-rows: 19px 1fr 19px;
   }
 
-  #image-carousel.splide { max-width: 300px;  } /*AFECTA EL TAMAÑO DEL CAROUSEL DE ALBUMES SOLAMENTE*/
+  #image-carousel.splide { max-width: 400px;  } /*AFECTA EL TAMAÑO DEL CAROUSEL DE ALBUMES SOLAMENTE*/
 
 }
 
