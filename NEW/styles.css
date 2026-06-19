@@ -139,20 +139,66 @@ body {
 .decada{ display: block;   }
 .decada2{ float: left;   }
 
-/* Decade tape-counter assembly (frame + scrolling decade images).
-   All pieces are positioned via float at their native pixel size, so we
-   scale the WHOLE assembly uniformly with zoom rather than resizing
-   individual images — this preserves the frame/window alignment. */
-.tape-counter-wrap {
-  /* Native assembled width is now 264px (50% shrunk images); scaled up slightly to a 300px max-width target */
-  zoom: 1.136;
+/* Album covers carousel: capped width, doesn't grow */
+#image-carousel.splide {
+  flex: 0 1 auto;
+  max-width: 300px;
+  min-width: 0;
 }
-div.carousel-contenedor { display: inline-flex !important; float: left; background: red !important; } /* TEMPORARY TEST: red background confirms whether this rule is reaching the browser at all */
 
-.splide {
-  flex: 0 1 auto;      /* don't grow past max-width, can still shrink on small screens */
-  max-width: 300px;    /* caps the carousel width — flex:1 previously overrode this */
-  min-width: 0;        /* Critical: Prevents Splide from breaking flex layouts */
+/* =============================================
+   DECADE TAPE-COUNTER ASSEMBLY (rebuilt with CSS Grid)
+   ============================================= 
+   Frame pieces + scrolling decade window, laid out as a 3x3 grid:
+     top    top    top
+     left   window right
+     bottom bottom bottom
+   Grid guarantees pixel-perfect alignment regardless of float/zoom
+   quirks across browsers. The whole grid is scaled via the wrapper's
+   own width using transform:scale on .tape-counter-wrap, with
+   .tape-counter-outer reserving the correctly-scaled box size so
+   surrounding layout doesn't overlap (the classic transform:scale
+   layout-space problem). */
+
+.tape-counter-outer {
+  /* Reserves the SCALED size in the page layout.
+     Native assembled: 686px wide x 383px tall (66+251+66).
+     Default (no media query) = no scaling, native size reserved. */
+  width: 686px;
+  height: 383px;
+  overflow: hidden;
+}
+
+.tape-counter-wrap {
+  width: 686px;
+  height: 383px;
+  display: grid;
+  grid-template-columns: 82px 1fr 251px;   /* left border / window / right border widths */
+  grid-template-rows: 66px 1fr 66px;        /* top border / window / bottom border heights */
+  transform-origin: top left;
+}
+
+.tc-top    { grid-column: 1 / 4; grid-row: 1; }
+.tc-left   { grid-column: 1; grid-row: 2; }
+.tc-window { grid-column: 2; grid-row: 2; overflow: hidden; }
+.tc-right  { grid-column: 3; grid-row: 2; }
+.tc-bottom { grid-column: 1 / 4; grid-row: 3; }
+
+.tape-counter-wrap img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+.tc-window .splide,
+.tc-window .splide__track,
+.tc-window .splide__list,
+.tc-window .splide__slide,
+.tc-window .splide__slide img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none;
 }
 
 /* Images inside slides scale to fit their container — no fixed JS width now.
@@ -206,6 +252,17 @@ div.carousel-contenedor { display: inline-flex !important; float: left; backgrou
     font-size: 1rem;
     padding: 5px 12px;
   }
+
+  /* Tape counter: scale down from 686px native to ~300px target.
+     transform:scale only affects rendering, so .tape-counter-outer
+     reserves the actual scaled footprint to avoid overlapping content. */
+  .tape-counter-outer {
+    width: 300px;
+    height: calc(383px * 0.437);
+  }
+  .tape-counter-wrap {
+    transform: scale(0.437);
+  }
 	
 }
 
@@ -231,14 +288,20 @@ div.carousel-contenedor { display: inline-flex !important; float: left; backgrou
 @media (orientation: portrait) and (max-width: 600px) {
   html { font-size: 10px; /* was 14px */  }
 
-  /* Smaller carousel width on portrait phone screens */
-  .splide {
+  /* Smaller carousel width on portrait phone screens (album covers carousel) */
+  #image-carousel.splide {
     max-width: 170px;
   }
 
-  /* Tape-counter assembly: 264px native (50% shrunk images) -> 170px target on portrait phone */
+  /* Tape-counter assembly: 686px native -> 170px target on portrait phone.
+     This overrides the 300px-target rule from the general phone breakpoint above
+     since this rule appears later in the cascade for the same specificity. */
+  .tape-counter-outer {
+    width: 170px;
+    height: calc(383px * 0.248);
+  }
   .tape-counter-wrap {
-    zoom: 0.644;
+    transform: scale(0.248);
   }
 
 }
