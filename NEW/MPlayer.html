@@ -675,6 +675,50 @@
     document.getElementById('yt-cover-wrap').style.display = 'none';
     if (ytPlayer) ytPlayer.playVideo();
   }
+
+  /* CONFIRMED BUG (tested across 5 states): after rotating in EITHER direction
+     (portrait->landscape or landscape->portrait), the Grid layout that sizes
+     .yt-player-wrap keeps using the PREVIOUS orientation's dimensions, leaving
+     a large gap below the player. A manual page refresh fixes it instantly in
+     either orientation — meaning the CSS values themselves are correct, the
+     browser just isn't re-applying them after rotation specifically.
+
+     Fix: force the browser to fully re-parse and re-apply playerstyles.css
+     by removing its <link> and re-adding a fresh one (with a cache-busting
+     query string so it's treated as a new resource). This is a stronger
+     technique than toggling display or reading offsetHeight (which we tried
+     first and did not work), since it forces a genuine full re-evaluation
+     of every CSS rule in the file, not just a layout reflow of one element. */
+  function ytReloadPlayerStyles() {
+    var oldLink = document.querySelector('link[href*="playerstyles.css"]');
+    if (!oldLink) return;
+    var newLink = document.createElement('link');
+    newLink.rel = 'stylesheet';
+    newLink.type = 'text/css';
+    /* Cache-busting query string forces the browser to treat this as a
+       genuinely new stylesheet to parse, not a cached/already-applied one. */
+    newLink.href = oldLink.href.split('?')[0] + '?reload=' + Date.now();
+    newLink.onload = function () {
+      /* Remove the old link only after the new one has fully loaded,
+         to avoid a brief flash of unstyled content. */
+      oldLink.remove();
+    };
+    document.head.appendChild(newLink);
+  }
+
+  window.addEventListener('orientationchange', function () {
+    setTimeout(ytReloadPlayerStyles, 200);
+  });
+
+  /* Fallback for browsers/devices that don't fire orientationchange reliably */
+  var ytLastOrientation = window.innerWidth > window.innerHeight ? 'landscape' : 'portrait';
+  window.addEventListener('resize', function () {
+    var currentOrientation = window.innerWidth > window.innerHeight ? 'landscape' : 'portrait';
+    if (currentOrientation !== ytLastOrientation) {
+      ytLastOrientation = currentOrientation;
+      setTimeout(ytReloadPlayerStyles, 200);
+    }
+  });
 </script>
 <script src="https://www.youtube.com/iframe_api"></script>
 </body>
