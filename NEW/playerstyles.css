@@ -134,8 +134,8 @@
 @media (min-width: 933px) and (orientation: landscape) and (max-height: 1080px) {
   
   /* Video Display Settings */
-  .yt-player-wrap {
-    --avail-h: calc(100dvh - 106px - 0.5rem); /* Available height = 100dvh (the full screen height DO NOT CHANGE) - header logo (106px) - body padding // Reduce(Increase) a subtracted value → player gets taller(shorter)*/
+  .yt-player-wrap {                           /* <<largo del playlist */  
+    --avail-h: calc(100dvh - 106px - 3.5rem); /* Available height = 100dvh (the full screen height DO NOT CHANGE) - header logo (106px) - body padding // Reduce(Increase) a subtracted value → player gets taller(shorter)*/
     --controls-h: 2.8rem;
     --video-h: calc(var(--avail-h) - var(--controls-h));
     display: grid; grid-template-columns: var(--video-h) 1fr; grid-template-rows: var(--video-h) var(--controls-h); grid-template-areas: "video    playlist" "controls playlist"; max-width: 100%; height: var(--avail-h); overflow: hidden;  }
@@ -175,7 +175,7 @@
 	.yt-playlist-header { font-size: 1rem; }
 	#yt-playlist-name { font-size: 1rem;  } /* no especificaba font-size ni font-family: inter; */
     #yt-playlist-count {  font-size: 1rem; }  /* font-size: 0.72rem */
-	.yt-playlist-list { max-height: 290px; } /* largo del playlist */
+	.yt-playlist-list { max-height: 290px; } /* << largo del playlist */
 	.yt-track-name { font-size: 1rem; }
 	.yt-track-ch { font-size: 0.9rem; }
 	.yt-track-info { font-size: 1.8rem; }
@@ -188,7 +188,7 @@
 /* LANDSCAPE PHONES & SMALL TABLETS ONLY  */
 @media (max-width: 932px) and (orientation: landscape) {
   
-  .yt-player-wrap {
+  .yt-player-wrap {                         /* << largo del playlist */
     --avail-h: calc(100dvh - 106px - 0rem); /* Available height = 100dvh (the full screen height DO NOT CHANGE) - header logo (106px) - body padding (was 0.5rem, reduced to shrink the gap further) // Reduce(Increase) a subtracted value → player gets taller(shorter)*/
     --controls-h: 2.8rem;
     --video-h: calc(var(--avail-h) - var(--controls-h));
@@ -224,6 +224,8 @@
 /* PORTRAIT PHONES (matches styles.css's @media orientation:portrait + max-width:600px) */
 @media (orientation: portrait) and (max-width: 600px) {
 	#yt-player { aspect-ratio: 1 / 1;}
+	
+  /* << largo del playlist */	
   /* Caps the playlist height so it fits within the actual screen height. Bigger/Smaller playlist (less/more gap) → increase/decrease the number:  */
   /* SAme number needs to be replaced in MPlayer.html 	playlistList.style.maxHeight = (h * 0.40) + 'px';  */
   .yt-playlist-list {
