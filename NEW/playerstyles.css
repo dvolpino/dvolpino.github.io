@@ -39,6 +39,10 @@
     margin-bottom: 0 !important;
   }
 
+  /* TEMPORARY DEBUG: bright background to make any gap below the player
+     clearly visible in screenshots. Remove once the gap is confirmed fixed. */
+  body { background: magenta !important; }
+
   body { font-family: inter; padding: 0 1rem 1.5rem 1rem; } /* El padding afecta la posicion del logo y todo el resto Se puede probar a eliminar ya que como está el logo sube un poco respecto al resto de las páginas */
 
   .yt-player-wrap { border-color: rgba(255,255,255,0.1); width: 100%; max-width: 970px; margin: 0 auto; border-radius: 12px; overflow: hidden; border: 1px solid rgba(0,0,0,0.1);   } 
@@ -189,7 +193,7 @@
 @media (max-width: 932px) and (orientation: landscape) {
   
   .yt-player-wrap {
-    --avail-h: calc(100dvh - 106px - 0.5rem); /* Available height = 100dvh (the full screen height DO NOT CHANGE) - header logo (106px) - body padding (1.5rem) // Reduce(Increase) a subtracted value → player gets taller(shorter)*/
+    --avail-h: calc(100dvh - 106px - 0rem); /* Available height = 100dvh (the full screen height DO NOT CHANGE) - header logo (106px) - body padding (was 0.5rem, reduced to 0 to close remaining gap) // Reduce(Increase) a subtracted value → player gets taller(shorter)*/
     --controls-h: 2.8rem;
     --video-h: calc(var(--avail-h) - var(--controls-h));
 
