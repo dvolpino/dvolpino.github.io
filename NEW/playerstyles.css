@@ -192,9 +192,10 @@
   #yt-track-title { font-size: 1.9rem; }
   #yt-time-display { font-size: 2rem; }
 	
+   /* Playlist settings */
+  #yt-playlist-name { font-size: 1.9rem; }
+  #yt-playlist-count { font-size: 1.2rem; }
   .yt-track-num { writing-mode: horizontal-tb; }
-
-  /* Larger track rows for desktop/laptop monitors */
   .yt-track-row { padding: 0.4rem 0.9rem; gap: 9px; }
   .yt-track-thumb { width: 67px; height: 67px; }
   .yt-track-name { font-size: 1rem; }    /* tamaño de nombre de la canción en el PLAYLIST */
@@ -202,8 +203,7 @@
   .yt-track-num { font-size: 1rem; width: 18px; }
   .yt-track-duration { font-size: 1rem; }
   .yt-playlist-header { padding: 0.4rem 0.8rem; }
-  #yt-playlist-name { font-size: 1.9rem; }
-  #yt-playlist-count { font-size: 0.95rem; }
+ 
 }
 
 /* TABLETS (matches styles.css's @media max-width:1199px) */
