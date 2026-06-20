@@ -120,9 +120,17 @@
   .yt-track-ch { font-size: 1.9rem; color:rgba(223,223,223,1.00); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px;  } /* font-size: 0.7rem */
 
 
-@media (max-height:1080px){
-	/* PC */
+/* =============================================
+   RESPONSIVE BREAKPOINTS — aligned with styles.css
+   ============================================= */
 
+/* WIDE SCREENS (matches styles.css's @media min-width:1200px) */
+@media (min-width: 1200px) {
+ .yt-playlist-list { max-height: 290px; } /* largo del playlist */
+}
+
+/* TABLETS (matches styles.css's @media max-width:1199px) */
+@media (max-width: 1199px) {
 	.yt-player-wrap { max-width: 720px;  }
 	#yt-player { aspect-ratio: 16 / 9;}
 	.yt-track-info { font-size: 1rem;  }
@@ -139,9 +147,10 @@
 	.yt-track-thumb { width: 60px; height: 60px; object-fit: cover; order-radius: 3px; background: #eee; flex-shrink: 0;  } 
 	.yt-track-duration { font-size: 0.8rem; } /* 0.8rem  */
 	#yt-time-display { font-size: 0.85rem; }
+}
 
-
-@media (orientation: landscape) and (max-height: 1080px) {
+/* LANDSCAPE PHONES & SMALL TABLETS (matches styles.css's @media max-width:600px) */
+@media (max-width: 600px) and (orientation: landscape) {
   /* Landscape layout: video (square 16/16) on left, playlist on right, same height.
      Controls sit below the video.
      Available height = 100dvh minus header logo (127px) and body padding (3rem).
@@ -207,6 +216,15 @@
     max-height: none;
     overflow-y: auto;
   }
-	.yt-track-num { writing-mode: horizontal-tb; } /* agregue: horizontal-tb; y text-orientation: upright; para que ponga los numeros normalmente en landscape */
+  .yt-track-num { writing-mode: horizontal-tb; } /* agregue: horizontal-tb; y text-orientation: upright; para que ponga los numeros normalmente en landscape */
 }
-} /* <-- closes @media (max-height:1080px), was missing */
+
+/* PORTRAIT PHONES (matches styles.css's @media orientation:portrait + max-width:600px) */
+@media (orientation: portrait) and (max-width: 600px) {
+  /* Caps the playlist height so it fits within the actual screen height,
+     avoiding page-level scrolling (only the playlist itself scrolls internally).
+     Adjust this value to taste — it's independent from the landscape Grid system. */
+  .yt-playlist-list {
+    max-height: 45vh;
+  }
+}
