@@ -724,7 +724,7 @@
       var isPortraitPhone = (h >= w) && (w <= 600);
       var playlistList = document.querySelector('.yt-playlist-list');
       if (isPortraitPhone && playlistList) {
-        playlistList.style.maxHeight = (h * 0.37) + 'px';
+        playlistList.style.maxHeight = (h * 0.40) + 'px';
       } else if (playlistList) {
         playlistList.style.removeProperty('max-height');
       }

@@ -228,7 +228,7 @@
      avoiding page-level scrolling (only the playlist itself scrolls internally).
      Adjust this value to taste — it's independent from the landscape Grid system. */
   .yt-playlist-list {
-    max-height: 37vh;
+    max-height: 40vh;
   }
 	
 	 /* Playlist settings */
