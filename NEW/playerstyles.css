@@ -15,11 +15,15 @@
      which placed the header and footer side-by-side on this page since MPlayer.html
      doesn't use the .page-wrapper column layout the rest of the site relies on.
      This forces them to stack vertically instead.
+     justify-content:flex-start keeps content pinned to the top instead of
+     vertically centered in the viewport (styles.css's justify-content:center
+     controls the vertical axis once flex-direction is column).
      !important needed because styles.css loads AFTER this file, so it would
      otherwise win on equal specificity. */
   body {
     flex-direction: column !important;
     align-items: stretch !important;
+    justify-content: flex-start !important;
   }
 
   /* Flex children shrink-to-fit their content by default. Without this,
