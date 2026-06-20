@@ -241,6 +241,6 @@
      avoiding page-level scrolling (only the playlist itself scrolls internally).
      Adjust this value to taste — it's independent from the landscape Grid system. */
   .yt-playlist-list {
-    max-height: 45vh;  /* largo automaticamente escalable del playlist Using 45vh means the playlist automatically scales to always be "45% of whatever screen it's on" */
+    max-height: 55vh;  /* largo automaticamente escalable del playlist Using 45vh means the playlist automatically scales to always be "45% of whatever screen it's on" */
   }
 }
