@@ -126,7 +126,7 @@
 
 /* WIDE SCREENS (matches styles.css's @media min-width:1200px) */
 @media (min-width: 1200px) {
- .yt-playlist-list { max-height: 270px; } /* largo del playlist */
+ .yt-playlist-list { max-height: 290px; } /* largo del playlist */
 }
 
 /* TABLETS (matches styles.css's @media max-width:1199px) */
