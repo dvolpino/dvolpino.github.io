@@ -187,9 +187,19 @@
 
 /* LANDSCAPE PHONES & SMALL TABLETS ONLY  */
 @media (max-width: 932px) and (orientation: landscape) {
-  
+
+  /* body has padding-bottom:1.5rem globally (set further down in this file),
+     which adds extra space below .yt-player-wrap that --avail-h's formula
+     doesn't account for (--avail-h only reserves space ABOVE the player,
+     for the logo). This was the real cause of the persistent bottom gap —
+     the player itself was correctly sized, but body's own bottom padding
+     added extra space after it. Removing it here for landscape phones only. */
+  body {
+    padding-bottom: 0 !important;
+  }
+
   .yt-player-wrap {
-    --avail-h: calc(100vh - 106px - 0rem); /* Switched from 100dvh to 100vh as a test — dvh may not be reporting true visible height correctly on this device/browser. Available height = 100vh (the full screen height DO NOT CHANGE) - header logo (106px) - body padding (was 0.5rem, reduced to 0 to close remaining gap) // Reduce(Increase) a subtracted value → player gets taller(shorter)*/
+    --avail-h: calc(100dvh - 106px - 0px); /* body padding-bottom now removed above (was 1.5rem, the actual cause of the gap) — no longer need to subtract anything extra here besides the logo */
     --controls-h: 2.8rem;
     --video-h: calc(var(--avail-h) - var(--controls-h));
 
