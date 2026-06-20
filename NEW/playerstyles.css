@@ -237,14 +237,14 @@
   #yt-playlist-count { font-size: 1.15rem; }  /* tamaño de "XX tracks · X hrs, 29 min" */
   /*.yt-track-row { padding: 0.4rem 0.9rem; gap: 9px; } */
 	.yt-track-row {
-    padding-left: 0.5rem;  /* was 1rem (from the shorthand padding: 0.45rem 1rem) less space between the row's edge and the track number */
+    padding-left: 0.3rem;  /* was 1rem (from the shorthand padding: 0.45rem 1rem) less space between the row's edge and the track number */
     gap: 3px;              /* was 10px  less space between number → thumbnail → text */
   }
-  .yt-track-num { font-size: 1rem; width: 18px; } /* width — narrower reserved column for the number itself */
+  .yt-track-num { font-size: 1.2rem; width: 18px; } /* width — narrower reserved column for the number itself */
   .yt-track-num { writing-mode: vertical-lr; } /* vertical-lr / horizontal-tb */
   .yt-track-thumb { width: 57px; height: 57px; }
   .yt-track-name { font-size: 1.5rem; }    /* tamaño del nombre de la canción en el PLAYLIST */
   .yt-track-ch { font-size: 1rem; } /* ontrols the artist/channel name text — the smaller line shown below each song title in the playlist */
-  .yt-track-duration { font-size: 1.3rem; }
+  .yt-track-duration { font-size: 1.5rem; }
 	
 }
