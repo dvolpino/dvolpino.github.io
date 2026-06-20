@@ -1,19 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>YTML | Home</title>
-	<style>
-	 /* Shuffle button starts dimmed (off); ytToggleShuffle() sets opacity to 1 when on */
-  #yt-shuffle { opacity: 0.35; } 	</style>
+<meta charset="utf-8">
+<title>YTML</title>
 	
-  <link href="playerstyles.css" rel="stylesheet" type="text/css">	
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" href="images/icons/favicon.ico" type="image/x-icon">
-  <link rel="shortcut icon" href="images/icons/favicon.ico" type="image/x-icon">
-</head>
+<!--<style type="text/css">
+	 /* Fix background-attachment: fixed breaking on mobile 
+  @media (max-width: 768px) {
+    body {
+      background-attachment: scroll;
+    }
+  } */
+</style>-->
 
+<link href="playerstyles.css" rel="stylesheet" type="text/css">
+<link href="styles.css" rel="stylesheet" type="text/css">	
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+</head>
 <!--
   HOW TO LINK TO THE PLAYER FROM ANY PAGE
   =========================================
@@ -44,22 +48,8 @@
   thumb       (optional) Cover image path
 
 -->
-	
 <body>
-
-  <div class="page-wrapper">
-
-    <!-- LOGO -->
-    <header class="site-header">
-      <a href="index.html" class="logo-link">
-        <img src="images/logo.webp" alt="Logo" class="logo-img" />
-      </a>
-    </header>
-    
-
-    <!-- MAIN CONTENT -->
-    <main class="site-main">
-     		
+<header class="head"><a><img src="images/logo.webp" alt="" width="675" height="127" onclick="history.back()" /></a></header>
 <footer class="cuerpo">
   <nav>
   	
@@ -683,11 +673,5 @@
   }
 </script>
 <script src="https://www.youtube.com/iframe_api"></script>
-		
-		
-    </main>
-
-  </div>
-
 </body>
 </html>
