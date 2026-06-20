@@ -189,12 +189,12 @@
 	
 	/* "Now Playing" title shown in the controls bar above the playlist —
      different element from .yt-track-name (the playlist row titles) */
-  #yt-track-title { font-size: 1.9rem; }
+  #yt-track-title { font-size: 1.8rem; }
   #yt-time-display { font-size: 2rem; }
 	
    /* Playlist settings */
-  #yt-playlist-name { font-size: 1.9rem; }
-  #yt-playlist-count { font-size: 1.2rem; }
+  #yt-playlist-name { font-size: 1.7rem; }
+  #yt-playlist-count { font-size: 1.15rem; }
   .yt-track-num { writing-mode: horizontal-tb; }
   .yt-track-row { padding: 0.4rem 0.9rem; gap: 9px; }
   .yt-track-thumb { width: 67px; height: 67px; }
