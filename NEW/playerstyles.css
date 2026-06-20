@@ -225,8 +225,8 @@
      matching the reference layout with smaller thumbnails and tighter text.
      Sized to target ~11 visible rows. */
   .yt-track-row { padding: 0.4rem 0.9rem; gap: 9px; }
-  .yt-track-thumb { width: 62px; height: 62px; } /* Define el tamaño de cada thumb por lo tanto se puede ajustar a que aparezca el ultimo completo */
-  .yt-track-name { font-size: 1.15rem; }
+  .yt-track-thumb { width: 61px; height: 61px; } /* Define el tamaño de cada thumb por lo tanto se puede ajustar a que aparezca el ultimo completo */
+  .yt-track-name { font-size: 5.15rem; }
   .yt-track-ch { font-size: 1rem; }
   .yt-track-num { font-size: 1rem; width: 18px; }
   .yt-track-duration { font-size: 1rem; }
