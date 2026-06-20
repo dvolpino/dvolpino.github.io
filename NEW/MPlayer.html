@@ -676,49 +676,80 @@
     if (ytPlayer) ytPlayer.playVideo();
   }
 
-  /* CONFIRMED BUG (tested across 5 states): after rotating in EITHER direction
-     (portrait->landscape or landscape->portrait), the Grid layout that sizes
-     .yt-player-wrap keeps using the PREVIOUS orientation's dimensions, leaving
-     a large gap below the player. A manual page refresh fixes it instantly in
-     either orientation — meaning the CSS values themselves are correct, the
-     browser just isn't re-applying them after rotation specifically.
+  /* CONFIRMED BUG (tested across 5 states): after rotating in EITHER direction,
+     the Grid layout sizing .yt-player-wrap keeps using the PREVIOUS
+     orientation's dimensions until the page is refreshed. We confirmed this
+     persists even after forcing a full CSS file reload — meaning the problem
+     is not CSS caching/parsing, but how the browser's Grid engine evaluates
+     nested calc()/custom-property chains (--avail-h -> --video-h -> grid-
+     template-rows/columns) specifically across an orientation change.
 
-     Fix: force the browser to fully re-parse and re-apply playerstyles.css
-     by removing its <link> and re-adding a fresh one (with a cache-busting
-     query string so it's treated as a new resource). This is a stronger
-     technique than toggling display or reading offsetHeight (which we tried
-     first and did not work), since it forces a genuine full re-evaluation
-     of every CSS rule in the file, not just a layout reflow of one element. */
-  function ytReloadPlayerStyles() {
-    var oldLink = document.querySelector('link[href*="playerstyles.css"]');
-    if (!oldLink) return;
-    var newLink = document.createElement('link');
-    newLink.rel = 'stylesheet';
-    newLink.type = 'text/css';
-    /* Cache-busting query string forces the browser to treat this as a
-       genuinely new stylesheet to parse, not a cached/already-applied one. */
-    newLink.href = oldLink.href.split('?')[0] + '?reload=' + Date.now();
-    newLink.onload = function () {
-      /* Remove the old link only after the new one has fully loaded,
-         to avoid a brief flash of unstyled content. */
-      oldLink.remove();
-    };
-    document.head.appendChild(newLink);
+     Fix: bypass calc() and custom properties entirely at the point of
+     application. JS computes the final pixel numbers directly from
+     window.innerWidth/innerHeight (which DO update correctly and immediately
+     on rotation) and writes them straight into grid-template-columns /
+     grid-template-rows / height as plain pixel strings — no calc(), no
+     var(), nothing for the Grid engine to "remember" incorrectly. */
+  function ytApplyGridSizing() {
+    var wrap = document.querySelector('.yt-player-wrap');
+    if (!wrap) return;
+
+    var w = window.innerWidth;
+    var h = window.innerHeight;
+    var isLandscapePhone = (w > h) && (w <= 932);
+    var isLandscapeDesktop = (w > h) && (w >= 933) && (h <= 1080);
+
+    if (!isLandscapePhone && !isLandscapeDesktop) {
+      /* Portrait or anything outside the landscape Grid breakpoints —
+         clear our inline overrides so the CSS's own (non-Grid) rules for
+         this context apply normally. */
+      wrap.style.removeProperty('grid-template-columns');
+      wrap.style.removeProperty('grid-template-rows');
+      wrap.style.removeProperty('height');
+      wrap.style.removeProperty('display');
+      var videoWrapClear = document.querySelector('.yt-video-wrapper');
+      if (videoWrapClear) {
+        videoWrapClear.style.removeProperty('width');
+        videoWrapClear.style.removeProperty('height');
+      }
+      var controlsClear = document.querySelector('.yt-controls');
+      if (controlsClear) controlsClear.style.removeProperty('width');
+      var playlistClear = document.querySelector('.yt-playlist');
+      if (playlistClear) playlistClear.style.removeProperty('height');
+      return;
+    }
+
+    /* Same constants the CSS itself uses, just evaluated here as plain
+       numbers instead of inside a Grid-tracked calc() chain. */
+    var logoHeight   = 106;
+    var bottomPad    = isLandscapePhone ? 0 : 0;  /* matches current CSS values for each breakpoint */
+    var controlsH    = 45; /* 2.8rem at 16px root ≈ 44.8px */
+
+    var availH = h - logoHeight - bottomPad;
+    var videoH = availH - controlsH;
+
+    wrap.style.display = 'grid';
+    wrap.style.gridTemplateColumns = videoH + 'px 1fr';
+    wrap.style.gridTemplateRows = videoH + 'px ' + controlsH + 'px';
+    wrap.style.height = availH + 'px';
+
+    var videoWrap = document.querySelector('.yt-video-wrapper');
+    if (videoWrap) {
+      videoWrap.style.width = videoH + 'px';
+      videoWrap.style.height = videoH + 'px';
+    }
+    var controls = document.querySelector('.yt-controls');
+    if (controls) controls.style.width = videoH + 'px';
+    var playlist = document.querySelector('.yt-playlist');
+    if (playlist) playlist.style.height = availH + 'px';
   }
 
   window.addEventListener('orientationchange', function () {
-    setTimeout(ytReloadPlayerStyles, 200);
+    setTimeout(ytApplyGridSizing, 50);
+    setTimeout(ytApplyGridSizing, 300);
   });
-
-  /* Fallback for browsers/devices that don't fire orientationchange reliably */
-  var ytLastOrientation = window.innerWidth > window.innerHeight ? 'landscape' : 'portrait';
-  window.addEventListener('resize', function () {
-    var currentOrientation = window.innerWidth > window.innerHeight ? 'landscape' : 'portrait';
-    if (currentOrientation !== ytLastOrientation) {
-      ytLastOrientation = currentOrientation;
-      setTimeout(ytReloadPlayerStyles, 200);
-    }
-  });
+  window.addEventListener('resize', ytApplyGridSizing);
+  ytApplyGridSizing(); /* run once on initial load too */
 </script>
 <script src="https://www.youtube.com/iframe_api"></script>
 </body>
