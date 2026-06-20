@@ -126,7 +126,7 @@
 
 /* WIDE SCREENS (matches styles.css's @media min-width:1200px) */
 @media (min-width: 1200px) {
-  .yt-playlist-list { max-height: 310px; } /* largo fijo del playlist */
+  .yt-playlist-list { max-height: 320px; } /* largo fijo del playlist */
   .yt-track-row { padding: 0.4rem 0.9rem; gap: 9px; }
   .yt-track-thumb { width: 60px; height: 60px; } /* Define el tamaño de cada thumb por lo tanto se puede ajustar a que aparezca el ultimo completo */
   .yt-track-name { font-size: 1.17rem; } /* Tamaño de fuente de cada track */
