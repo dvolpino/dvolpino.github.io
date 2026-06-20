@@ -135,7 +135,7 @@
   
   /* Video Display Settings */
   .yt-player-wrap {                           /* <<largo del playlist */  
-    --avail-h: calc(100dvh - 106px - 2.5rem); /* Available height = 100dvh (the full screen height DO NOT CHANGE) - header logo (106px) - body padding // Reduce(Increase) a subtracted value → player gets taller(shorter)*/
+    --avail-h: calc(100dvh - 106px - 1.5rem); /* Available height = 100dvh (the full screen height DO NOT CHANGE) - header logo (106px) - body padding // Reduce(Increase) a subtracted value → player gets taller(shorter)*/
     --controls-h: 2.8rem;
     --video-h: calc(var(--avail-h) - var(--controls-h));
     display: grid; grid-template-columns: var(--video-h) 1fr; grid-template-rows: var(--video-h) var(--controls-h); grid-template-areas: "video    playlist" "controls playlist"; max-width: 100%; height: var(--avail-h); overflow: hidden;  }
