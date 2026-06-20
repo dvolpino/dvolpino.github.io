@@ -701,8 +701,8 @@
 
     if (!isLandscapePhone && !isLandscapeDesktop) {
       /* Portrait or anything outside the landscape Grid breakpoints —
-         clear our inline overrides so the CSS's own (non-Grid) rules for
-         this context apply normally. */
+         clear our landscape-specific inline overrides so the CSS's own
+         (non-Grid) rules for this context apply normally. */
       wrap.style.removeProperty('grid-template-columns');
       wrap.style.removeProperty('grid-template-rows');
       wrap.style.removeProperty('height');
@@ -716,6 +716,18 @@
       if (controlsClear) controlsClear.style.removeProperty('width');
       var playlistClear = document.querySelector('.yt-playlist');
       if (playlistClear) playlistClear.style.removeProperty('height');
+
+      /* Portrait phone's own playlist height (CSS uses 37vh) can suffer
+         the same vh-recalculation-on-rotation issue, just on a different
+         property. Bypass it the same way: compute the pixel value directly
+         from the live window.innerHeight instead of relying on vh. */
+      var isPortraitPhone = (h >= w) && (w <= 600);
+      var playlistList = document.querySelector('.yt-playlist-list');
+      if (isPortraitPhone && playlistList) {
+        playlistList.style.maxHeight = (h * 0.37) + 'px';
+      } else if (playlistList) {
+        playlistList.style.removeProperty('max-height');
+      }
       return;
     }
 
