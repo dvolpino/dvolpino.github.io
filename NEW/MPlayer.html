@@ -687,23 +687,20 @@
     /* TEMPORARY DEBUG: visible flash to confirm this function actually runs.
        Remove this block once we've confirmed the listener fires correctly. */
     var debugFlash = document.createElement('div');
-    debugFlash.textContent = 'REFLOW FIRED: ' + new Date().toLocaleTimeString();
+    debugFlash.textContent = 'REFLOW FIRED: ' + new Date().toLocaleTimeString() + ' h=' + window.innerHeight;
     debugFlash.style.cssText = 'position:fixed; top:0; left:0; right:0; background:lime; color:black; font-size:20px; padding:10px; z-index:99999; text-align:center;';
     document.body.appendChild(debugFlash);
-    setTimeout(function() { debugFlash.remove(); }, 3000);
+    setTimeout(function() { debugFlash.remove(); }, 4000);
 
-    /* Some mobile browsers cache the dvh value itself, so toggling display
-       on an element doesn't force a true re-read of the viewport height.
-       A tiny scroll forces the browser to actually re-measure the viewport
-       (a more reliable trick for dvh/vh recalculation on mobile Safari/Chrome). */
-    window.scrollTo(0, 1);
-    requestAnimationFrame(function() {
-      window.scrollTo(0, 0);
-      /* Also still toggle display as a secondary nudge for layout recalc */
-      wrap.style.display = 'none';
-      void wrap.offsetHeight;
-      wrap.style.display = '';
-    });
+    /* Instead of relying on dvh re-measurement (which some mobile browsers
+       cache more aggressively than expected), compute --avail-h ourselves
+       in JS using window.innerHeight (always accurate, no caching issue)
+       and set it directly as an inline custom property. This bypasses
+       the dvh/calc() recalculation question entirely. */
+    var logoHeight = 106;
+    var bottomPadding = 24; /* 1.5rem at default 16px root, adjust if root font-size differs */
+    var availH = window.innerHeight - logoHeight - bottomPadding;
+    wrap.style.setProperty('--avail-h', availH + 'px');
   }
 
   window.addEventListener('orientationchange', function () {
@@ -722,6 +719,10 @@
       setTimeout(ytForceReflow, 300);
     }
   });
+
+  /* Also run once after initial load, so the very first render uses the
+     JS-computed value too (consistent baseline, not relying on dvh at all). */
+  setTimeout(ytForceReflow, 300);
 </script>
 <script src="https://www.youtube.com/iframe_api"></script>
 </body>
