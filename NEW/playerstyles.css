@@ -120,7 +120,7 @@
   .yt-track-ch { font-size: 1.9rem; color:rgba(223,223,223,1.00); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px;  } /* font-size: 0.7rem */
 
 
-@media (max-height:1080px) {
+@media (max-height:1080px){
 	/* PC */
 
 	.yt-player-wrap { max-width: 720px;  }
@@ -139,7 +139,7 @@
 	.yt-track-thumb { width: 60px; height: 60px; object-fit: cover; order-radius: 3px; background: #eee; flex-shrink: 0;  } 
 	.yt-track-duration { font-size: 0.8rem; } /* 0.8rem  */
 	#yt-time-display { font-size: 0.85rem; }
-}
+
 
 @media (orientation: landscape) and (max-height: 1080px) {
   /* Landscape layout: video (square 16/16) on left, playlist on right, same height.
@@ -209,3 +209,4 @@
   }
 	.yt-track-num { writing-mode: horizontal-tb; } /* agregue: horizontal-tb; y text-orientation: upright; para que ponga los numeros normalmente en landscape */
 }
+} /* <-- closes @media (max-height:1080px), was missing */
