@@ -169,7 +169,7 @@
      We use a CSS custom property to share this value across rules. */
 
   .yt-player-wrap {  /* en este breakpoint se define el alto del player completo acá.... REDUCIENDO en --avail-h los valores que restan a 100 dvh SE AGRANDA  */
-    --avail-h: calc(100dvh - 106px - 1.45rem); /* 100dvh NO CAMBIARLO -- 106px = actual logo height (Espacio reservado para el logo); 1.5rem = body's bottom padding only (top padding is 0)  */
+    --avail-h: calc(100dvh - 106px - 1.5rem); /* 100dvh NO CAMBIARLO -- 106px = actual logo height (Espacio reservado para el logo); 1.5rem = body's bottom padding only (top padding is 0)  */
     /* Controls height is roughly 2.8rem (padding + button) */
     --controls-h: 2.8rem;
     /* Video height = available height minus controls */
