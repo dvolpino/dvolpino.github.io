@@ -22,9 +22,22 @@
     align-items: center !important;
   }
 
+  /* Flex children shrink-to-fit their content by default. Without this,
+     the player's width was being driven by the playlist's text content
+     (shorter track names = narrower player) instead of filling the screen. */
+  .cuerpo {
+    width: 100%;
+  }
+
+  /* styles.css adds margin-bottom:2% under .site-header (the logo) which left
+     too much space above the player on this page specifically */
+  .site-header {
+    margin-bottom: 0 !important;
+  }
+
   body { font-family: inter; padding: 0 1rem 1.5rem 1rem; } /* El padding afecta la posicion del logo y todo el resto Se puede probar a eliminar ya que como está el logo sube un poco respecto al resto de las páginas */
 
-  .yt-player-wrap { border-color: rgba(255,255,255,0.1); max-width: 970px; margin: 0 auto; border-radius: 12px; overflow: hidden; border: 1px solid rgba(0,0,0,0.1);   } 
+  .yt-player-wrap { border-color: rgba(255,255,255,0.1); width: 100%; max-width: 970px; margin: 0 auto; border-radius: 12px; overflow: hidden; border: 1px solid rgba(0,0,0,0.1);   } 
 
   .yt-video-wrapper { position: relative; } 
 
