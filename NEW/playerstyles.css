@@ -126,7 +126,7 @@
 
 /* WIDE SCREENS (matches styles.css's @media min-width:1200px) */
 @media (min-width: 1200px) {
- .yt-playlist-list { max-height: 310px; } /* largo del playlist */
+ .yt-playlist-list { max-height: 300px; } /* largo del playlist */
 }
 
 /* TABLETS (matches styles.css's @media max-width:1199px) */
@@ -220,6 +220,18 @@
     overflow-y: auto;
   }
   .yt-track-num { writing-mode: horizontal-tb; } /* agregue: horizontal-tb; y text-orientation: upright; para que ponga los numeros normalmente en landscape */
+
+  /* Compact track rows so more tracks are visible without scrolling,
+     matching the reference layout with smaller thumbnails and tighter text. */
+  .yt-track-row { padding: 0.3rem 0.8rem; gap: 8px; }
+  .yt-track-thumb { width: 48px; height: 48px; }
+  .yt-track-name { font-size: 1rem; }
+  .yt-track-ch { font-size: 0.85rem; }
+  .yt-track-num { font-size: 0.9rem; width: 16px; }
+  .yt-track-duration { font-size: 0.85rem; }
+  .yt-playlist-header { padding: 0.4rem 0.8rem; }
+  #yt-playlist-name { font-size: 1.1rem; }
+  #yt-playlist-count { font-size: 0.95rem; }
 }
 
 /* PORTRAIT PHONES (matches styles.css's @media orientation:portrait + max-width:600px) */
