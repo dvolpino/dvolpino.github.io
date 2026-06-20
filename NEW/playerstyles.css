@@ -228,7 +228,7 @@
      avoiding page-level scrolling (only the playlist itself scrolls internally).
      Adjust this value to taste — it's independent from the landscape Grid system. */
   .yt-playlist-list {
-    max-height: 39vh;
+    max-height: 38vh;
   }
 	
 	 /* Playlist settings */
@@ -237,7 +237,7 @@
   #yt-playlist-count { font-size: 1.15rem; }  /* tamaño de "XX tracks · X hrs, 29 min" */
   .yt-track-num { writing-mode: horizontal-tb; }
   .yt-track-row { padding: 0.4rem 0.9rem; gap: 9px; }
-  .yt-track-thumb { width: 55px; height: 55px; }
+  .yt-track-thumb { width: 56px; height: 56px; }
   .yt-track-name { font-size: 1.5rem; }    /* tamaño del nombre de la canción en el PLAYLIST */
   .yt-track-ch { font-size: 1rem; }
   .yt-track-num { font-size: 1rem; width: 18px; }
