@@ -126,7 +126,7 @@
 
 /* WIDE SCREENS (matches styles.css's @media min-width:1200px) */
 @media (min-width: 1200px) {
- /*.yt-playlist-list { max-height: 290px; }  largo del playlist */
+ .yt-playlist-list { max-height: 300px; } /* largo del playlist */
 }
 
 /* TABLETS (matches styles.css's @media max-width:1199px) */
@@ -149,8 +149,11 @@
 	#yt-time-display { font-size: 0.85rem; }
 }
 
-/* LANDSCAPE PHONES & SMALL TABLETS (matches styles.css's @media max-width:600px) */
-@media (max-width: 600px) and (orientation: landscape) {
+/* LANDSCAPE PHONES, SMALL TABLETS, AND SHORT DESKTOP/LAPTOP WINDOWS
+   (matches styles.css's @media max-width:600px FOR PHONES, but also keeps
+   matching shorter PC windows via max-height, since many real desktop/laptop
+   browser windows are under 1080px tall and rely on this same side-by-side layout) */
+@media (orientation: landscape) and (max-height: 1080px) {
   /* Landscape layout: video (square 16/16) on left, playlist on right, same height.
      Controls sit below the video.
      Available height = 100dvh minus header logo (127px) and body padding (3rem).
