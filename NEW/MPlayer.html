@@ -737,7 +737,11 @@
        (~66px in landscape phone), which was the entire source of the gap. */
     var logoEl = document.querySelector('.site-header');
     var logoHeight = logoEl ? logoEl.getBoundingClientRect().height : 106;
-    var bottomPad    = 0;
+    /* Separate bottomPad per context so each can be tuned independently —
+       change ONLY this number (not the CSS --avail-h, which JS overrides
+       entirely in this branch) to adjust how short/tall the player renders
+       for landscape phones vs. landscape desktop/laptop windows. */
+    var bottomPad = isLandscapeDesktop ? 56 : 0; /* 56px ≈ 3.5rem, matches the CSS comment's intent for desktop */
     var controlsH    = 45; /* 2.8rem at 16px root ≈ 44.8px */
 
     var availH = h - logoHeight - bottomPad;
