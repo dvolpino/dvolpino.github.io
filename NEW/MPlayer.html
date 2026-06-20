@@ -675,62 +675,6 @@
     document.getElementById('yt-cover-wrap').style.display = 'none';
     if (ytPlayer) ytPlayer.playVideo();
   }
-
-  /* Some mobile browsers lag in recalculating 100dvh-based layouts right after
-     an orientation change — the player renders at the previous orientation's
-     size until a manual refresh forces a full reflow. This listener forces
-     that reflow programmatically instead of requiring the user to refresh. */
-  function ytForceReflow() {
-    var wrap = document.querySelector('.yt-player-wrap');
-    if (!wrap) return;
-
-    var logoHeight = 106;
-    var bottomPadding = 24;
-    var availH = window.innerHeight - logoHeight - bottomPadding;
-    wrap.style.setProperty('--avail-h', availH + 'px');
-
-    /* TEMPORARY DEBUG: shows innerHeight at multiple delays to find out
-       when (if ever) it actually updates after rotation. */
-    var debugFlash = document.createElement('div');
-    debugFlash.style.cssText = 'position:fixed; top:0; left:0; right:0; background:lime; color:black; font-size:16px; padding:10px; z-index:99999; text-align:left; line-height:1.4;';
-    document.body.appendChild(debugFlash);
-    var log = [];
-    function addLine(label) {
-      log.push(label + ': innerHeight=' + window.innerHeight + ' innerWidth=' + window.innerWidth);
-      debugFlash.innerHTML = log.join('<br>');
-    }
-    addLine('t=0ms (now)');
-    setTimeout(function(){ addLine('t=300ms'); }, 300);
-    setTimeout(function(){ addLine('t=800ms'); }, 800);
-    setTimeout(function(){ addLine('t=1500ms'); }, 1500);
-    setTimeout(function(){
-      addLine('t=3000ms');
-      /* re-apply --avail-h with the latest reading too */
-      wrap.style.setProperty('--avail-h', (window.innerHeight - logoHeight - bottomPadding) + 'px');
-    }, 3000);
-    setTimeout(function() { debugFlash.remove(); }, 8000);
-  }
-
-  window.addEventListener('orientationchange', function () {
-    /* Small delay lets the browser finish its own resize/UI-chrome
-       adjustments (address bar show/hide etc.) before we force our reflow,
-       otherwise we might recalculate against a still-transitioning viewport. */
-    setTimeout(ytForceReflow, 300);
-  });
-
-  /* Fallback for browsers/devices that don't fire orientationchange reliably
-     (some Android Chrome versions only fire 'resize' on rotation). */
-  var ytLastWidth = window.innerWidth;
-  window.addEventListener('resize', function () {
-    if (window.innerWidth !== ytLastWidth) {
-      ytLastWidth = window.innerWidth;
-      setTimeout(ytForceReflow, 300);
-    }
-  });
-
-  /* Also run once after initial load, so the very first render uses the
-     JS-computed value too (consistent baseline, not relying on dvh at all). */
-  setTimeout(ytForceReflow, 300);
 </script>
 <script src="https://www.youtube.com/iframe_api"></script>
 </body>
