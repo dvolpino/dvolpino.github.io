@@ -131,7 +131,7 @@
 	.yt-playlist-header { font-size: 1rem; }
 	#yt-playlist-name { font-size: 1rem;  } /* no especificaba font-size ni font-family: inter; */
     #yt-playlist-count {  font-size: 1rem; }  /* font-size: 0.72rem */
-	.yt-playlist-list { max-height: 290px; } /* largo del playlist */
+	.yt-playlist-list { max-height: 310px; } /* largo del playlist */
 	.yt-track-name { font-size: 1rem; }
 	.yt-track-ch { font-size: 0.9rem; }
 	.yt-track-info { font-size: 1.8rem; }
