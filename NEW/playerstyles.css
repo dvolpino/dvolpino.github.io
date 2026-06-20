@@ -185,70 +185,27 @@
 	#yt-time-display { font-size: 0.85rem; }
 }
 
-/* LANDSCAPE PHONES & SMALL TABLETS ONLY (narrow width + landscape orientation).
-   932px covers virtually all phones in landscape, including the largest
-   (iPhone 14 Pro Max = 932px landscape width), while excluding real
-   desktop/laptop windows, which are almost never narrower than ~1000px. */
+/* LANDSCAPE PHONES & SMALL TABLETS ONLY  */
 @media (max-width: 932px) and (orientation: landscape) {
-  /* Landscape layout: video (square 16/16) on left, playlist on right, same height.
-     Controls sit below the video.
-     Available height = 100dvh minus header logo (106px) and body padding (1.5rem).
-     We use a CSS custom property to share this value across rules. */
-
+  
   .yt-player-wrap {
-    --avail-h: calc(100dvh - 106px - 1.5rem);
+    --avail-h: calc(100dvh - 106px - 1.5rem); /* Available height = 100dvh (the full screen height DO NOT CHANGE) - header logo (106px) - body padding (1.5rem) // Reduce(Increase) a subtracted value → player gets taller(shorter)*/
     --controls-h: 2.8rem;
     --video-h: calc(var(--avail-h) - var(--controls-h));
 
-    display: grid;
-    grid-template-columns: var(--video-h) 1fr;
-    grid-template-rows: var(--video-h) var(--controls-h);
-    grid-template-areas:
-      "video    playlist"
-      "controls playlist";
-    max-width: 100%;
-    height: var(--avail-h);
-    overflow: hidden;
-  }
+    display:grid; grid-template-columns:var(--video-h) 1fr; grid-template-rows:var(--video-h) var(--controls-h); grid-template-areas:"video    playlist" "controls playlist"; max-width:100%; height:var(--avail-h); overflow:hidden; }
 
-  .yt-video-wrapper {
-    grid-area: video;
-    width: var(--video-h);
-    height: var(--video-h);
-    overflow: hidden;
-  }
+  .yt-video-wrapper { grid-area: video; width: var(--video-h); height: var(--video-h); overflow: hidden;  }
 
-  #yt-player {
-    aspect-ratio: 1 / 1;
-    width: 100%;
-    height: 100%;
-  }
+  #yt-player { aspect-ratio: 1 / 1; width: 100%; height: 100%;  }
 
-  #nas-player {
-    width: 100%;
-    height: 100%;
-  }
+  #nas-player { width: 100%; height: 100%; }
 
-  .yt-controls {
-    grid-area: controls;
-    width: var(--video-h);
-  }
+  .yt-controls { grid-area: controls; width: var(--video-h);  }
 
-  .yt-playlist {
-    grid-area: playlist;
-    border-top: none;
-    border-left: 1px solid rgba(255,255,255,0.07);
-    display: flex;
-    flex-direction: column;
-    height: var(--avail-h);
-    overflow: hidden;
-  }
+  .yt-playlist { grid-area: playlist; border-top: none; border-left: 1px solid rgba(255,255,255,0.07); display: flex; flex-direction: column; height: var(--avail-h); overflow: hidden;  }
 
-  .yt-playlist-list {
-    flex: 1;
-    max-height: none;
-    overflow-y: auto;
-  }
+  .yt-playlist-list { flex: 1; max-height: none; overflow-y: auto;  }
   .yt-track-num { writing-mode: horizontal-tb; }
 
   /* Compact track rows for phone-sized landscape screens */
