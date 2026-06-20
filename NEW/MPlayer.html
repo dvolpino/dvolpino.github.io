@@ -675,6 +675,42 @@
     document.getElementById('yt-cover-wrap').style.display = 'none';
     if (ytPlayer) ytPlayer.playVideo();
   }
+
+  /* On some mobile browsers, the player's CSS Grid (sized via 100dvh inside
+     calc()) does not recompute correctly after an orientation change —
+     it keeps using the previous orientation's dimensions until the page
+     is manually refreshed. Confirmed this happens in BOTH rotation
+     directions (portrait->landscape and landscape->portrait).
+     Fix: directly set --avail-h using window.innerHeight (which DOES
+     update immediately and correctly on rotation, unlike the dvh-based
+     CSS calc()), bypassing the dvh recalculation issue entirely. */
+  function ytSyncAvailHeight() {
+    var wrap = document.querySelector('.yt-player-wrap');
+    if (!wrap) return;
+
+    var isLandscape = window.innerWidth > window.innerHeight;
+    var isPhoneWidth = window.innerWidth <= 932;
+
+    if (isLandscape && isPhoneWidth) {
+      /* Matches the "LANDSCAPE PHONES" CSS breakpoint's intent:
+         logo height (106px) + small bottom padding (~8px, matching the
+         0.5rem used in playerstyles.css at default 16px root). */
+      var availH = window.innerHeight - 106 - 8;
+      wrap.style.setProperty('--avail-h', availH + 'px');
+    } else {
+      /* Outside the landscape-phone breakpoint (portrait, desktop, etc.) —
+         remove our inline override so the CSS's own rules (which differ
+         per breakpoint) take full control again. */
+      wrap.style.removeProperty('--avail-h');
+    }
+  }
+
+  window.addEventListener('orientationchange', function () {
+    setTimeout(ytSyncAvailHeight, 50);
+    setTimeout(ytSyncAvailHeight, 300);  /* second pass in case the browser's own UI chrome is still settling */
+  });
+  window.addEventListener('resize', ytSyncAvailHeight);
+  ytSyncAvailHeight(); /* run once on initial load too */
 </script>
 <script src="https://www.youtube.com/iframe_api"></script>
 </body>
