@@ -697,9 +697,14 @@
     var w = window.innerWidth;
     var h = window.innerHeight;
     var isLandscapePhone = (w > h) && (w <= 932);
-    var isLandscapeDesktop = (w > h) && (w >= 933) && (h <= 1080);
+    /* Desktop/laptop (min-width:933px landscape) intentionally NOT handled
+       here — left fully CSS-controlled via --avail-h in playerstyles.css.
+       Real PC browser windows are rarely rotated/live-resized the way
+       phones are, so the dvh-recalculation bug we fixed for phones is
+       unlikely to affect desktop in practice. If it ever does, re-add an
+       isLandscapeDesktop branch here following the same pattern as phones. */
 
-    if (!isLandscapePhone && !isLandscapeDesktop) {
+    if (!isLandscapePhone) {
       /* Portrait or anything outside the landscape Grid breakpoints —
          clear our landscape-specific inline overrides so the CSS's own
          (non-Grid) rules for this context apply normally. */
@@ -737,11 +742,7 @@
        (~66px in landscape phone), which was the entire source of the gap. */
     var logoEl = document.querySelector('.site-header');
     var logoHeight = logoEl ? logoEl.getBoundingClientRect().height : 106;
-    /* Separate bottomPad per context so each can be tuned independently —
-       change ONLY this number (not the CSS --avail-h, which JS overrides
-       entirely in this branch) to adjust how short/tall the player renders
-       for landscape phones vs. landscape desktop/laptop windows. */
-    var bottomPad = isLandscapeDesktop ? 56 : 0; /* 56px ≈ 3.5rem, matches the CSS comment's intent for desktop */
+    var bottomPad = 0; /* always 0 for landscape phones — adjust this single number if you want extra bottom spacing on phones specifically */
     var controlsH    = 45; /* 2.8rem at 16px root ≈ 44.8px */
 
     var availH = h - logoHeight - bottomPad;
