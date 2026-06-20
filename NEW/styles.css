@@ -15,7 +15,7 @@ body {
   min-height: 100vh;
   background-color: #1a1a2e;
   color: #e8e8e8;
-  font-family: "Inter VariableFont opsz",wght,  'Segoe UI', Arial, sans-serif;
+  font-family: "Inter", "Inter VariableFont opsz", 'Segoe UI', Arial, sans-serif;
   display: flex;
   justify-content: center;
 }
