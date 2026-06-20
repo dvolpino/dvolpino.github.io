@@ -80,7 +80,7 @@
   #yt-playlist-name { font-size: 2.4rem; color: #aaa; } /* NOMBRE DEL PLAYLIST no especificaba font-size ni font-family: inter; */
   #yt-playlist-count { font-size: 2.2rem; color: #aaa; }  /* CANTIDAD DE CANCIONES Y DURACION DEL PLAYLIST font-size: 0.72rem // agregué color: #aaa;*/
 
-  .yt-playlist-list { max-height: 750px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: rgba(0,0,0,0.15) transparent;  }  /*  max-height: 1130px; 753px */
+  .yt-playlist-list { max-height: 750px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: rgba(0,0,0,0.15) transparent;  }  /*  Default/base (no media query matches) */
 
   .yt-playlist-list::-webkit-scrollbar { width: 4px; }
   .yt-playlist-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
@@ -126,7 +126,7 @@
 
 /* WIDE SCREENS (matches styles.css's @media min-width:1200px) */
 @media (min-width: 1200px) {
- .yt-playlist-list { max-height: 300px; } /* largo del playlist */
+ .yt-playlist-list { max-height: 300px; } /* largo fijo del playlist */
 }
 
 /* TABLETS (matches styles.css's @media max-width:1199px) */
@@ -139,12 +139,12 @@
 	.yt-playlist-header { font-size: 1rem; }
 	#yt-playlist-name { font-size: 1rem;  } /* no especificaba font-size ni font-family: inter; */
     #yt-playlist-count {  font-size: 1rem; }  /* font-size: 0.72rem */
-	.yt-playlist-list { max-height: 290px; } /* largo del playlist */
+	.yt-playlist-list { max-height: 290px; } /* largo fijo del playlist */
 	.yt-track-name { font-size: 1rem; }
 	.yt-track-ch { font-size: 0.9rem; }
 	.yt-track-info { font-size: 1.8rem; }
 	.yt-track-num { font-size: 0.9rem; }
-	.yt-track-thumb { width: 60px; height: 60px; object-fit: cover; order-radius: 3px; background: #eee; flex-shrink: 0;  } 
+	.yt-track-thumb { width: 60px; height: 60px; object-fit: cover; order-radius: 3px; background: #eee; flex-shrink: 0;  }  /* Define el tamaño de cada thumb por lo tanto se puede ajustar a que aparezca el ultimo completo */
 	.yt-track-duration { font-size: 0.8rem; } /* 0.8rem  */
 	#yt-time-display { font-size: 0.85rem; }
 }
@@ -225,7 +225,7 @@
      matching the reference layout with smaller thumbnails and tighter text.
      Sized to target ~11 visible rows. */
   .yt-track-row { padding: 0.4rem 0.9rem; gap: 9px; }
-  .yt-track-thumb { width: 56px; height: 56px; }
+  .yt-track-thumb { width: 58px; height: 58px; } /* Define el tamaño de cada thumb por lo tanto se puede ajustar a que aparezca el ultimo completo */
   .yt-track-name { font-size: 1.15rem; }
   .yt-track-ch { font-size: 1rem; }
   .yt-track-num { font-size: 1rem; width: 18px; }
@@ -241,6 +241,6 @@
      avoiding page-level scrolling (only the playlist itself scrolls internally).
      Adjust this value to taste — it's independent from the landscape Grid system. */
   .yt-playlist-list {
-    max-height: 45vh;
+    max-height: 45vh;  /* largo automaticamente escalable del playlist Using 45vh means the playlist automatically scales to always be "45% of whatever screen it's on" */
   }
 }
