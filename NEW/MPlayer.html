@@ -699,9 +699,10 @@
     var isLandscapePhone = (w > h) && (w <= 932);
     var isLandscapeDesktop = (w > h) && (w >= 933) && (h <= 1080);
 
-    var debugMsg = 'w=' + w + ' h=' + h + ' landscapePhone=' + isLandscapePhone;
-
     if (!isLandscapePhone && !isLandscapeDesktop) {
+      /* Portrait or anything outside the landscape Grid breakpoints —
+         clear our inline overrides so the CSS's own (non-Grid) rules for
+         this context apply normally. */
       wrap.style.removeProperty('grid-template-columns');
       wrap.style.removeProperty('grid-template-rows');
       wrap.style.removeProperty('height');
@@ -715,18 +716,17 @@
       if (controlsClear) controlsClear.style.removeProperty('width');
       var playlistClear = document.querySelector('.yt-playlist');
       if (playlistClear) playlistClear.style.removeProperty('height');
-      debugMsg += ' -> CLEARED (portrait mode)';
-      ytShowDebug(debugMsg, wrap);
       return;
     }
 
     /* Read the ACTUAL logo height live instead of guessing a fixed number —
-       confirmed via debug that the logo renders at different heights in
-       different contexts (66px in this landscape case, not the assumed 106px). */
+       this was the real fix: the CSS assumed a fixed 106px, but the logo
+       actually renders at a different height depending on context
+       (~66px in landscape phone), which was the entire source of the gap. */
     var logoEl = document.querySelector('.site-header');
     var logoHeight = logoEl ? logoEl.getBoundingClientRect().height : 106;
     var bottomPad    = 0;
-    var controlsH    = 45;
+    var controlsH    = 45; /* 2.8rem at 16px root ≈ 44.8px */
 
     var availH = h - logoHeight - bottomPad;
     var videoH = availH - controlsH;
@@ -745,23 +745,6 @@
     if (controls) controls.style.width = videoH + 'px';
     var playlist = document.querySelector('.yt-playlist');
     if (playlist) playlist.style.height = availH + 'px';
-
-    debugMsg += ' -> SET height=' + availH + 'px videoH=' + videoH + 'px logoH=' + logoHeight + 'px';
-    ytShowDebug(debugMsg, wrap);
-  }
-
-  function ytShowDebug(msg, wrap) {
-    var d = document.getElementById('yt-debug-box');
-    if (!d) {
-      d = document.createElement('div');
-      d.id = 'yt-debug-box';
-      d.style.cssText = 'position:fixed; bottom:0; left:0; right:0; background:lime; color:black; font-size:13px; padding:6px; z-index:99999; font-family:monospace;';
-      document.body.appendChild(d);
-    }
-    var actualH = getComputedStyle(wrap).height;
-    var actualDisplay = getComputedStyle(wrap).display;
-    var rect = wrap.getBoundingClientRect();
-    d.textContent = msg + ' | computed height=' + actualH + ' display=' + actualDisplay + ' | bbox.bottom=' + Math.round(rect.bottom) + ' bbox.top=' + Math.round(rect.top) + ' winH=' + window.innerHeight;
   }
 
   window.addEventListener('orientationchange', function () {
