@@ -307,10 +307,12 @@
 
 /* PORTRAIT PHONES (matches styles.css's @media orientation:portrait + max-width:600px) */
 @media (orientation: portrait) and (max-width: 600px) {
+	#yt-player { aspect-ratio: 1 / 1;}
   /* Caps the playlist height so it fits within the actual screen height,
      avoiding page-level scrolling (only the playlist itself scrolls internally).
      Adjust this value to taste — it's independent from the landscape Grid system. */
   .yt-playlist-list {
     max-height: 45vh;
   }
+	
 }
