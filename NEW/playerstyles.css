@@ -126,7 +126,16 @@
 
 /* WIDE SCREENS (matches styles.css's @media min-width:1200px) */
 @media (min-width: 1200px) {
- .yt-playlist-list { max-height: 300px; } /* largo fijo del playlist */
+  .yt-playlist-list { max-height: 300px; } /* largo fijo del playlist */
+  .yt-track-row { padding: 0.4rem 0.9rem; gap: 9px; }
+  .yt-track-thumb { width: 60px; height: 60px; } /* Define el tamaño de cada thumb por lo tanto se puede ajustar a que aparezca el ultimo completo */
+  .yt-track-name { font-size: 1.5rem; } /* Tamaño de fuente de cada track */
+  .yt-track-ch { font-size: 1rem; }
+  .yt-track-num { font-size: 1rem; width: 18px; }
+  .yt-track-duration { font-size: 1rem; }
+  .yt-playlist-header { padding: 0.4rem 0.8rem; }
+  #yt-playlist-name { font-size: 1.1rem; }
+  #yt-playlist-count { font-size: 0.95rem; }
 }
 
 /* TABLETS (matches styles.css's @media max-width:1199px) */
@@ -226,7 +235,7 @@
      Sized to target ~11 visible rows. */
   .yt-track-row { padding: 0.4rem 0.9rem; gap: 9px; }
   .yt-track-thumb { width: 61px; height: 61px; } /* Define el tamaño de cada thumb por lo tanto se puede ajustar a que aparezca el ultimo completo */
-  .yt-track-name { font-size: 5.15rem; }
+  .yt-track-name { font-size: 1.15rem; } /* Tamaño de fuente de cada track */
   .yt-track-ch { font-size: 1rem; }
   .yt-track-num { font-size: 1rem; width: 18px; }
   .yt-track-duration { font-size: 1rem; }
