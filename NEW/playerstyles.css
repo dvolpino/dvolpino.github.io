@@ -160,7 +160,7 @@
      We use a CSS custom property to share this value across rules. */
 
   .yt-player-wrap {
-    --avail-h: calc(100dvh - 127px - 3rem);
+    --avail-h: calc(100dvh - 106px - 1.5rem); /* 106px = actual logo height (was incorrectly 127px); 1.5rem = body's bottom padding only (top padding is 0) */
     /* Controls height is roughly 2.8rem (padding + button) */
     --controls-h: 2.8rem;
     /* Video height = available height minus controls */
@@ -222,13 +222,14 @@
   .yt-track-num { writing-mode: horizontal-tb; } /* agregue: horizontal-tb; y text-orientation: upright; para que ponga los numeros normalmente en landscape */
 
   /* Compact track rows so more tracks are visible without scrolling,
-     matching the reference layout with smaller thumbnails and tighter text. */
-  .yt-track-row { padding: 0.3rem 0.8rem; gap: 8px; }
-  .yt-track-thumb { width: 48px; height: 48px; }
-  .yt-track-name { font-size: 1rem; }
-  .yt-track-ch { font-size: 0.85rem; }
-  .yt-track-num { font-size: 0.9rem; width: 16px; }
-  .yt-track-duration { font-size: 0.85rem; }
+     matching the reference layout with smaller thumbnails and tighter text.
+     Sized to target ~11 visible rows. */
+  .yt-track-row { padding: 0.4rem 0.9rem; gap: 9px; }
+  .yt-track-thumb { width: 56px; height: 56px; }
+  .yt-track-name { font-size: 1.15rem; }
+  .yt-track-ch { font-size: 1rem; }
+  .yt-track-num { font-size: 1rem; width: 18px; }
+  .yt-track-duration { font-size: 1rem; }
   .yt-playlist-header { padding: 0.4rem 0.8rem; }
   #yt-playlist-name { font-size: 1.1rem; }
   #yt-playlist-count { font-size: 0.95rem; }
