@@ -675,6 +675,41 @@
     document.getElementById('yt-cover-wrap').style.display = 'none';
     if (ytPlayer) ytPlayer.playVideo();
   }
+
+  /* Some mobile browsers lag in recalculating 100dvh-based layouts right after
+     an orientation change — the player renders at the previous orientation's
+     size until a manual refresh forces a full reflow. This listener forces
+     that reflow programmatically instead of requiring the user to refresh. */
+  function ytForceReflow() {
+    var wrap = document.querySelector('.yt-player-wrap');
+    if (!wrap) return;
+    /* Toggling display off/on forces the browser to fully recompute
+       layout (including dvh-based calc() values) rather than reusing
+       a stale cached size. */
+    wrap.style.display = 'none';
+    /* Reading offsetHeight forces the browser to apply the change above
+       before continuing (a forced synchronous layout / "layout thrash"
+       technique used deliberately here). */
+    void wrap.offsetHeight;
+    wrap.style.display = '';
+  }
+
+  window.addEventListener('orientationchange', function () {
+    /* Small delay lets the browser finish its own resize/UI-chrome
+       adjustments (address bar show/hide etc.) before we force our reflow,
+       otherwise we might recalculate against a still-transitioning viewport. */
+    setTimeout(ytForceReflow, 300);
+  });
+
+  /* Fallback for browsers/devices that don't fire orientationchange reliably
+     (some Android Chrome versions only fire 'resize' on rotation). */
+  var ytLastWidth = window.innerWidth;
+  window.addEventListener('resize', function () {
+    if (window.innerWidth !== ytLastWidth) {
+      ytLastWidth = window.innerWidth;
+      setTimeout(ytForceReflow, 300);
+    }
+  });
 </script>
 <script src="https://www.youtube.com/iframe_api"></script>
 </body>
