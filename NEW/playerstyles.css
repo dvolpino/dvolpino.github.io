@@ -19,7 +19,7 @@
      otherwise win on equal specificity. */
   body {
     flex-direction: column !important;
-    align-items: center !important;
+    align-items: stretch !important;
   }
 
   /* Flex children shrink-to-fit their content by default. Without this,
