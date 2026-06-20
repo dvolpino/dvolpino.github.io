@@ -127,7 +127,7 @@
 /* GENERAL WIDE SCREENS (matches styles.css's @media min-width:1200px) Rare tall-wide fallback.
    ⚠️ ORDER MATTERS: this block MUST stay BEFORE the "SHORT DESKTOP/LAPTOP WINDOWS" */
 @media (min-width: 1200px) {
- .yt-playlist-list { max-height: 300px; } /* largo del playlist */
+ .yt-playlist-list { max-height: 300px; } /* <<largo del playlist */
 }
 
 /* SHORT DESKTOP/LAPTOP WINDOWS - PC MONITOR /// This needs to be BELOW GENERAL WIDE SCREENS breakpoint */
@@ -135,7 +135,7 @@
   
   /* Video Display Settings */
   .yt-player-wrap {
-    --avail-h: calc(100dvh - 106px - 1.5rem);
+    --avail-h: calc(100dvh - 106px - 0.5rem); /* Available height = 100dvh (the full screen height DO NOT CHANGE) - header logo (106px) - body padding // Reduce(Increase) a subtracted value → player gets taller(shorter)*/
     --controls-h: 2.8rem;
     --video-h: calc(var(--avail-h) - var(--controls-h));
     display: grid; grid-template-columns: var(--video-h) 1fr; grid-template-rows: var(--video-h) var(--controls-h); grid-template-areas: "video    playlist" "controls playlist"; max-width: 100%; height: var(--avail-h); overflow: hidden;  }
@@ -224,9 +224,8 @@
 /* PORTRAIT PHONES (matches styles.css's @media orientation:portrait + max-width:600px) */
 @media (orientation: portrait) and (max-width: 600px) {
 	#yt-player { aspect-ratio: 1 / 1;}
-  /* Caps the playlist height so it fits within the actual screen height,
-     avoiding page-level scrolling (only the playlist itself scrolls internally).
-     Adjust this value to taste — it's independent from the landscape Grid system. */
+  /* Caps the playlist height so it fits within the actual screen height. Bigger/Smaller playlist (less/more gap) → increase/decrease the number:  */
+  /* SAme number needs to be replaced in MPlayer.html 	playlistList.style.maxHeight = (h * 0.40) + 'px';  */
   .yt-playlist-list {
     max-height: 40vh;
   }
