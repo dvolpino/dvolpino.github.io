@@ -683,6 +683,15 @@
   function ytForceReflow() {
     var wrap = document.querySelector('.yt-player-wrap');
     if (!wrap) return;
+
+    /* TEMPORARY DEBUG: visible flash to confirm this function actually runs.
+       Remove this block once we've confirmed the listener fires correctly. */
+    var debugFlash = document.createElement('div');
+    debugFlash.textContent = 'REFLOW FIRED: ' + new Date().toLocaleTimeString();
+    debugFlash.style.cssText = 'position:fixed; top:0; left:0; right:0; background:lime; color:black; font-size:20px; padding:10px; z-index:99999; text-align:center;';
+    document.body.appendChild(debugFlash);
+    setTimeout(function() { debugFlash.remove(); }, 3000);
+
     /* Toggling display off/on forces the browser to fully recompute
        layout (including dvh-based calc() values) rather than reusing
        a stale cached size. */
