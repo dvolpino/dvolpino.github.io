@@ -692,15 +692,18 @@
     document.body.appendChild(debugFlash);
     setTimeout(function() { debugFlash.remove(); }, 3000);
 
-    /* Toggling display off/on forces the browser to fully recompute
-       layout (including dvh-based calc() values) rather than reusing
-       a stale cached size. */
-    wrap.style.display = 'none';
-    /* Reading offsetHeight forces the browser to apply the change above
-       before continuing (a forced synchronous layout / "layout thrash"
-       technique used deliberately here). */
-    void wrap.offsetHeight;
-    wrap.style.display = '';
+    /* Some mobile browsers cache the dvh value itself, so toggling display
+       on an element doesn't force a true re-read of the viewport height.
+       A tiny scroll forces the browser to actually re-measure the viewport
+       (a more reliable trick for dvh/vh recalculation on mobile Safari/Chrome). */
+    window.scrollTo(0, 1);
+    requestAnimationFrame(function() {
+      window.scrollTo(0, 0);
+      /* Also still toggle display as a secondary nudge for layout recalc */
+      wrap.style.display = 'none';
+      void wrap.offsetHeight;
+      wrap.style.display = '';
+    });
   }
 
   window.addEventListener('orientationchange', function () {
