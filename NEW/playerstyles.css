@@ -11,6 +11,17 @@
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  /* styles.css sets body { display:flex } with no flex-direction (defaults to row),
+     which placed the header and footer side-by-side on this page since MPlayer.html
+     doesn't use the .page-wrapper column layout the rest of the site relies on.
+     This forces them to stack vertically instead.
+     !important needed because styles.css loads AFTER this file, so it would
+     otherwise win on equal specificity. */
+  body {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
   body { font-family: inter; padding: 0 1rem 1.5rem 1rem; } /* El padding afecta la posicion del logo y todo el resto Se puede probar a eliminar ya que como está el logo sube un poco respecto al resto de las páginas */
 
   .yt-player-wrap { border-color: rgba(255,255,255,0.1); max-width: 970px; margin: 0 auto; border-radius: 12px; overflow: hidden; border: 1px solid rgba(0,0,0,0.1);   } 
