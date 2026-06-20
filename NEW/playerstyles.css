@@ -189,7 +189,7 @@
 @media (max-width: 932px) and (orientation: landscape) {
   
   .yt-player-wrap {
-    --avail-h: calc(100dvh - 106px - 1.5rem); /* Available height = 100dvh (the full screen height DO NOT CHANGE) - header logo (106px) - body padding (1.5rem) // Reduce(Increase) a subtracted value → player gets taller(shorter)*/
+    --avail-h: calc(100dvh - 106px - 0.5rem); /* Available height = 100dvh (the full screen height DO NOT CHANGE) - header logo (106px) - body padding (1.5rem) // Reduce(Increase) a subtracted value → player gets taller(shorter)*/
     --controls-h: 2.8rem;
     --video-h: calc(var(--avail-h) - var(--controls-h));
 
@@ -238,7 +238,7 @@
   /*.yt-track-row { padding: 0.4rem 0.9rem; gap: 9px; } */
 	.yt-track-row {
     padding-left: 0.3rem;  /* was 1rem (from the shorthand padding: 0.45rem 1rem) less space between the row's edge and the track number */
-    gap: 3px;              /* was 10px  less space between number → thumbnail → text */
+    gap: 2px;              /* was 10px  less space between number → thumbnail → text */
   }
   .yt-track-num { font-size: 1.2rem; width: 18px; } /* width — narrower reserved column for the number itself */
   .yt-track-num { writing-mode: vertical-lr; } /* vertical-lr / horizontal-tb */
