@@ -690,19 +690,26 @@
 
     var isLandscape = window.innerWidth > window.innerHeight;
     var isPhoneWidth = window.innerWidth <= 932;
+    var debugMsg = 'sync: w=' + window.innerWidth + ' h=' + window.innerHeight + ' landscape=' + isLandscape + ' phoneWidth=' + isPhoneWidth;
 
     if (isLandscape && isPhoneWidth) {
-      /* Matches the "LANDSCAPE PHONES" CSS breakpoint's intent:
-         logo height (106px) + small bottom padding (~8px, matching the
-         0.5rem used in playerstyles.css at default 16px root). */
       var availH = window.innerHeight - 106 - 8;
       wrap.style.setProperty('--avail-h', availH + 'px');
+      debugMsg += ' -> SET --avail-h=' + availH + 'px';
     } else {
-      /* Outside the landscape-phone breakpoint (portrait, desktop, etc.) —
-         remove our inline override so the CSS's own rules (which differ
-         per breakpoint) take full control again. */
       wrap.style.removeProperty('--avail-h');
+      debugMsg += ' -> REMOVED override';
     }
+
+    /* TEMPORARY DEBUG */
+    var d = document.getElementById('yt-debug-box');
+    if (!d) {
+      d = document.createElement('div');
+      d.id = 'yt-debug-box';
+      d.style.cssText = 'position:fixed; bottom:0; left:0; right:0; background:lime; color:black; font-size:14px; padding:6px; z-index:99999;';
+      document.body.appendChild(d);
+    }
+    d.textContent = debugMsg + ' | actual computed --avail-h = ' + getComputedStyle(wrap).getPropertyValue('--avail-h') + ' | actual height = ' + getComputedStyle(wrap).height;
   }
 
   window.addEventListener('orientationchange', function () {
