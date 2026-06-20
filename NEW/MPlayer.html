@@ -720,7 +720,11 @@
       return;
     }
 
-    var logoHeight   = 106;
+    /* Read the ACTUAL logo height live instead of guessing a fixed number —
+       confirmed via debug that the logo renders at different heights in
+       different contexts (66px in this landscape case, not the assumed 106px). */
+    var logoEl = document.querySelector('.site-header');
+    var logoHeight = logoEl ? logoEl.getBoundingClientRect().height : 106;
     var bottomPad    = 0;
     var controlsH    = 45;
 
@@ -742,7 +746,7 @@
     var playlist = document.querySelector('.yt-playlist');
     if (playlist) playlist.style.height = availH + 'px';
 
-    debugMsg += ' -> SET height=' + availH + 'px videoH=' + videoH + 'px';
+    debugMsg += ' -> SET height=' + availH + 'px videoH=' + videoH + 'px logoH=' + logoHeight + 'px';
     ytShowDebug(debugMsg, wrap);
   }
 
