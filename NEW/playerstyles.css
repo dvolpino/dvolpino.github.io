@@ -120,7 +120,7 @@
   .yt-track-ch { font-size: 1.9rem; color:rgba(223,223,223,1.00); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px;  } /* font-size: 0.7rem */
 
 
-@media (max-height:1080px){
+@media (max-height:1080px) {
 	/* PC */
 
 	.yt-player-wrap { max-width: 720px;  }
@@ -131,7 +131,7 @@
 	.yt-playlist-header { font-size: 1rem; }
 	#yt-playlist-name { font-size: 1rem;  } /* no especificaba font-size ni font-family: inter; */
     #yt-playlist-count {  font-size: 1rem; }  /* font-size: 0.72rem */
-	.yt-playlist-list { max-height: 310px; } /* largo del playlist */
+	.yt-playlist-list { max-height: 290px; } /* largo del playlist */
 	.yt-track-name { font-size: 1rem; }
 	.yt-track-ch { font-size: 0.9rem; }
 	.yt-track-info { font-size: 1.8rem; }
@@ -139,7 +139,7 @@
 	.yt-track-thumb { width: 60px; height: 60px; object-fit: cover; order-radius: 3px; background: #eee; flex-shrink: 0;  } 
 	.yt-track-duration { font-size: 0.8rem; } /* 0.8rem  */
 	#yt-time-display { font-size: 0.85rem; }
-
+}
 
 @media (orientation: landscape) and (max-height: 1080px) {
   /* Landscape layout: video (square 16/16) on left, playlist on right, same height.
