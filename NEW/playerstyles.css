@@ -243,4 +243,5 @@
   .yt-playlist-list {
     max-height: 55vh;  /* largo automaticamente escalable del playlist Using 45vh means the playlist automatically scales to always be "45% of whatever screen it's on" */
   }
+	#yt-player { aspect-ratio: 1 / 1;}
 }
