@@ -684,23 +684,31 @@
     var wrap = document.querySelector('.yt-player-wrap');
     if (!wrap) return;
 
-    /* TEMPORARY DEBUG: visible flash to confirm this function actually runs.
-       Remove this block once we've confirmed the listener fires correctly. */
-    var debugFlash = document.createElement('div');
-    debugFlash.textContent = 'REFLOW FIRED: ' + new Date().toLocaleTimeString() + ' h=' + window.innerHeight;
-    debugFlash.style.cssText = 'position:fixed; top:0; left:0; right:0; background:lime; color:black; font-size:20px; padding:10px; z-index:99999; text-align:center;';
-    document.body.appendChild(debugFlash);
-    setTimeout(function() { debugFlash.remove(); }, 4000);
-
-    /* Instead of relying on dvh re-measurement (which some mobile browsers
-       cache more aggressively than expected), compute --avail-h ourselves
-       in JS using window.innerHeight (always accurate, no caching issue)
-       and set it directly as an inline custom property. This bypasses
-       the dvh/calc() recalculation question entirely. */
     var logoHeight = 106;
-    var bottomPadding = 24; /* 1.5rem at default 16px root, adjust if root font-size differs */
+    var bottomPadding = 24;
     var availH = window.innerHeight - logoHeight - bottomPadding;
     wrap.style.setProperty('--avail-h', availH + 'px');
+
+    /* TEMPORARY DEBUG: shows innerHeight at multiple delays to find out
+       when (if ever) it actually updates after rotation. */
+    var debugFlash = document.createElement('div');
+    debugFlash.style.cssText = 'position:fixed; top:0; left:0; right:0; background:lime; color:black; font-size:16px; padding:10px; z-index:99999; text-align:left; line-height:1.4;';
+    document.body.appendChild(debugFlash);
+    var log = [];
+    function addLine(label) {
+      log.push(label + ': innerHeight=' + window.innerHeight + ' innerWidth=' + window.innerWidth);
+      debugFlash.innerHTML = log.join('<br>');
+    }
+    addLine('t=0ms (now)');
+    setTimeout(function(){ addLine('t=300ms'); }, 300);
+    setTimeout(function(){ addLine('t=800ms'); }, 800);
+    setTimeout(function(){ addLine('t=1500ms'); }, 1500);
+    setTimeout(function(){
+      addLine('t=3000ms');
+      /* re-apply --avail-h with the latest reading too */
+      wrap.style.setProperty('--avail-h', (window.innerHeight - logoHeight - bottomPadding) + 'px');
+    }, 3000);
+    setTimeout(function() { debugFlash.remove(); }, 8000);
   }
 
   window.addEventListener('orientationchange', function () {
