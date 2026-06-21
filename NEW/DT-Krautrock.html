@@ -110,13 +110,8 @@
 <script>
   new Splide( '#counter', {	height: '100%', /*.tc-window now has a real pixel height via CSS custom properties, so this measures correctly and drag/swipe distances match visual size */  } ).mount();</script>
 
-<!-- Sync tape counter size to match the album carousel's actual rendered width.
-     #image-carousel uses max-width, so its real width varies depending on
-     available space; the tape counter's Grid needs an exact pixel width to
-     calculate its frame pieces correctly, so we measure the carousel live
-     and recompute the counter's dimensions to match it precisely.
-     Safe no-op on pages without #image-carousel (e.g. counter-only pages) —
-     the function exits immediately if the carousel element isn't found. -->
+<!--  INICIO JS PARA MATCHEAR EL ANCHO DEL CONTADOR AL DEL CAROUSEL -->
+<!-- Sync tape counter size to match the album carousel's actual rendered width. #image-carousel uses max-width, so its real width varies depending on available space; the tape counter's Grid needs an exact pixel width to   calculate its frame pieces correctly, so we measure the carousel live and recompute the counter's dimensions to match it precisely. Safe no-op on pages without #image-carousel (e.g. counter-only pages) — the function exits immediately if the carousel element isn't found. -->
 <script>
   function ytSyncTapeCounterWidth() {
     var carousel = document.getElementById('image-carousel');
@@ -156,7 +151,7 @@
     setTimeout(ytSyncTapeCounterWidth, 200);
     setTimeout(ytSyncTapeCounterWidth, 500); /* second pass for slower devices */
   });
-</script>
+</script> <!--  FIN JS PARA MATCHEAR EL ANCHO DEL CONTADOR AL DEL CAROUSEL -->
 	
 <script src="background-manager.js"></script>
 </body>
