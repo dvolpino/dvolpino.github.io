@@ -158,7 +158,7 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
    MAIN CONTENT AREA GENERAL SETTINGS
    ============================================= */
 .site-main {  width: 100%;  max-width: 700px;  text-align:justify; }
-.history { font-size: clamp(0.9rem, 2vw, 1.1rem);  margin-top: 12px; }
+.history { font-size: clamp(0.9rem, 2vw, 1.1rem);  margin-top: 12px; overflow-y: auto; box-sizing: border-box; padding-right: 8px; /* CSS fallback height in case JS hasn't run yet (e.g. JS disabled) — JS below overrides this with a precise live-measured value */ height: 60vh; }
 
 /* =============================================
    RESPONSIVE BREAKPOINTS

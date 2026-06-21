@@ -43,6 +43,33 @@
 </main>
    
 <script src="background-manager.js"></script>
+
+<!-- Makes .history fill the remaining viewport space below it (so the page
+     itself never needs a vertical scrollbar) while scrolling its own long
+     text internally. Measures live since the space available depends on
+     the logo, nav links, and AKA line's actual rendered height, all of
+     which vary slightly by breakpoint/content. -->
+<script>
+  function ytSyncHistoryHeight() {
+    var history = document.querySelector('.history');
+    if (!history) return;
+
+    var top = history.getBoundingClientRect().top;
+    var available = window.innerHeight - top;
+    if (available < 80) available = 80; /* sane minimum so it never collapses to nothing */
+
+    history.style.height = available + 'px';
+  }
+
+  window.addEventListener('load', function () {
+    setTimeout(ytSyncHistoryHeight, 100);
+  });
+  window.addEventListener('resize', ytSyncHistoryHeight);
+  window.addEventListener('orientationchange', function () {
+    setTimeout(ytSyncHistoryHeight, 200);
+    setTimeout(ytSyncHistoryHeight, 500);
+  });
+</script>
 </div>
 </body>
 </html>
