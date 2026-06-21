@@ -160,7 +160,7 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
 .site-main {
   width: 100%;
   max-width: 700px;
-  text-align: center;
+  text-align:justify;
 }
 
 .history {
