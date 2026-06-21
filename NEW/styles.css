@@ -193,6 +193,8 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
 
 /* TABLETS  */ 
 @media (max-width: 1199px) {
+	
+ .nav-list { width: 350px; } /* ANCHO COLUMNA DE LINKS - Afecta el centrado de la misma */
  .aka { padding: 0 18px; } /* SELECCIONADOR DE PADDING DEL TEXTO AKA */
 #image-carousel.splide { max-width: 400px;  }  /* AFECTA EL TAMAÑO DEL CAROUSEL DE ALBUMES SOLAMENTE*/
 html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes use rem/clamp(...rem) units, changing the root html font-size scales all of them proportionally without editing every rule. */
@@ -222,7 +224,7 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
   /* Same fixed-width approach as desktop, scaled to fit phone screens
      without overflowing — keeps logo+links aligned consistently across
      pages on phones too. */
-  .nav-list { width: min(420px, 92vw); }
+  .nav-list { width: min(420px, 92vw); } /* ANCHO COLUMNA DE LINKS - Afecta el centrado de la misma - Elige el valor minimo de los dos (XXpx, XXvw) - 92vw=92% del ancho del viewport */
 
   /* Tape counter: scale down from 686px native to ~300px target.
      transform:scale only affects rendering, so .tape-counter-outer
@@ -256,6 +258,7 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
   .logo-img {
     width: min(280px, 78vw);
   }
+  .nav-list { width: min(320px, 90vw); } /* ANCHO COLUMNA DE LINKS - Afecta el centrado de la misma - Elige el valor minimo de los dos (XXpx, XXvw) - 92vw=92% del ancho del viewport */
   
   /* Tape-counter assembly: 686px native -> 170px target on portrait phone.
      This overrides the 300px-target rule from the general phone breakpoint above
