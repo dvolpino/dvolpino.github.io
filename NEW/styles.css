@@ -68,7 +68,7 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
 .LiveSets:hover {  color: #02FF00; border-left-color: #02FF00; background-color: rgba(168, 216, 255, 0.07); }
 
 .history{ font-family: Inter; color: #FFFCFC; font-size: 14px; /* margin-left: auto; margin-right: auto; position: relative;*/	} 
-.aka{ display: block; text-align: left; width: 100%; padding: 0 16px; font-family: Inter; color: #FFFCFC; font: bold; font-size: 20px;		} /* padding matches .Genre/.SubGenre's 14px left padding so the AKA text visually lines up with Downtempo/Krautrock above it */
+.aka{ display: block; text-align: left; width: 100%; padding: 0 14px; font-family: Inter; color: #FFFCFC; font: bold; font-size: 20px;		} /* padding matches .Genre/.SubGenre's 14px left padding so the AKA text visually lines up with Downtempo/Krautrock above it */
 
 /* No longer needs align-self:stretch now that .nav-list has a fixed width —
    the <li> sits at the container's left edge like its siblings by default,
@@ -175,6 +175,7 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
 
 /* WIDE SCREENS  */
 @media (min-width: 1200px) {
+ .aka { padding: 0 18px; } /* SELECCIONADOR DE PADDING DEL TEXTO AKA */
  .logo-img { width: 600px;  } /* give the logo a bit more breathing room */
  #image-carousel.splide { max-width: 400px;  }  /* AFECTA EL TAMAÑO DEL CAROUSEL DE ALBUMES SOLAMENTE*/
 
@@ -193,6 +194,7 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
 
 /* TABLETS  */ 
 @media (max-width: 1199px) {
+ .aka { padding: 0 18px; } /* SELECCIONADOR DE PADDING DEL TEXTO AKA */
 #image-carousel.splide { max-width: 400px;  }  /* AFECTA EL TAMAÑO DEL CAROUSEL DE ALBUMES SOLAMENTE*/
 html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes use rem/clamp(...rem) units, changing the root html font-size scales all of them proportionally without editing every rule. */
 
@@ -211,6 +213,7 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
 
 /* Landscape phones & small tablets */
 @media (max-width: 600px) {
+  .aka { padding: 0 18px; } /* SELECCIONADOR DE PADDING DEL TEXTO AKA */
   .page-wrapper { padding: 28px 18px 48px;  }
   .logo-img { width: min(240px, 72vw);  }
   .site-header { margin-bottom: 28px;  }
@@ -242,6 +245,7 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
 
 /* PORTRAIT PHONES  */
 @media (orientation: portrait) and (max-width: 600px) {
+  .aka { padding: 0 18px; } /* SELECCIONADOR DE PADDING DEL TEXTO AKA */
   html { font-size: 10px; /* was 14px */  } /* Text size - Since most font sizes use rem/clamp(...rem) units, changing the root html font-size scales all of them proportionally without editing every rule. */
 
   /* Brings the logo closer to the top of the screen, portrait phones only */
@@ -272,5 +276,5 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
 }
 
 /* Very small portrait phones */ 
-@media (max-width: 360px) { .page-wrapper { padding: 20px 14px 40px; }
-} 
+@media (max-width: 360px) { .page-wrapper { padding: 20px 14px 40px; } .aka { padding: 0 18px; } /* SELECCIONADOR DE PADDING DEL TEXTO AKA */
+}
