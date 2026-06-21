@@ -158,7 +158,21 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
    MAIN CONTENT AREA GENERAL SETTINGS
    ============================================= */
 .site-main {  width: 100%;  max-width: 700px;  text-align:justify; }
-.history { font-size: clamp(0.9rem, 2vw, 1.1rem);  margin-top: 12px; overflow-y: auto; box-sizing: border-box; padding-right: 8px; /* CSS fallback height in case JS hasn't run yet (e.g. JS disabled) — JS below overrides this with a precise live-measured value */ height: 60vh; }
+.history { font-size: clamp(0.9rem, 2vw, 1.1rem);  margin-top: 12px; overflow-y: auto; box-sizing: border-box; padding: 16px 24px 16px 16px; /* CSS fallback height in case JS hasn't run yet (e.g. JS disabled) — JS below overrides this with a precise live-measured value */ height: 60vh;
+  /* Semi-transparent background matching the player's .yt-playlist panel,
+     so the scrolling text area reads clearly against the page's background image */
+  background: rgba(0,0,0,0.66);
+  border-radius: 8px;
+  /* Thin, subtle scrollbar instead of the default thick Windows-style bar.
+     Firefox uses scrollbar-width/scrollbar-color; Chrome/Edge/Safari use
+     the ::-webkit-scrollbar pseudo-elements below. */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.25) transparent;
+}
+.history::-webkit-scrollbar { width: 6px; }
+.history::-webkit-scrollbar-track { background: transparent; }
+.history::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.25); border-radius: 3px; }
+.history::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.4); }
 
 /* =============================================
    RESPONSIVE BREAKPOINTS
