@@ -34,7 +34,7 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
    NAVIGATION
    ============================================= */
 .site-nav { display: flex; justify-content: center; font-size: clamp(2.8rem, 20vw, 2.8rem); margin-bottom: 48px;  }
-.nav-list { list-style: none; display: flex; flex-direction: column; align-items: flex-start; /* left-aligned text within the column */ gap: 10px; width: min(700px, 90vw); }
+.nav-list { list-style: none; display: flex; flex-direction: column; align-items: flex-start; /* left-aligned text within the column */ gap: 10px; }
 /* NAV LINK ES EL GENERICO YA NO SE USA
 .nav-link { text-decoration: none; color: #ffffff; font-size: clamp(1rem, 2.5vw, 1.2rem); font-weight: 500; letter-spacing: 0.03em; padding: 6px 14px; border-left: 3px solid transparent; border-radius: 2px; transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;  }
 .nav-link:hover { color: #a8d8ff; border-left-color: #a8d8ff; background-color: rgba(168, 216, 255, 0.07); }
@@ -68,7 +68,11 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
 .LiveSets:hover {  color: #02FF00; border-left-color: #02FF00; background-color: rgba(168, 216, 255, 0.07); }
 
 .history{ font-family: Inter; color: #FFFCFC; font-size: 14px; /* margin-left: auto; margin-right: auto; position: relative;*/	} 
-.aka{ display: block; text-align: left; font-family: Inter; color: #FFFCFC; font: bold; font-size: 20px;		}
+.aka{ display: block; text-align: left; width: 280px; font-family: Inter; color: #FFFCFC; font: bold; font-size: 20px;		}
+
+/* This <li> stretches so its child .aka can use a width wider than its
+   siblings (Downtempo, Krautrock) without affecting their own sizing. */
+.aka-item { align-self: stretch; }
 .photo1 {width: 500px; float:left; margin-right: 1rem; } /* Fotos que quiero ocupen el 50% del ancho del celular */
 .photo2 {width: 500px; float:right; margin-left: 1rem; } /* Fotos que quiero ocupen el 50% del ancho del celular */
 .photo3 {width: 970px; float:left; margin-right: 1rem; } /* Fotos que quiero ocupen el 100% del ancho del celular */
