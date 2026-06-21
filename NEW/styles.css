@@ -277,6 +277,8 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
   #image-carousel.splide { max-width: 300px;  } /*AFECTA EL TAMAÑO DEL CAROUSEL DE ALBUMES SOLAMENTE*/
 }
 
-/* Very small portrait phones */ 
-@media (max-width: 360px) { .page-wrapper { padding: 20px 14px 40px; } .aka { padding: 0 18px; } /* SELECCIONADOR DE PADDING DEL TEXTO AKA */
+/* Very small portrait phones like Galazy Z Fold */ 
+@media (max-width: 360px) { 
+ .page-wrapper { padding: 20px 10px 40px; } /* 20px 14px 40px */
+ .aka { padding: 0 18px; } /* SELECCIONADOR DE PADDING DEL TEXTO AKA */
 } 
