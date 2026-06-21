@@ -67,7 +67,6 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
 .LiveSets { font-family: Inter; text-decoration: none; color: #02FF00; letter-spacing: 0.03em; padding: 6px 14px; border-left: 3px solid transparent; border-radius: 2px; transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;	}
 .LiveSets:hover {  color: #02FF00; border-left-color: #02FF00; background-color: rgba(168, 216, 255, 0.07); }
 
-.history{ font-family: Inter; color: #FFFCFC; font-size: 14px; /* margin-left: auto; margin-right: auto; position: relative;*/	} 
 .aka{ display: block; text-align: left; width: 100%; padding: 0 14px; font-family: Inter; color: #FFFCFC; font: bold; font-size: 20px;		} /* padding matches .Genre/.SubGenre's 14px left padding so the AKA text visually lines up with Downtempo/Krautrock above it */
 
 /* No longer needs align-self:stretch now that .nav-list has a fixed width —
@@ -159,13 +158,10 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
 .site-main {
   width: 100%;
   max-width: 700px;
-  text-align: center;
+  text-align:justify;
 }
 
-.placeholder-text {
-  font-size: clamp(0.9rem, 2vw, 1.1rem);
-  margin-top: 12px;
-}
+.placeholder-text { font-size: clamp(0.9rem, 2vw, 1.1rem); margin-top: 12px;  }
 
 /* =============================================
    RESPONSIVE BREAKPOINTS
