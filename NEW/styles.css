@@ -279,6 +279,6 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
 
 /* Very small portrait phones like Galazy Z Fold */ 
 @media (max-width: 360px) { 
- .page-wrapper { padding: 20px 5px 40px; } /* 20px 14px 40px */
+ .page-wrapper { padding: 20px 0px 40px; } /* 20px 14px 40px */
  .aka { padding: 0 18px; } /* SELECCIONADOR DE PADDING DEL TEXTO AKA */
 } 
