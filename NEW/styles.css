@@ -68,7 +68,7 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
 .LiveSets:hover {  color: #02FF00; border-left-color: #02FF00; background-color: rgba(168, 216, 255, 0.07); }
 
 .history{ font-family: Inter; color: #FFFCFC; font-size: 14px; /* margin-left: auto; margin-right: auto; position: relative;*/	} 
-.aka{ display: block; text-align: left; width: 100%; background: lime !important; color: black; font-family: Inter; color: #FFFCFC; font: bold; font-size: 20px;		}
+.aka{ display: block; text-align: left; width: 100%; font-family: Inter; color: #FFFCFC; font: bold; font-size: 20px;		}
 
 /* No longer needs align-self:stretch now that .nav-list has a fixed width —
    the <li> sits at the container's left edge like its siblings by default,
