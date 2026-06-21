@@ -274,7 +274,7 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
     grid-template-rows: 29px 1fr 29px;
   }
 
-  #image-carousel.splide { width: 300px;  } /*AFECTA EL TAMAÑO DEL CAROUSEL DE ALBUMES SOLAMENTE*/
+  #image-carousel.splide { max-width: 300px;  } /*AFECTA EL TAMAÑO DEL CAROUSEL DE ALBUMES SOLAMENTE*/
 }
 
 /* Very small portrait phones like Galazy Z Fold */ 
