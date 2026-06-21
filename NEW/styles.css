@@ -163,9 +163,7 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
 }
 
 .placeholder-text {
-  color: rgba(232, 232, 232, 0.45);
   font-size: clamp(0.9rem, 2vw, 1.1rem);
-  font-style: italic;
   margin-top: 12px;
 }
 
