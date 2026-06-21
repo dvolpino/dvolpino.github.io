@@ -161,7 +161,7 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
 .history { font-size: clamp(0.9rem, 2vw, 1.1rem);  margin-top: 12px; overflow-y: auto; box-sizing: border-box; padding: 16px 24px 16px 16px; /* CSS fallback height in case JS hasn't run yet (e.g. JS disabled) — JS below overrides this with a precise live-measured value */ height: 60vh;
   /* Semi-transparent background matching the player's .yt-playlist panel,
      so the scrolling text area reads clearly against the page's background image */
-  background: rgba(0,0,0,0.66);
+  background: rgba(0,0,0,0.35); /* lowered from 0.66 (player playlist's value) for a more see-through look here */
   border-radius: 8px;
   /* Thin, subtle scrollbar instead of the default thick Windows-style bar.
      Firefox uses scrollbar-width/scrollbar-color; Chrome/Edge/Safari use
