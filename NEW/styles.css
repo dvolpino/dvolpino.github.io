@@ -259,7 +259,7 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
     width: min(280px, 78vw);
   }
   .nav-list { width: min(300px, 70vw); } /* ANCHO COLUMNA DE LINKS - Afecta el centrado de la misma - Elige el valor minimo de los dos (XXpx, XXvw) - 92vw=92% del ancho del viewport */
-  .site-nav { font-size: clamp(2.6rem, 20vw, 2.6rem)  }
+  .site-nav { font-size: clamp(2.7rem, 20vw, 2.7rem)  }
   /* Tape-counter assembly: 686px native -> 170px target on portrait phone.
      This overrides the 300px-target rule from the general phone breakpoint above
      since this rule appears later in the cascade for the same specificity. */
