@@ -52,10 +52,19 @@
 <script>
   function ytSyncHistoryHeight() {
     var history = document.querySelector('.history');
+    var wrapper = document.querySelector('.page-wrapper');
     if (!history) return;
 
     var top = history.getBoundingClientRect().top;
-    var available = window.innerHeight - top;
+    /* .page-wrapper has bottom padding that sits below .history but isn't
+       part of .history's own box — without subtracting it, the page ends up
+       slightly taller than the screen even though .history itself fits
+       exactly, triggering an unwanted outer page scrollbar. Reading it live
+       (instead of hardcoding 60px) keeps this correct even if that padding
+       value changes later. */
+    var bottomPad = wrapper ? parseFloat(getComputedStyle(wrapper).paddingBottom) || 0 : 0;
+
+    var available = window.innerHeight - top - bottomPad;
     if (available < 80) available = 80; /* sane minimum so it never collapses to nothing */
 
     history.style.height = available + 'px';
