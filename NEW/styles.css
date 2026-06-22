@@ -47,7 +47,7 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
    class below, so they're declared once instead of repeated 8+ times.
    Each individual class then only needs its unique color (and any other
    property that differs from this shared baseline). */
-.scene, .Genre, .SubGenre, .SubGenre2, .Artists, .Playlists, .Resto, .LiveSets {
+.scene, .Genre, .SubGenre, .SubGenre2, .Artists, .Playlists, .Playlists2, .Resto, .LiveSets {
   font-family: Inter;
   text-decoration: none;
   letter-spacing: 0.03em;
@@ -80,6 +80,10 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
 .Playlists { color: #0691FF; }
 .Playlists:hover {  color: #0691FF; border-left-color: #0691FF; background-color: rgba(168, 216, 255, 0.07); }
 .Playlists.active { border-left-color: #0691FF;  background-color: rgba(255, 215, 0, 0.07); }
+
+.Playlists2 { font-size: clamp(1.5rem, 18vw, 2rem); color: #0691FF; }
+.Playlists2:hover {  color: #0691FF; border-left-color: #0691FF; background-color: rgba(168, 216, 255, 0.07); }
+.Playlists2.active { border-left-color: #0691FF;  background-color: rgba(255, 215, 0, 0.07); }
 
 .pl-small { font-size: 0.6em; vertical-align: middle; } /* Small inline label (e.g. "PL") used inside a link's own text, like "Drum n'Bass PL". Sized relative to its parent link's current font-size using em, so it stays proportionally ~60% no matter which class/breakpoint it's nested inside. Replaces the old standalone .PL sibling element. */
 
