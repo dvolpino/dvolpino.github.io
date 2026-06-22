@@ -212,14 +212,14 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
  #image-carousel.splide { max-width: 400px;  }  /* AFECTA EL TAMAÑO DEL CAROUSEL DE ALBUMES SOLAMENTE*/
 
 .tape-counter-outer {     /* SELECCIONADOR DE PLAYLIST X DECADA */ /* scale = desired width / 686 */ 
-    width: 400px;    /* Desired width */
-    height: 223px;   /* 383 x scale */
+    width: 280px;    /* Desired width */
+    height: 156px;   /* 383 x scale */
 }
 .tape-counter-wrap {
-    width: 400px;    /* Desired width */
-    height: 223px;   /* 383 x scale */
-    grid-template-columns: 48px 1fr 146px;    /* (82 x scale)px 1fr (251 x scale)px  Round each to the nearest whole pixel */ 
-    grid-template-rows: 38px 1fr 38px;        /* (66 x scale)px 1fr (66 x scale)px Round each to the nearest whole pixel */ 
+    width: 280px;    /* Desired width */
+    height: 156px;   /* 383 x scale */
+    grid-template-columns: 34px 1fr 103px;    /* (82 x scale)px 1fr (251 x scale)px  Round each to the nearest whole pixel */ 
+    grid-template-rows: 27px 1fr 27px;        /* (66 x scale)px 1fr (66 x scale)px Round each to the nearest whole pixel */ 
 }
 } /* <-- closes @media (min-width: 1200px), was missing */
 
@@ -234,14 +234,14 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
 
 
 .tape-counter-outer {     /* SELECCIONADOR DE PLAYLIST X DECADA */ /* scale = desired width / 686 */ 
-    width: 400px;    /* Desired width */
-    height: 223px;   /* 383 x scale */
+    width: 280px;    /* Desired width */
+    height: 156px;   /* 383 x scale */
 }
 .tape-counter-wrap {
-    width: 400px;    /* Desired width */
-    height: 223px;   /* 383 x scale */
-    grid-template-columns: 48px 1fr 146px;    /* (82 x scale)px 1fr (251 x scale)px  Round each to the nearest whole pixel */ 
-    grid-template-rows: 38px 1fr 38px;        /* (66 x scale)px 1fr (66 x scale)px Round each to the nearest whole pixel */ 
+    width: 280px;    /* Desired width */
+    height: 156px;   /* 383 x scale */
+    grid-template-columns: 34px 1fr 103px;    /* (82 x scale)px 1fr (251 x scale)px  Round each to the nearest whole pixel */ 
+    grid-template-rows: 27px 1fr 27px;        /* (66 x scale)px 1fr (66 x scale)px Round each to the nearest whole pixel */ 
 }
 }
 
@@ -263,14 +263,14 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
      transform:scale only affects rendering, so .tape-counter-outer
      reserves the actual scaled footprint to avoid overlapping content. */
   .tape-counter-outer {            /* SELECCIONADOR DE PLAYLIST X DECADA */
-    width: 200px;
-    height: 111px;
+    width: 160px;
+    height: 89px;
   }
   .tape-counter-wrap {
-    width: 200px;
-    height: 111px;
-    grid-template-columns: 24px 1fr 73px;
-    grid-template-rows: 19px 1fr 19px;
+    width: 160px;
+    height: 89px;
+    grid-template-columns: 19px 1fr 59px;
+    grid-template-rows: 15px 1fr 15px;
   }
 
   #image-carousel.splide { max-width: 400px;  } /*AFECTA EL TAMAÑO DEL CAROUSEL DE ALBUMES SOLAMENTE*/
@@ -290,10 +290,10 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
   .site-nav { font-size: clamp(2.7rem, 20vw, 2.7rem) ;  { margin-bottom: 30px; } /* reducido de 48 para reducir el gap con el texto debajo en History*/ }
   
 	/* Tape-counter assembly: 686px native -> 170px target on portrait phone.This overrides the 300px-target rule from the general phone breakpoint above since this rule appears later in the cascade for the same specificity. */
-  .tape-counter-outer {            /* SELECCIONADOR DE PLAYLIST X DECADA Su ancho depende de este valor (300px) si no hay un Album carousel. Si lo hay entonces toma el ancho del mismo */
-    width: 300px;
-    height: 167px;  }
-  .tape-counter-wrap { width: 300px; height: 167px; grid-template-columns: 36px 1fr 110px; grid-template-rows: 29px 1fr 29px;  }
+  .tape-counter-outer {            /* SELECCIONADOR DE PLAYLIST X DECADA Su ancho depende de este valor (220px) si no hay un Album carousel. Si lo hay entonces toma el ancho del mismo */
+    width: 220px;
+    height: 123px;  }
+  .tape-counter-wrap { width: 220px; height: 123px; grid-template-columns: 26px 1fr 81px; grid-template-rows: 21px 1fr 21px;  }
 
   #image-carousel.splide { max-width: 300px;  } /*AFECTA EL TAMAÑO MAXIMO DEL CAROUSEL DE ALBUMES SOLAMENTE*/
 }
@@ -303,5 +303,4 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
  /*.page-wrapper { padding: 20px 14px 40px; } /* 20px 14px 40px */
   .site-nav {font-size:clamp(2rem, 20vw, 2.2rem)  } /* Font de columna de navegación clamp(the smallest the value is ever allowed to be, what it tries to be, usually based on something that changes (like viewport width, the largest the value is ever allowed to be ) */
  .aka { padding: 0 18px; } /* SELECCIONADOR DE PADDING DEL TEXTO AKA */
- .Playlists2 { font-size: clamp(1.5rem, 16vw, 1.7rem); color: #0691FF; }
 } 
