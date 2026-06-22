@@ -46,9 +46,8 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
    Consolidates the properties common to every .scene/.Genre/.SubGenre/etc.
    class below, so they're declared once instead of repeated 8+ times.
    Each individual class then only needs its unique color (and any other
-   property that differs from this shared baseline, e.g. .Genre's font-weight,
-   .SubGenre2's larger font-size, or .PL's smaller padding). */
-.scene, .Genre, .SubGenre, .SubGenre2, .Artists, .Playlists, .PL, .Resto, .LiveSets {
+   property that differs from this shared baseline). */
+.scene, .Genre, .SubGenre, .SubGenre2, .Artists, .Playlists, .Resto, .LiveSets {
   font-family: Inter;
   text-decoration: none;
   letter-spacing: 0.03em;
@@ -58,11 +57,11 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
   transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;
 }
 
-.scene { color: #00F5B4; }
+.scene { color: #00F5B4; margin: auto; }
 .scene:hover {  color: #00F5B4; border-left-color: #00F5B4; background-color: rgba(168, 216, 255, 0.07); }
 .scene.active { border-left-color: #00F5B4;  background-color: rgba(255, 215, 0, 0.07); }
 
-.Genre { color: #FFDD00;  }
+.Genre { color: #FFDD00; font-weight: 400; }
 .Genre:hover {  color: #FFDD00; border-left-color: #FFDD00; background-color: rgba(168, 216, 255, 0.07); }
 .Genre.active { border-left-color: #FFD700;  background-color: rgba(255, 215, 0, 0.07); }
 
@@ -70,7 +69,7 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
 .SubGenre:hover {  color: #FFFFFF; border-left-color: #FFFFFF; background-color: rgba(168, 216, 255, 0.07); }
 .SubGenre.active { border-left-color: #FFFFFF;  background-color: rgba(255, 215, 0, 0.07); }
 
-.SubGenre2 { font-size: clamp(1.5rem, 19vw, 2.1rem); color: #FFFFFF; }
+.SubGenre2 { font-size: clamp(1.5rem, 18vw, 2rem); color: #FFFFFF; }
 .SubGenre2:hover {  color: #FFFFFF; border-left-color: #FFFFFF; background-color: rgba(168, 216, 255, 0.07); }
 .SubGenre2.active { border-left-color: #FFFFFF;  background-color: rgba(255, 215, 0, 0.07); }
 
@@ -82,7 +81,7 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
 .Playlists:hover {  color: #0691FF; border-left-color: #0691FF; background-color: rgba(168, 216, 255, 0.07); }
 .Playlists.active { border-left-color: #0691FF;  background-color: rgba(255, 215, 0, 0.07); }
 
-.PL { font-size: clamp(1.6rem, 12vw, 1.6rem); color: #0691FF; padding: 2px 4px; } /* padding overridden from the shared 6px 14px — it was stacking with .Playlists' own right padding (14px), creating a ~28px gap between "Bass" and "PL" */
+.pl-small { font-size: 0.6em; vertical-align: middle; } /* Small inline label (e.g. "PL") used inside a link's own text, like "Drum n'Bass PL". Sized relative to its parent link's current font-size using em, so it stays proportionally ~60% no matter which class/breakpoint it's nested inside. Replaces the old standalone .PL sibling element. */
 
 .Resto { color: #FA60FF; }
 .Resto:hover {  color: #FA60FF; border-left-color: #FA60FF; background-color: rgba(168, 216, 255, 0.07); }
