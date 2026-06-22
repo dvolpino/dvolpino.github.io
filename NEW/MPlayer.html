@@ -499,7 +499,8 @@
      ═══════════════════════════════════════════════════════ */
   var ytPlayer, ytReady = false;
   var ytConsecutiveErrors = 0; /* tracks repeated playback failures so a fully broken playlist stops instead of looping forever */
-  var ytStuckWatchdog = null;  /* timer that catches dead tracks the IFrame API never reports via onError */
+  var ytStuckWatchdog  = null; /* pending timer, if any */
+  var ytStuckTrackId   = null; /* which video id the pending timer belongs to */
 
   /* Shared by onError and the stuck-watchdog below. Skips to the next track —
      nextVideo() respects the playlist's current shuffle setting on its own,
@@ -517,26 +518,36 @@
 
   function ytClearStuckWatchdog() {
     if (ytStuckWatchdog) { clearTimeout(ytStuckWatchdog); ytStuckWatchdog = null; }
+    ytStuckTrackId = null;
   }
 
-  /* Some dead videos (removed-from-playlist, certain region blocks) never fire
-     onError at all — the player just settles on PAUSED at 0:00 and sits there
-     forever. Detect that: if a few seconds after any non-playing state change
-     we're still not playing AND we never made real progress (currentTime is
-     ~0) AND duration never loaded (a normal cued video reports its duration
-     almost immediately, even before playback starts) — it's stuck, not just
-     paused by the user. A real user pause keeps the elapsed time/duration the
-     track already had, so this won't fire on legitimate pauses. */
+  /* Some dead videos (region blocks, certain removed-from-playlist cases) never
+     fire onError — the player just sits there not playing, sometimes flickering
+     between BUFFERING/PAUSED. Detect that by comparing currentTime across a
+     5-second window instead of checking duration — duration is unreliable here
+     since YouTube often still knows a blocked video's length even though it
+     can't stream it. No measurable progress in 5 seconds while not PLAYING =
+     stuck. Crucially, this does NOT re-arm (and reset the clock) for repeated
+     state-change events on the SAME stuck video, since a flaky track can fire
+     onStateChange many times before the 5s mark would otherwise ever be reached. */
   function ytArmStuckWatchdog() {
+    var id = null;
+    try { id = ytPlayer.getVideoData().video_id; } catch (err) {}
+
+    if (ytStuckWatchdog && ytStuckTrackId === id) return; /* already watching this track — let the original timer run */
+
     ytClearStuckWatchdog();
+    ytStuckTrackId = id;
+    var startTime = 0;
+    try { startTime = ytPlayer.getCurrentTime(); } catch (err) {}
+
     ytStuckWatchdog = setTimeout(function () {
+      ytStuckWatchdog = null;
       if (!ytPlayer) return;
       try {
-        var state = ytPlayer.getPlayerState();
-        if (state === YT.PlayerState.PLAYING) return; /* recovered on its own */
-        var cur = ytPlayer.getCurrentTime();
-        var dur = ytPlayer.getDuration();
-        if (cur < 1.5 && !dur) {
+        if (ytPlayer.getPlayerState() === YT.PlayerState.PLAYING) return; /* recovered on its own */
+        var nowTime = ytPlayer.getCurrentTime();
+        if (nowTime - startTime < 0.5) {
           ytSkipDeadTrack('stuck, no onError fired');
         }
       } catch (err) {}
