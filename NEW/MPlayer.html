@@ -572,6 +572,59 @@
     }, 5000);
   }
 
+  var ytPollInterval = null;
+  var ytPollTrack = { id: undefined, since: 0 };
+  var ytPlaybackIntended = false; /* true once playback has actually started at least once — guards against flagging the not-yet-pressed-play initial screen as "stuck" */
+
+  /* THE REAL FIX for the diagnosed bug: when the playlist's own internal
+     auto-advance (after a track ends) lands on an unavailable video, the
+     IFrame API can show its "Video unavailable" overlay without firing
+     ANY event — no onStateChange, no onError. Nothing event-driven can catch
+     that, so this polls getPlayerState()/getCurrentTime() directly on a timer,
+     independent of events, every 1.5s.
+
+     Only treats state -1 (UNSTARTED) / 5 (CUED) as suspicious — never state 2
+     (PAUSED), so a track the user deliberately paused mid-way is never touched
+     by this. Only runs once ytPlaybackIntended is true (i.e. playback has
+     already started once this session) — otherwise the very first track,
+     sitting unplayed on the cover/initial screen before the user presses
+     play, would itself look "stuck" and get skipped for no reason. */
+  function ytStartPolling() {
+    if (ytPollInterval) return;
+    ytPollInterval = setInterval(ytPollCheck, 1500);
+    console.log('[YT poll] started — checks every 1.5s, independent of IFrame events');
+  }
+
+  function ytPollCheck() {
+    if (!ytPlayer) return;
+    var id, state, cur;
+    try {
+      id = ytPlayer.getVideoData().video_id;
+      state = ytPlayer.getPlayerState();
+      cur = ytPlayer.getCurrentTime();
+    } catch (err) {
+      console.error('[YT poll] query threw:', err);
+      return;
+    }
+
+    console.log('[YT poll] id:', id, '| state:', (YT_STATE_NAMES[state] || state), '| currentTime:', cur, '| playbackIntended:', ytPlaybackIntended);
+
+    if (id !== ytPollTrack.id) {
+      ytPollTrack = { id: id, since: Date.now() }; /* different track since last poll — fresh window */
+      return;
+    }
+
+    var neverStarted = (state === -1 || state === 5);
+    if (!ytPlaybackIntended || !neverStarted) return;
+
+    var stuckMs = Date.now() - ytPollTrack.since;
+    if (stuckMs >= 6000) {
+      console.warn('[YT poll] track', id, 'stuck in', (YT_STATE_NAMES[state] || state), 'for', stuckMs, 'ms with no events firing — treating as a silently-failed auto-advance');
+      ytPollTrack = { id: undefined, since: 0 };
+      ytSkipDeadTrack('silent auto-advance failure (poll-detected), stuck in ' + (YT_STATE_NAMES[state] || state));
+    }
+  }
+
   /* Show cover image if thumb param provided */
   if (!NAS_MODE && YT_THUMB && YT_LIST_ID) {
     document.getElementById('yt-cover-img').src = decodeURIComponent(YT_THUMB);
@@ -602,6 +655,7 @@
           if (iframe) iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
           ytReady = true;
           setTimeout(ytBuildPlaylist, 1500);
+          ytStartPolling();
         },
         onStateChange: function (e) {
           console.log('[YT state]', YT_STATE_NAMES[e.data] || e.data, '— video_id:', (function(){ try { return ytPlayer.getVideoData().video_id; } catch(err){ return '(unavailable: ' + err + ')'; } })(), ', currentTime:', (function(){ try { return ytPlayer.getCurrentTime(); } catch(err){ return '(unavailable)'; } })());
@@ -610,6 +664,7 @@
             ytStartTimer();
             ytConsecutiveErrors = 0; /* successful playback — reset the failure streak */
             ytClearStuckWatchdog();
+            ytPlaybackIntended = true;
           } else {
             if (e.data === YT.PlayerState.ENDED || e.data === YT.PlayerState.PAUSED) {
               ytStopTimer();
