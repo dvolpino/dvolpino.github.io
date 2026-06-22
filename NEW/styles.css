@@ -40,37 +40,55 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
 .nav-link:hover { color: #a8d8ff; border-left-color: #a8d8ff; background-color: rgba(168, 216, 255, 0.07); }
 .nav-link.active { color: #FFD700; border-left-color: #FFD700; background-color: rgba(255, 215, 0, 0.07); }  */
 
-.scene { font-family: Inter; text-decoration: none; color: #00F5B4; margin: auto; letter-spacing: 0.03em; border-left: 3px solid transparent; border-radius: 2px; transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;	}
+/* =============================================
+   SHARED BASE FOR NAV-LINK "PILL" CLASSES
+   ============================================= 
+   Consolidates the properties common to every .scene/.Genre/.SubGenre/etc.
+   class below, so they're declared once instead of repeated 8+ times.
+   Each individual class then only needs its unique color (and any other
+   property that differs from this shared baseline, e.g. .Genre's font-weight,
+   .SubGenre2's larger font-size, or .PL's smaller padding). */
+.scene, .Genre, .SubGenre, .SubGenre2, .Artists, .Playlists, .PL, .Resto, .LiveSets {
+  font-family: Inter;
+  text-decoration: none;
+  letter-spacing: 0.03em;
+  padding: 6px 14px;
+  border-left: 3px solid transparent;
+  border-radius: 2px;
+  transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;
+}
+
+.scene { color: #00F5B4; }
 .scene:hover {  color: #00F5B4; border-left-color: #00F5B4; background-color: rgba(168, 216, 255, 0.07); }
 .scene.active { border-left-color: #00F5B4;  background-color: rgba(255, 215, 0, 0.07); }
 
-.Genre { font-family: Inter; text-decoration: none; color: #FFDD00; font-weight: 400; letter-spacing: 0.03em; padding: 6px 14px; border-left: 3px solid transparent; border-radius: 2px; transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;	}
+.Genre { color: #FFDD00;  }
 .Genre:hover {  color: #FFDD00; border-left-color: #FFDD00; background-color: rgba(168, 216, 255, 0.07); }
 .Genre.active { border-left-color: #FFD700;  background-color: rgba(255, 215, 0, 0.07); }
 
-.SubGenre { font-family: Inter; text-decoration: none; color: #FFFFFF; letter-spacing: 0.03em; padding: 6px 14px; border-left: 3px solid transparent; border-radius: 2px; transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;	}
+.SubGenre { color: #FFFFFF; }
 .SubGenre:hover {  color: #FFFFFF; border-left-color: #FFFFFF; background-color: rgba(168, 216, 255, 0.07); }
 .SubGenre.active { border-left-color: #FFFFFF;  background-color: rgba(255, 215, 0, 0.07); }
 
-.SubGenre2 { font-size: clamp(1.5rem, 18vw, 2rem); font-family: Inter; text-decoration: none; color: #FFFFFF; letter-spacing: 0.03em; padding: 6px 14px; border-left: 3px solid transparent; border-radius: 2px; transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;	}
+.SubGenre2 { font-size: clamp(1.5rem, 19vw, 2.1rem); color: #FFFFFF; }
 .SubGenre2:hover {  color: #FFFFFF; border-left-color: #FFFFFF; background-color: rgba(168, 216, 255, 0.07); }
 .SubGenre2.active { border-left-color: #FFFFFF;  background-color: rgba(255, 215, 0, 0.07); }
 
-.Artists { font-family: Inter; text-decoration: none; color: #FF0000; letter-spacing: 0.03em; padding: 6px 14px; border-left: 3px solid transparent; border-radius: 2px; transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;	}
+.Artists { color: #FF0000; }
 .Artists:hover {  color: #FF0000; border-left-color: #FF0000; background-color: rgba(168, 216, 255, 0.07); }
 .Artists.active { border-left-color: #FF0000;  background-color: rgba(255, 215, 0, 0.07); }
 
-.Playlists { font-family: Inter; text-decoration: none; color: #0691FF; letter-spacing: 0.03em; padding: 6px 14px; border-left: 3px solid transparent; border-radius: 2px; transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;	}
+.Playlists { color: #0691FF; }
 .Playlists:hover {  color: #0691FF; border-left-color: #0691FF; background-color: rgba(168, 216, 255, 0.07); }
 .Playlists.active { border-left-color: #0691FF;  background-color: rgba(255, 215, 0, 0.07); }
 
-.PL { font-size: clamp(1.4rem, 10vw, 1.4rem); font-family: Inter; text-decoration: none; color: #0691FF; letter-spacing: 0.03em; padding: 2px 4px; border-left: 3px solid transparent; border-radius: 2px; transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;	} /* padding reduced from 6px 14px — it was stacking with .Playlists' own right padding (14px), creating a ~28px gap between "Bass" and "PL" */
+.PL { font-size: clamp(1.4rem, 10vw, 1.4rem); color: #0691FF; padding: 2px 4px; } /* padding overridden from the shared 6px 14px — it was stacking with .Playlists' own right padding (14px), creating a ~28px gap between "Bass" and "PL" */
 
-.Resto { font-family: Inter; text-decoration: none; color: #FA60FF; letter-spacing: 0.03em; padding: 6px 14px; border-left: 3px solid transparent; border-radius: 2px; transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;	}
+.Resto { color: #FA60FF; }
 .Resto:hover {  color: #FA60FF; border-left-color: #FA60FF; background-color: rgba(168, 216, 255, 0.07); }
 .Resto.active { border-left-color: #FA60FF;  background-color: rgba(255, 215, 0, 0.07); }
 
-.LiveSets { font-family: Inter; text-decoration: none; color: #02FF00; letter-spacing: 0.03em; padding: 6px 14px; border-left: 3px solid transparent; border-radius: 2px; transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;	}
+.LiveSets { color: #02FF00; }
 .LiveSets:hover {  color: #02FF00; border-left-color: #02FF00; background-color: rgba(168, 216, 255, 0.07); }
 
 .history{ font-family: Inter; color: #FFFCFC; font-size: 14px; /* margin-left: auto; margin-right: auto; position: relative;*/	} 
