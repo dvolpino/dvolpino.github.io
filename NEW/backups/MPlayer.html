@@ -200,13 +200,6 @@
   var nasOrder       = [];     /* playback order (sequential or shuffled indices) */
   var nasOrderPos    = 0;      /* current position in nasOrder */
 
-  /* Track failed-load recovery: whether playback was actually intended
-     (so a broken FIRST track doesn't force-start playback on page load),
-     and how many tracks in a row have failed (so a fully broken playlist
-     skips through once and stops instead of looping forever). */
-  var nasAutoPlayIntent    = false;
-  var nasConsecutiveErrors = 0;
-
   if (NAS_MODE) {
     /* Hide YouTube-only elements, show NAS-only elements */
     document.getElementById('yt-player').style.display    = 'none';
@@ -219,28 +212,6 @@
 
     /* Auto-advance to next track when current one ends */
     nasAudio.addEventListener('ended', function() { nasNext(); });
-
-    /* Track is unavailable (404, bad path, CORS, decode failure, etc.)
-       Skip to the next track in the current order — respects shuffle
-       automatically since nasOrder is already shuffled when shuffle is on.
-       Bail out instead of skipping once every track in the playlist has
-       failed back-to-back, so a fully broken NAS connection doesn't spin
-       through the list forever. */
-    nasAudio.addEventListener('error', function() {
-      if (!nasAudio.src) return; /* ignore spurious errors before any track is loaded */
-      nasConsecutiveErrors++;
-      console.warn('NAS track unavailable, skipping:', ytTracks[ytCurrentIndex] && ytTracks[ytCurrentIndex].src);
-      if (nasConsecutiveErrors >= Math.max(ytTracks.length, 1)) {
-        document.getElementById('yt-playlist-loading').textContent = 'No tracks could be loaded.';
-        return;
-      }
-      nasSkipToNext(nasAutoPlayIntent);
-    });
-
-    /* A track loaded successfully — reset the failure streak. Using
-       'canplay' rather than 'playing' so this fires even when a track is
-       loaded without autoplay (e.g. the very first track on page load). */
-    nasAudio.addEventListener('canplay', function() { nasConsecutiveErrors = 0; });
 
     /* Update elapsed time display while playing */
     nasAudio.addEventListener('timeupdate', function() {
@@ -399,7 +370,6 @@
     if (!track) return;
 
     ytCurrentIndex = trackIdx;
-    nasAutoPlayIntent = autoPlay;
 
     /* Update album art */
     document.getElementById('nas-album-art').src = track.folder + 'folder.jpg';
@@ -471,17 +441,11 @@
   }
 
   function nasNext() {
-    nasSkipToNext(true); /* user pressed Next — always start playing */
-  }
-
-  /* Shared by the Next button and the error-recovery handler.
-     Wraps to the start of nasOrder, so it works whether shuffle is on or off —
-     nasOrder is already in the correct (sequential or shuffled) order. */
-  function nasSkipToNext(autoPlay) {
     if (nasOrderPos < nasOrder.length - 1) {
-      nasLoadTrack(nasOrderPos + 1, autoPlay);
+      nasLoadTrack(nasOrderPos + 1, true);
     } else {
-      nasLoadTrack(0, autoPlay);
+      /* Wrap to start */
+      nasLoadTrack(0, true);
     }
   }
 
@@ -498,7 +462,6 @@
      YOUTUBE MODE
      ═══════════════════════════════════════════════════════ */
   var ytPlayer, ytReady = false;
-  var ytConsecutiveErrors = 0; /* tracks repeated playback failures so a fully broken playlist stops instead of looping forever */
 
   /* Show cover image if thumb param provided */
   if (!NAS_MODE && YT_THUMB && YT_LIST_ID) {
@@ -535,7 +498,6 @@
           if (e.data === YT.PlayerState.PLAYING) {
             document.getElementById('yt-cover-wrap').style.display = 'none';
             ytStartTimer();
-            ytConsecutiveErrors = 0; /* successful playback — reset the failure streak */
           } else if (e.data === YT.PlayerState.ENDED || e.data === YT.PlayerState.PAUSED) {
             ytStopTimer();
           }
@@ -552,19 +514,6 @@
               }
             } catch(err) {}
           }
-        },
-        /* Fires for unavailable videos: removed (100), embedding disabled by the
-           owner (101/150), or an invalid parameter (2)/HTML5 player error (5).
-           Skip to the next track — nextVideo() respects the playlist's current
-           shuffle setting on its own, so this works whether shuffle is on or off. */
-        onError: function (e) {
-          console.warn('YouTube playback error (code ' + e.data + ') — skipping track', ytCurrentIndex);
-          ytConsecutiveErrors++;
-          if (ytConsecutiveErrors >= Math.max(ytTracks.length, 1)) {
-            console.error('All tracks in this playlist failed to play — stopping auto-skip.');
-            return;
-          }
-          ytPlayer.nextVideo();
         }
       }
     });
