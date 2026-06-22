@@ -2,16 +2,12 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>YTML</title>
-	
-<!--<style type="text/css">
-	 /* Fix background-attachment: fixed breaking on mobile 
-  @media (max-width: 768px) {
-    body {
-      background-attachment: scroll;
-    }
-  } */
-</style>-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>YTML | MPlayer</title>
+<!-- Google Fonts: Inter -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <link href="playerstyles.css" rel="stylesheet" type="text/css">
 <link href="styles.css" rel="stylesheet" type="text/css">	
@@ -49,7 +45,10 @@
 
 -->
 <body>
-<header class="head"><a><img src="images/logo.webp" alt="" width="675" height="127" onclick="history.back()" /></a></header>
+	
+<!--/// LOGO ///-->
+<header class="site-header"> <a class="logo-link"> <img src="images/logo.webp" alt="Logo" class="logo-img" width="675" height="127" onclick="history.back()" /> </a> </header>
+
 <footer class="cuerpo">
   <nav>
   	
@@ -201,6 +200,13 @@
   var nasOrder       = [];     /* playback order (sequential or shuffled indices) */
   var nasOrderPos    = 0;      /* current position in nasOrder */
 
+  /* Track failed-load recovery: whether playback was actually intended
+     (so a broken FIRST track doesn't force-start playback on page load),
+     and how many tracks in a row have failed (so a fully broken playlist
+     skips through once and stops instead of looping forever). */
+  var nasAutoPlayIntent    = false;
+  var nasConsecutiveErrors = 0;
+
   if (NAS_MODE) {
     /* Hide YouTube-only elements, show NAS-only elements */
     document.getElementById('yt-player').style.display    = 'none';
@@ -213,6 +219,28 @@
 
     /* Auto-advance to next track when current one ends */
     nasAudio.addEventListener('ended', function() { nasNext(); });
+
+    /* Track is unavailable (404, bad path, CORS, decode failure, etc.)
+       Skip to the next track in the current order — respects shuffle
+       automatically since nasOrder is already shuffled when shuffle is on.
+       Bail out instead of skipping once every track in the playlist has
+       failed back-to-back, so a fully broken NAS connection doesn't spin
+       through the list forever. */
+    nasAudio.addEventListener('error', function() {
+      if (!nasAudio.src) return; /* ignore spurious errors before any track is loaded */
+      nasConsecutiveErrors++;
+      console.warn('NAS track unavailable, skipping:', ytTracks[ytCurrentIndex] && ytTracks[ytCurrentIndex].src);
+      if (nasConsecutiveErrors >= Math.max(ytTracks.length, 1)) {
+        document.getElementById('yt-playlist-loading').textContent = 'No tracks could be loaded.';
+        return;
+      }
+      nasSkipToNext(nasAutoPlayIntent);
+    });
+
+    /* A track loaded successfully — reset the failure streak. Using
+       'canplay' rather than 'playing' so this fires even when a track is
+       loaded without autoplay (e.g. the very first track on page load). */
+    nasAudio.addEventListener('canplay', function() { nasConsecutiveErrors = 0; });
 
     /* Update elapsed time display while playing */
     nasAudio.addEventListener('timeupdate', function() {
@@ -371,6 +399,7 @@
     if (!track) return;
 
     ytCurrentIndex = trackIdx;
+    nasAutoPlayIntent = autoPlay;
 
     /* Update album art */
     document.getElementById('nas-album-art').src = track.folder + 'folder.jpg';
@@ -442,11 +471,17 @@
   }
 
   function nasNext() {
+    nasSkipToNext(true); /* user pressed Next — always start playing */
+  }
+
+  /* Shared by the Next button and the error-recovery handler.
+     Wraps to the start of nasOrder, so it works whether shuffle is on or off —
+     nasOrder is already in the correct (sequential or shuffled) order. */
+  function nasSkipToNext(autoPlay) {
     if (nasOrderPos < nasOrder.length - 1) {
-      nasLoadTrack(nasOrderPos + 1, true);
+      nasLoadTrack(nasOrderPos + 1, autoPlay);
     } else {
-      /* Wrap to start */
-      nasLoadTrack(0, true);
+      nasLoadTrack(0, autoPlay);
     }
   }
 
@@ -463,6 +498,123 @@
      YOUTUBE MODE
      ═══════════════════════════════════════════════════════ */
   var ytPlayer, ytReady = false;
+  var ytConsecutiveErrors = 0; /* tracks repeated playback failures so a fully broken playlist stops instead of looping forever */
+  var ytStuckWatchdog  = null; /* pending timer, if any */
+  var ytStuckTrackId   = null; /* which video id the pending timer belongs to */
+
+  /* Human-readable state names for console logging only — doesn't affect logic. */
+  var YT_STATE_NAMES = { '-1': 'UNSTARTED', 0: 'ENDED', 1: 'PLAYING', 2: 'PAUSED', 3: 'BUFFERING', 5: 'CUED' };
+
+  /* Shared by onError and the stuck-watchdog below. Skips to the next track —
+     nextVideo() respects the playlist's current shuffle setting on its own,
+     so this works whether shuffle is on or off. Caps at one full pass through
+     the playlist so a fully broken playlist/connection doesn't loop forever. */
+  function ytSkipDeadTrack(reason) {
+    console.warn('[YT watchdog] SKIPPING — track unavailable (' + reason + '), index', ytCurrentIndex);
+    ytConsecutiveErrors++;
+    if (ytConsecutiveErrors >= Math.max(ytTracks.length, 1)) {
+      console.error('[YT watchdog] All tracks in this playlist failed to play — stopping auto-skip.');
+      return;
+    }
+    try {
+      ytPlayer.nextVideo();
+    } catch (err) {
+      console.error('[YT watchdog] nextVideo() threw:', err);
+    }
+  }
+
+  function ytClearStuckWatchdog() {
+    if (ytStuckWatchdog) { clearTimeout(ytStuckWatchdog); ytStuckWatchdog = null; }
+    ytStuckTrackId = null;
+  }
+
+  /* Some dead videos (region blocks, certain removed-from-playlist cases) never
+     fire onError — the player just sits there not playing, sometimes flickering
+     between BUFFERING/PAUSED. Detect that by comparing currentTime across a
+     5-second window instead of checking duration — duration is unreliable here
+     since YouTube often still knows a blocked video's length even though it
+     can't stream it. No measurable progress in 5 seconds while not PLAYING =
+     stuck. Crucially, this does NOT re-arm (and reset the clock) for repeated
+     state-change events on the SAME stuck video, since a flaky track can fire
+     onStateChange many times before the 5s mark would otherwise ever be reached. */
+  function ytArmStuckWatchdog() {
+    var id = null;
+    try { id = ytPlayer.getVideoData().video_id; } catch (err) { console.error('[YT watchdog] getVideoData() threw in ytArmStuckWatchdog:', err); }
+
+    if (ytStuckWatchdog && ytStuckTrackId === id) {
+      return; /* already watching this track — let the original timer run */
+    }
+
+    ytClearStuckWatchdog();
+    ytStuckTrackId = id;
+    var startTime = 0;
+    try { startTime = ytPlayer.getCurrentTime(); } catch (err) { console.error('[YT watchdog] getCurrentTime() threw in ytArmStuckWatchdog:', err); }
+
+    ytStuckWatchdog = setTimeout(function () {
+      ytStuckWatchdog = null;
+      if (!ytPlayer) return;
+      try {
+        var state = ytPlayer.getPlayerState();
+        var nowTime = ytPlayer.getCurrentTime();
+        if (state === YT.PlayerState.PLAYING) return; /* recovered on its own — not stuck */
+        if (nowTime - startTime < 0.5) {
+          ytSkipDeadTrack('stuck, no onError fired — state was ' + (YT_STATE_NAMES[state] || state));
+        }
+      } catch (err) {
+        console.error('[YT watchdog] check callback threw:', err);
+      }
+    }, 5000);
+  }
+
+  var ytPollInterval = null;
+  var ytPollTrack = { id: undefined, since: 0 };
+  var ytPlaybackIntended = false; /* true once playback has actually started at least once — guards against flagging the not-yet-pressed-play initial screen as "stuck" */
+
+  /* THE REAL FIX for the diagnosed bug: when the playlist's own internal
+     auto-advance (after a track ends) lands on an unavailable video, the
+     IFrame API can show its "Video unavailable" overlay without firing
+     ANY event — no onStateChange, no onError. Nothing event-driven can catch
+     that, so this polls getPlayerState()/getCurrentTime() directly on a timer,
+     independent of events, every 1.5s.
+
+     Only treats state -1 (UNSTARTED) / 5 (CUED) as suspicious — never state 2
+     (PAUSED), so a track the user deliberately paused mid-way is never touched
+     by this. Only runs once ytPlaybackIntended is true (i.e. playback has
+     already started once this session) — otherwise the very first track,
+     sitting unplayed on the cover/initial screen before the user presses
+     play, would itself look "stuck" and get skipped for no reason. */
+  function ytStartPolling() {
+    if (ytPollInterval) return;
+    ytPollInterval = setInterval(ytPollCheck, 1500);
+  }
+
+  function ytPollCheck() {
+    if (!ytPlayer) return;
+    var id, state, cur;
+    try {
+      id = ytPlayer.getVideoData().video_id;
+      state = ytPlayer.getPlayerState();
+      cur = ytPlayer.getCurrentTime();
+    } catch (err) {
+      console.error('[YT poll] query threw:', err);
+      return;
+    }
+
+    if (id !== ytPollTrack.id) {
+      ytPollTrack = { id: id, since: Date.now() }; /* different track since last poll — fresh window */
+      return;
+    }
+
+    var neverStarted = (state === -1 || state === 5);
+    if (!ytPlaybackIntended || !neverStarted) return;
+
+    var stuckMs = Date.now() - ytPollTrack.since;
+    if (stuckMs >= 6000) {
+      console.warn('[YT poll] track', id, 'stuck in', (YT_STATE_NAMES[state] || state), 'for', stuckMs, 'ms with no events firing — treating as a silently-failed auto-advance');
+      ytPollTrack = { id: undefined, since: 0 };
+      ytSkipDeadTrack('silent auto-advance failure (poll-detected), stuck in ' + (YT_STATE_NAMES[state] || state));
+    }
+  }
 
   /* Show cover image if thumb param provided */
   if (!NAS_MODE && YT_THUMB && YT_LIST_ID) {
@@ -494,13 +646,32 @@
           if (iframe) iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
           ytReady = true;
           setTimeout(ytBuildPlaylist, 1500);
+          ytStartPolling();
         },
         onStateChange: function (e) {
           if (e.data === YT.PlayerState.PLAYING) {
             document.getElementById('yt-cover-wrap').style.display = 'none';
             ytStartTimer();
-          } else if (e.data === YT.PlayerState.ENDED || e.data === YT.PlayerState.PAUSED) {
-            ytStopTimer();
+            ytConsecutiveErrors = 0; /* successful playback — reset the failure streak */
+            ytClearStuckWatchdog();
+            ytPlaybackIntended = true;
+          } else {
+            if (e.data === YT.PlayerState.ENDED || e.data === YT.PlayerState.PAUSED) {
+              ytStopTimer();
+            }
+            if (e.data === YT.PlayerState.PAUSED) {
+              /* A deliberate pause is not a stuck track — currentTime stops
+                 advancing the instant you pause, by definition, so checking
+                 "no progress" here would misfire on every single pause.
+                 Only watch states that mean the track never actually
+                 started in the first place. */
+              ytClearStuckWatchdog();
+            } else {
+              /* BUFFERING, UNSTARTED, CUED, or ENDED could mean a track is
+                 silently stuck (no onError) instead of a normal transition —
+                 arm the watchdog to double-check in a few seconds. */
+              ytArmStuckWatchdog();
+            }
           }
           ytUpdateTitle();
           if (e.data === YT.PlayerState.PLAYING || e.data === YT.PlayerState.PAUSED) {
@@ -513,8 +684,16 @@
                 ytCurrentIndex = foundIndex;
                 ytHighlightActive();
               }
-            } catch(err) {}
+            } catch(err) { console.error('[YT state] video-id match block threw:', err); }
           }
+        },
+        /* Fires for unavailable videos: removed (100), embedding disabled by the
+           owner (101/150), or an invalid parameter (2)/HTML5 player error (5).
+           Not all dead tracks fire this — see ytArmStuckWatchdog for the rest. */
+        onError: function (e) {
+          console.warn('[YT onError] fired with code', e.data);
+          ytClearStuckWatchdog();
+          ytSkipDeadTrack('error code ' + e.data);
         }
       }
     });
@@ -671,7 +850,103 @@
     document.getElementById('yt-cover-wrap').style.display = 'none';
     if (ytPlayer) ytPlayer.playVideo();
   }
+
+  /* CONFIRMED BUG (tested across 5 states): after rotating in EITHER direction,
+     the Grid layout sizing .yt-player-wrap keeps using the PREVIOUS
+     orientation's dimensions until the page is refreshed. We confirmed this
+     persists even after forcing a full CSS file reload — meaning the problem
+     is not CSS caching/parsing, but how the browser's Grid engine evaluates
+     nested calc()/custom-property chains (--avail-h -> --video-h -> grid-
+     template-rows/columns) specifically across an orientation change.
+
+     Fix: bypass calc() and custom properties entirely at the point of
+     application. JS computes the final pixel numbers directly from
+     window.innerWidth/innerHeight (which DO update correctly and immediately
+     on rotation) and writes them straight into grid-template-columns /
+     grid-template-rows / height as plain pixel strings — no calc(), no
+     var(), nothing for the Grid engine to "remember" incorrectly. */
+  function ytApplyGridSizing() {
+    var wrap = document.querySelector('.yt-player-wrap');
+    if (!wrap) return;
+
+    var w = window.innerWidth;
+    var h = window.innerHeight;
+    var isLandscapePhone = (w > h) && (w <= 932);
+    /* Desktop/laptop (min-width:933px landscape) intentionally NOT handled
+       here — left fully CSS-controlled via --avail-h in playerstyles.css.
+       Real PC browser windows are rarely rotated/live-resized the way
+       phones are, so the dvh-recalculation bug we fixed for phones is
+       unlikely to affect desktop in practice. If it ever does, re-add an
+       isLandscapeDesktop branch here following the same pattern as phones. */
+
+    if (!isLandscapePhone) {
+      /* Portrait or anything outside the landscape Grid breakpoints —
+         clear our landscape-specific inline overrides so the CSS's own
+         (non-Grid) rules for this context apply normally. */
+      wrap.style.removeProperty('grid-template-columns');
+      wrap.style.removeProperty('grid-template-rows');
+      wrap.style.removeProperty('height');
+      wrap.style.removeProperty('display');
+      var videoWrapClear = document.querySelector('.yt-video-wrapper');
+      if (videoWrapClear) {
+        videoWrapClear.style.removeProperty('width');
+        videoWrapClear.style.removeProperty('height');
+      }
+      var controlsClear = document.querySelector('.yt-controls');
+      if (controlsClear) controlsClear.style.removeProperty('width');
+      var playlistClear = document.querySelector('.yt-playlist');
+      if (playlistClear) playlistClear.style.removeProperty('height');
+
+      /* Portrait phone's own playlist height (CSS uses 37vh) can suffer
+         the same vh-recalculation-on-rotation issue, just on a different
+         property. Bypass it the same way: compute the pixel value directly
+         from the live window.innerHeight instead of relying on vh. */
+      var isPortraitPhone = (h >= w) && (w <= 600);
+      var playlistList = document.querySelector('.yt-playlist-list');
+      if (isPortraitPhone && playlistList) {
+        playlistList.style.maxHeight = (h * 0.40) + 'px';
+      } else if (playlistList) {
+        playlistList.style.removeProperty('max-height');
+      }
+      return;
+    }
+
+    /* Read the ACTUAL logo height live instead of guessing a fixed number —
+       this was the real fix: the CSS assumed a fixed 106px, but the logo
+       actually renders at a different height depending on context
+       (~66px in landscape phone), which was the entire source of the gap. */
+    var logoEl = document.querySelector('.site-header');
+    var logoHeight = logoEl ? logoEl.getBoundingClientRect().height : 106;
+    var bottomPad = 0; /* always 0 for landscape phones — adjust this single number if you want extra bottom spacing on phones specifically */
+    var controlsH    = 45; /* 2.8rem at 16px root ≈ 44.8px */
+
+    var availH = h - logoHeight - bottomPad;
+    var videoH = availH - controlsH;
+
+    wrap.style.display = 'grid';
+    wrap.style.gridTemplateColumns = videoH + 'px 1fr';
+    wrap.style.gridTemplateRows = videoH + 'px ' + controlsH + 'px';
+    wrap.style.height = availH + 'px';
+
+    var videoWrap = document.querySelector('.yt-video-wrapper');
+    if (videoWrap) {
+      videoWrap.style.width = videoH + 'px';
+      videoWrap.style.height = videoH + 'px';
+    }
+    var controls = document.querySelector('.yt-controls');
+    if (controls) controls.style.width = videoH + 'px';
+    var playlist = document.querySelector('.yt-playlist');
+    if (playlist) playlist.style.height = availH + 'px';
+  }
+
+  window.addEventListener('orientationchange', function () {
+    setTimeout(ytApplyGridSizing, 50);
+    setTimeout(ytApplyGridSizing, 300);
+  });
+  window.addEventListener('resize', ytApplyGridSizing);
+  ytApplyGridSizing(); /* run once on initial load too */
 </script>
 <script src="https://www.youtube.com/iframe_api"></script>
+<script src="background-manager.js"></script>
 </body>
 </html>

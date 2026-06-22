@@ -542,7 +542,6 @@
     try { id = ytPlayer.getVideoData().video_id; } catch (err) { console.error('[YT watchdog] getVideoData() threw in ytArmStuckWatchdog:', err); }
 
     if (ytStuckWatchdog && ytStuckTrackId === id) {
-      console.log('[YT watchdog] same track (' + id + ') already being watched — leaving existing timer alone');
       return; /* already watching this track — let the original timer run */
     }
 
@@ -551,20 +550,15 @@
     var startTime = 0;
     try { startTime = ytPlayer.getCurrentTime(); } catch (err) { console.error('[YT watchdog] getCurrentTime() threw in ytArmStuckWatchdog:', err); }
 
-    console.log('[YT watchdog] ARMED for track', id, 'startTime =', startTime, '— will check in 5s');
-
     ytStuckWatchdog = setTimeout(function () {
       ytStuckWatchdog = null;
-      if (!ytPlayer) { console.log('[YT watchdog] check fired but ytPlayer is gone'); return; }
+      if (!ytPlayer) return;
       try {
         var state = ytPlayer.getPlayerState();
         var nowTime = ytPlayer.getCurrentTime();
-        console.log('[YT watchdog] CHECK for track', id, '— state =', YT_STATE_NAMES[state] || state, ', currentTime =', nowTime, ', startTime was', startTime);
-        if (state === YT.PlayerState.PLAYING) { console.log('[YT watchdog] recovered on its own — not stuck'); return; }
+        if (state === YT.PlayerState.PLAYING) return; /* recovered on its own — not stuck */
         if (nowTime - startTime < 0.5) {
           ytSkipDeadTrack('stuck, no onError fired — state was ' + (YT_STATE_NAMES[state] || state));
-        } else {
-          console.log('[YT watchdog] currentTime advanced (' + startTime + ' -> ' + nowTime + ') — not stuck, just slow');
         }
       } catch (err) {
         console.error('[YT watchdog] check callback threw:', err);
@@ -592,7 +586,6 @@
   function ytStartPolling() {
     if (ytPollInterval) return;
     ytPollInterval = setInterval(ytPollCheck, 1500);
-    console.log('[YT poll] started — checks every 1.5s, independent of IFrame events');
   }
 
   function ytPollCheck() {
@@ -606,8 +599,6 @@
       console.error('[YT poll] query threw:', err);
       return;
     }
-
-    console.log('[YT poll] id:', id, '| state:', (YT_STATE_NAMES[state] || state), '| currentTime:', cur, '| playbackIntended:', ytPlaybackIntended);
 
     if (id !== ytPollTrack.id) {
       ytPollTrack = { id: id, since: Date.now() }; /* different track since last poll — fresh window */
@@ -658,7 +649,6 @@
           ytStartPolling();
         },
         onStateChange: function (e) {
-          console.log('[YT state]', YT_STATE_NAMES[e.data] || e.data, '— video_id:', (function(){ try { return ytPlayer.getVideoData().video_id; } catch(err){ return '(unavailable: ' + err + ')'; } })(), ', currentTime:', (function(){ try { return ytPlayer.getCurrentTime(); } catch(err){ return '(unavailable)'; } })());
           if (e.data === YT.PlayerState.PLAYING) {
             document.getElementById('yt-cover-wrap').style.display = 'none';
             ytStartTimer();
@@ -669,10 +659,19 @@
             if (e.data === YT.PlayerState.ENDED || e.data === YT.PlayerState.PAUSED) {
               ytStopTimer();
             }
-            /* Any state other than PLAYING could be a track silently stuck
-               (no onError) instead of a normal transition — arm the watchdog
-               to double-check in a few seconds. */
-            ytArmStuckWatchdog();
+            if (e.data === YT.PlayerState.PAUSED) {
+              /* A deliberate pause is not a stuck track — currentTime stops
+                 advancing the instant you pause, by definition, so checking
+                 "no progress" here would misfire on every single pause.
+                 Only watch states that mean the track never actually
+                 started in the first place. */
+              ytClearStuckWatchdog();
+            } else {
+              /* BUFFERING, UNSTARTED, CUED, or ENDED could mean a track is
+                 silently stuck (no onError) instead of a normal transition —
+                 arm the watchdog to double-check in a few seconds. */
+              ytArmStuckWatchdog();
+            }
           }
           ytUpdateTitle();
           if (e.data === YT.PlayerState.PLAYING || e.data === YT.PlayerState.PAUSED) {
