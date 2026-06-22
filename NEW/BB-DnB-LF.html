@@ -32,10 +32,12 @@
 	<li><a href="H - DnB - LF.html" class="SubGenre active" >&nbsp;Liquid Funk</a></li>
  </ul>
 
-	<!-- Playlists por decada --> 
-		<div ><image src="images/counter/borde_superior.webp" alt="Playlist" width=510px class="decada" ></image> 
-		<div ><image src="images/counter/borde_izquierdo.webp" alt="" width=61px class="decada2" ></image> </div>
-		<div class="carousel-contenedor">
+<!-- Playlists por decada --> 
+ <div class="tape-counter-outer">
+ <div class="tape-counter-wrap">
+	<div class="tc-top"><img src="images/counter/borde_superior.webp" alt="" /></div>
+	<div class="tc-left"><img src="images/counter/borde_izquierdo.webp" alt="" /></div>
+	<div class="tc-window">
 		<section id="counter" class="splide" aria-label="Beautiful Images" data-splide='{"pagination":false,"arrows":false,"direction":"ttb","paginationDirection":"ttb"}' >
 		  <div class="splide__track" align="right">	<ul class="splide__list"  >
 			<li class="splide__slide" >
@@ -46,13 +48,13 @@
 			</li>
 			</ul>
 		  </div>
-        </section>
-		<div ><image src="images/counter/borde_derecho.webp" alt="" width=187px class="decada2" ></image> </div></div>
-	    <div><image src="images/counter/borde_inferior.webp" alt="" width=510px class="decada2" ></image></div> 
-        </div>
-		<br />
-		<!-- Fin Playlists por decada --> 
-
+		</section>
+	</div>
+	<div class="tc-right"><img src="images/counter/borde_derecho.webp" alt="" /></div>
+	<div class="tc-bottom"><img src="images/counter/borde_inferior.webp" alt="" /></div>
+ </div>
+ </div>
+ <!-- Fin Playlists por decada --> 	
 
   <ul class="nav-list">
 	
@@ -66,8 +68,51 @@
   
 <!-- Script para Playlists por decada --> 
 <script>
-  new Splide( '#counter', {	  } ).mount();</script>
+  new Splide( '#counter', {	height: '100%', /*.tc-window now has a real pixel height via CSS custom properties, so this measures correctly and drag/swipe distances match visual size */  } ).mount();</script>
 
+<!--  INICIO JS PARA MATCHEAR EL ANCHO DEL CONTADOR AL DEL CAROUSEL -->
+<!-- Sync tape counter size to match the album carousel's actual rendered width. #image-carousel uses max-width, so its real width varies depending on available space; the tape counter's Grid needs an exact pixel width to   calculate its frame pieces correctly, so we measure the carousel live and recompute the counter's dimensions to match it precisely. Safe no-op on pages without #image-carousel (e.g. counter-only pages) — the function exits immediately if the carousel element isn't found. -->
+<script>
+  function ytSyncTapeCounterWidth() {
+    var carousel = document.getElementById('image-carousel');
+    var outer = document.querySelector('.tape-counter-outer');
+    var wrap = document.querySelector('.tape-counter-wrap');
+    if (!carousel || !outer || !wrap) return;
+
+    var targetWidth = carousel.getBoundingClientRect().width;
+    if (!targetWidth || targetWidth < 10) return; /* guard against measuring before layout settles */
+
+    /* Same scale formula used throughout this project:
+       scale = desired width / 686 (native assembled width of the frame pieces) */
+    var scale = targetWidth / 686;
+    var height       = Math.round(383 * scale);
+    var leftCol      = Math.round(82  * scale);
+    var rightCol     = Math.round(251 * scale);
+    var topBottomRow = Math.round(66  * scale);
+
+    outer.style.width  = targetWidth + 'px';
+    outer.style.height = height + 'px';
+    wrap.style.width   = targetWidth + 'px';
+    wrap.style.height  = height + 'px';
+    wrap.style.gridTemplateColumns = leftCol + 'px 1fr ' + rightCol + 'px';
+    wrap.style.gridTemplateRows    = topBottomRow + 'px 1fr ' + topBottomRow + 'px';
+  }
+
+  /* Run after both Splide carousels have mounted and the browser has settled
+     on a final layout. A short delay covers Splide's own initialization,
+     similar to the delay we use elsewhere for the player's reflow fixes. */
+  window.addEventListener('load', function () {
+    setTimeout(ytSyncTapeCounterWidth, 150);
+  });
+  window.addEventListener('resize', function () {
+    setTimeout(ytSyncTapeCounterWidth, 150);
+  });
+  window.addEventListener('orientationchange', function () {
+    setTimeout(ytSyncTapeCounterWidth, 200);
+    setTimeout(ytSyncTapeCounterWidth, 500); /* second pass for slower devices */
+  });
+</script> <!--  FIN JS PARA MATCHEAR EL ANCHO DEL CONTADOR AL DEL CAROUSEL -->
+	
 <script src="background-manager.js"></script>
 </body>
 </html>
