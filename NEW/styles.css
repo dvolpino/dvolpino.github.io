@@ -64,7 +64,7 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
 .Playlists:hover {  color: #0691FF; border-left-color: #0691FF; background-color: rgba(168, 216, 255, 0.07); }
 .Playlists.active { border-left-color: #0691FF;  background-color: rgba(255, 215, 0, 0.07); }
 
-.PL { font-size: clamp(1.4rem, 10vw, 1.4rem); font-family: Inter; text-decoration: none; color: #0691FF; letter-spacing: 0.03em; padding: 6px 14px; border-left: 3px solid transparent; border-radius: 2px; transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;	}
+.PL { font-size: clamp(1.4rem, 10vw, 1.4rem); font-family: Inter; text-decoration: none; color: #0691FF; letter-spacing: 0.03em; padding: 2px 4px; border-left: 3px solid transparent; border-radius: 2px; transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;	} /* padding reduced from 6px 14px — it was stacking with .Playlists' own right padding (14px), creating a ~28px gap between "Bass" and "PL" */
 
 .Resto { font-family: Inter; text-decoration: none; color: #FA60FF; letter-spacing: 0.03em; padding: 6px 14px; border-left: 3px solid transparent; border-radius: 2px; transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;	}
 .Resto:hover {  color: #FA60FF; border-left-color: #FA60FF; background-color: rgba(168, 216, 255, 0.07); }
