@@ -13,6 +13,23 @@
 <link href="styles.css" rel="stylesheet" type="text/css">	
 <link rel="icon" href="favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<style>
+  /* Marks a track row as unavailable/skipped — applied by JS the moment a
+     track is confirmed dead (no manual flagging needed). Doubles as a
+     built-in "report": scroll the playlist and grey rows are the broken ones. */
+  .yt-track-row.unavailable .yt-track-num,
+  .yt-track-row.unavailable .yt-track-name,
+  .yt-track-row.unavailable .yt-track-ch,
+  .yt-track-row.unavailable .yt-track-duration {
+    color: #888 !important;
+  }
+  .yt-track-row.unavailable {
+    background: rgba(128, 128, 128, 0.10) !important;
+  }
+  .yt-track-row.unavailable::before {
+    background: #888 !important;
+  }
+</style>
 </head>
 <!--
   HOW TO LINK TO THE PLAYER FROM ANY PAGE
@@ -230,6 +247,8 @@
       if (!nasAudio.src) return; /* ignore spurious errors before any track is loaded */
       nasConsecutiveErrors++;
       console.warn('NAS track unavailable, skipping:', ytTracks[ytCurrentIndex] && ytTracks[ytCurrentIndex].src);
+      var deadRow = document.getElementById('yt-row-' + ytCurrentIndex);
+      if (deadRow) deadRow.classList.add('unavailable');
       if (nasConsecutiveErrors >= Math.max(ytTracks.length, 1)) {
         document.getElementById('yt-playlist-loading').textContent = 'No tracks could be loaded.';
         return;
@@ -240,7 +259,11 @@
     /* A track loaded successfully — reset the failure streak. Using
        'canplay' rather than 'playing' so this fires even when a track is
        loaded without autoplay (e.g. the very first track on page load). */
-    nasAudio.addEventListener('canplay', function() { nasConsecutiveErrors = 0; });
+    nasAudio.addEventListener('canplay', function() {
+      nasConsecutiveErrors = 0;
+      var loadedRow = document.getElementById('yt-row-' + ytCurrentIndex);
+      if (loadedRow) loadedRow.classList.remove('unavailable'); /* it just loaded fine — wasn't actually dead */
+    });
 
     /* Update elapsed time display while playing */
     nasAudio.addEventListener('timeupdate', function() {
@@ -505,12 +528,28 @@
   /* Human-readable state names for console logging only — doesn't affect logic. */
   var YT_STATE_NAMES = { '-1': 'UNSTARTED', 0: 'ENDED', 1: 'PLAYING', 2: 'PAUSED', 3: 'BUFFERING', 5: 'CUED' };
 
+  /* Greys out a track's row in the playlist list by video ID. A broken track
+     usually never reaches PLAYING/PAUSED, so it never gets the normal
+     "active" treatment — this is called independently, right at the moment
+     a track is confirmed dead, using whatever video ID the player still
+     reports for it even though it never actually played. */
+  function ytMarkUnavailable(id) {
+    if (!id) return;
+    var idx = ytTracks.findIndex(function (t) { return t.id === id; });
+    if (idx === -1) return;
+    var row = document.getElementById('yt-row-' + idx);
+    if (row) row.classList.add('unavailable');
+  }
+
   /* Shared by onError and the stuck-watchdog below. Skips to the next track —
      nextVideo() respects the playlist's current shuffle setting on its own,
      so this works whether shuffle is on or off. Caps at one full pass through
      the playlist so a fully broken playlist/connection doesn't loop forever. */
   function ytSkipDeadTrack(reason) {
+    var deadId = null;
+    try { deadId = ytPlayer.getVideoData().video_id; } catch (err) {}
     console.warn('[YT watchdog] SKIPPING — track unavailable (' + reason + '), index', ytCurrentIndex);
+    ytMarkUnavailable(deadId);
     ytConsecutiveErrors++;
     if (ytConsecutiveErrors >= Math.max(ytTracks.length, 1)) {
       console.error('[YT watchdog] All tracks in this playlist failed to play — stopping auto-skip.');
@@ -683,6 +722,8 @@
               if (foundIndex !== -1) {
                 ytCurrentIndex = foundIndex;
                 ytHighlightActive();
+                var playedRow = document.getElementById('yt-row-' + foundIndex);
+                if (playedRow) playedRow.classList.remove('unavailable'); /* it just played fine — wasn't actually dead */
               }
             } catch(err) { console.error('[YT state] video-id match block threw:', err); }
           }
