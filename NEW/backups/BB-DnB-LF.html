@@ -32,46 +32,46 @@
 	<li><a href="H - DnB - LF.html" class="SubGenre active" >&nbsp;Liquid Funk</a></li>
  </ul>
 
-	<!-- Playlists por decada --> 
-	<div class="tape-counter-outer">
-	<div class="tape-counter-wrap">
-		<div class="tc-top"><img src="images/counter/borde_superior.webp" alt="" /></div>
-		<div class="tc-left"><img src="images/counter/borde_izquierdo.webp" alt="" /></div>
-		<div class="tc-window">
-			<section id="counter" class="splide" aria-label="Beautiful Images" data-splide='{"pagination":false,"arrows":false,"direction":"ttb","paginationDirection":"ttb"}' >
-			  <div class="splide__track" align="right">	<ul class="splide__list"  >
-				<li class="splide__slide" >
-					<a href="/MPlayer.html?list=PLV5aIGkszfb-saHwDQlXPnnJsUvqtuMMj&name=Liquid%20Funk%2000%27s&color=%230691FF&labelcolor=%230691FF"><img src="images/counter/00sb2.webp" alt="" /></a>
-				</li>
-				<li class="splide__slide">
-					<a href="/MPlayer.html?list=PLV5aIGkszfb8zI3JfGLtHdPzrwE9Hvh1u&name=Liquid%20Funk%2010%27s&color=%230691FF&labelcolor=%230691FF"><img src="images/counter/10sb2.webp" alt="" /></a>
-				</li>
-				</ul>
-			  </div>
-			</section>
-		</div>
-		<div class="tc-right"><img src="images/counter/borde_derecho.webp" alt="" /></div>
-		<div class="tc-bottom"><img src="images/counter/borde_inferior.webp" alt="" /></div>
+<!-- Playlists por decada --> 
+ <div class="tape-counter-outer">
+ <div class="tape-counter-wrap">
+	<div class="tc-top"><img src="images/counter/borde_superior.webp" alt="" /></div>
+	<div class="tc-left"><img src="images/counter/borde_izquierdo.webp" alt="" /></div>
+	<div class="tc-window">
+		<section id="counter" class="splide" aria-label="Beautiful Images" data-splide='{"pagination":false,"arrows":false,"direction":"ttb","paginationDirection":"ttb"}' >
+		  <div class="splide__track" align="right">	<ul class="splide__list"  >
+			<li class="splide__slide" >
+				<a href="/MPlayer.html?list=PLV5aIGkszfb-saHwDQlXPnnJsUvqtuMMj&name=Liquid%20Funk%2000%27s&color=%230691FF&labelcolor=%230691FF"><image src="images/counter/00sb2.webp" alt="" class="decada2"></image></a>
+			</li>
+			<li class="splide__slide">
+				<a href="/MPlayer.html?list=PLV5aIGkszfb8zI3JfGLtHdPzrwE9Hvh1u&name=Liquid%20Funk%2010%27s&color=%230691FF&labelcolor=%230691FF"><image src="images/counter/10sb2.webp" alt="" class="decada2"></image></a>
+			</li>
+			</ul>
+		  </div>
+		</section>
 	</div>
-	</div>
-	<!-- Fin Playlists por decada --> 
-
+	<div class="tc-right"><img src="images/counter/borde_derecho.webp" alt="" /></div>
+	<div class="tc-bottom"><img src="images/counter/borde_inferior.webp" alt="" /></div>
+ </div>
+ </div>
+ <!-- Fin Playlists por decada --> 	
 
   <ul class="nav-list">
 	
-		<li><a href="DnB - Sambass.html" class="SubGenre" >&nbsp;Sambass</a></li>
+		<li><a href="DnB - Sambass.html" class="SubGenre" >&nbsp;Sambass</a></div>
 		<li><a href="/MPlayer.html?list=PLV5aIGkszfb8Gk5jjFp45EibVSKMJIMzZ&name=Drum%20n%27Bass%2090%27s&color=%230691FF&labelcolor=%230691FF" class="links" >&nbsp;Drum n´Bass 90´s</a></li>
 		<li><a href="/MPlayer.html?list=PLV5aIGkszfb813VJsuu1FF4NnPIuPN6X7&name=Drum%20n%27Bass&color=%230691FF&labelcolor=%230691FF" class="links" >&nbsp;Drum n´Bass</a> <a class="minilink">PL</a></li>
-		<li><a href="Breaks.html" class="scene" >Breaks</a></li>
+		<li><a href="Breaks.html" class="scene" >Breaks</a></div>
  </ul>
 </nav>
 </div>
   
 <!-- Script para Playlists por decada --> 
 <script>
-  new Splide( '#counter', { height: '100%', /* .tc-window now has a real pixel height via CSS Grid, so this measures correctly and drag/swipe distances match visual size */ } ).mount();</script>
+  new Splide( '#counter', {	height: '100%', /*.tc-window now has a real pixel height via CSS custom properties, so this measures correctly and drag/swipe distances match visual size */  } ).mount();</script>
 
-<!-- Sync tape counter size — safe no-op on this page since there's no #image-carousel here; kept for consistency with other pages in case one is added later -->
+<!--  INICIO JS PARA MATCHEAR EL ANCHO DEL CONTADOR AL DEL CAROUSEL -->
+<!-- Sync tape counter size to match the album carousel's actual rendered width. #image-carousel uses max-width, so its real width varies depending on available space; the tape counter's Grid needs an exact pixel width to   calculate its frame pieces correctly, so we measure the carousel live and recompute the counter's dimensions to match it precisely. Safe no-op on pages without #image-carousel (e.g. counter-only pages) — the function exits immediately if the carousel element isn't found. -->
 <script>
   function ytSyncTapeCounterWidth() {
     var carousel = document.getElementById('image-carousel');
@@ -80,8 +80,10 @@
     if (!carousel || !outer || !wrap) return;
 
     var targetWidth = carousel.getBoundingClientRect().width;
-    if (!targetWidth || targetWidth < 10) return;
+    if (!targetWidth || targetWidth < 10) return; /* guard against measuring before layout settles */
 
+    /* Same scale formula used throughout this project:
+       scale = desired width / 686 (native assembled width of the frame pieces) */
     var scale = targetWidth / 686;
     var height       = Math.round(383 * scale);
     var leftCol      = Math.round(82  * scale);
@@ -95,14 +97,22 @@
     wrap.style.gridTemplateColumns = leftCol + 'px 1fr ' + rightCol + 'px';
     wrap.style.gridTemplateRows    = topBottomRow + 'px 1fr ' + topBottomRow + 'px';
   }
-  window.addEventListener('load', function () { setTimeout(ytSyncTapeCounterWidth, 150); });
-  window.addEventListener('resize', function () { setTimeout(ytSyncTapeCounterWidth, 150); });
+
+  /* Run after both Splide carousels have mounted and the browser has settled
+     on a final layout. A short delay covers Splide's own initialization,
+     similar to the delay we use elsewhere for the player's reflow fixes. */
+  window.addEventListener('load', function () {
+    setTimeout(ytSyncTapeCounterWidth, 150);
+  });
+  window.addEventListener('resize', function () {
+    setTimeout(ytSyncTapeCounterWidth, 150);
+  });
   window.addEventListener('orientationchange', function () {
     setTimeout(ytSyncTapeCounterWidth, 200);
-    setTimeout(ytSyncTapeCounterWidth, 500);
+    setTimeout(ytSyncTapeCounterWidth, 500); /* second pass for slower devices */
   });
-</script>
-
+</script> <!--  FIN JS PARA MATCHEAR EL ANCHO DEL CONTADOR AL DEL CAROUSEL -->
+	
 <script src="background-manager.js"></script>
 </body>
 </html>
