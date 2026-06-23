@@ -308,7 +308,7 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
 
   #image-carousel.splide { max-width: 300px;  } /*AFECTA EL TAMAÑO MAXIMO DEL CAROUSEL DE ALBUMES SOLAMENTE*/
   
-	.minidiv { height: 65px; display: flex; } 
+	.minidiv { height: 60px; display: flex; } 
   .LiveSetsM { font-size: 18px;  }
   .PlaylistsM { font-size: 18px;  }
 }
