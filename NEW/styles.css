@@ -105,8 +105,13 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
 .photo3 {width: 970px; float:left; margin-right: 1rem; } /* Fotos que quiero ocupen el 100% del ancho del celular */
 
 .minidiv { height: 110px; display: flex; } 
+
 .LiveSetsM { font-family: Inter; color:#02FF00;	font-size: 30px;  }
+.LiveSetsM:hover {  color: #02FF00; border-left-color: #02FF00; background-color: rgba(168, 216, 255, 0.07); }
+
 .PlaylistsM { font-family: Inter; color:#0691FF;	font-size: 30px;  }
+.PlaylistsM:hover {  color: #0691FF; border-left-color: #0691FF; background-color: rgba(168, 216, 255, 0.07); }
+.PlaylistsM.active { border-left-color: #0691FF;  background-color: rgba(255, 215, 0, 0.07); }
 
 /* =============================================
    ARMADO DEL CONTADOR POR DECADA
@@ -225,8 +230,8 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
     grid-template-rows: 27px 1fr 27px;        /* (66 x scale)px 1fr (66 x scale)px Round each to the nearest whole pixel */ 
 }
 .minidiv{height: 70px; display: flex;	} 
-.LiveSetsM { font-family: Inter; color:#02FF00;	font-size: 20px;          }
-.PlaylistsM { font-family: Inter; color:#02FF00;	font-size: 20px;          }
+.LiveSetsM { font-size: 20px;          }
+.PlaylistsM { font-size: 20px;          }
 } /* <-- closes @media (min-width: 1200px), was missing */
 
 
