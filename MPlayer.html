@@ -235,7 +235,14 @@
     nasAudio = document.getElementById('nas-audio');
 
     /* Auto-advance to next track when current one ends */
-    nasAudio.addEventListener('ended', function() { nasNext(); });
+    nasAudio.addEventListener('ended', function() {
+      /* Last track of a non-shuffled playlist — stop here rather than
+         wrapping back around to track 1. When shuffle is on, keep
+         wrapping as before (nasOrder is just a shuffled sequence, there's
+         no well-defined "end" the same way). */
+      if (!ytShuffleOn && nasOrderPos >= nasOrder.length - 1) return;
+      nasNext();
+    });
 
     /* Track is unavailable (404, bad path, CORS, decode failure, etc.)
        Skip to the next track in the current order — respects shuffle
@@ -697,17 +704,27 @@
             if (e.data === YT.PlayerState.ENDED || e.data === YT.PlayerState.PAUSED) {
               ytStopTimer();
             }
-            if (e.data === YT.PlayerState.PAUSED) {
+            var isLegitimateEnd = false;
+            if (e.data === YT.PlayerState.ENDED && !ytShuffleOn) {
+              try {
+                isLegitimateEnd = (ytPlayer.getPlaylistIndex() === ytTracks.length - 1);
+              } catch (err) {}
+            }
+            if (e.data === YT.PlayerState.PAUSED || isLegitimateEnd) {
               /* A deliberate pause is not a stuck track — currentTime stops
                  advancing the instant you pause, by definition, so checking
                  "no progress" here would misfire on every single pause.
-                 Only watch states that mean the track never actually
-                 started in the first place. */
+                 Likewise, finishing the last track of a non-shuffled
+                 playlist is a normal stop, not a stuck track — without this
+                 check the watchdog would see "ended, no progress for 5s,
+                 nothing next" and force a nextVideo() call, which wraps
+                 back around to track 1 instead of just staying stopped. */
               ytClearStuckWatchdog();
             } else {
-              /* BUFFERING, UNSTARTED, CUED, or ENDED could mean a track is
-                 silently stuck (no onError) instead of a normal transition —
-                 arm the watchdog to double-check in a few seconds. */
+              /* BUFFERING, UNSTARTED, CUED, or an ENDED that isn't the
+                 legitimate end of the list could mean a track is silently
+                 stuck (no onError) instead of a normal transition — arm the
+                 watchdog to double-check in a few seconds. */
               ytArmStuckWatchdog();
             }
           }
