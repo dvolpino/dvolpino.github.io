@@ -528,15 +528,14 @@
   /* Human-readable state names for console logging only — doesn't affect logic. */
   var YT_STATE_NAMES = { '-1': 'UNSTARTED', 0: 'ENDED', 1: 'PLAYING', 2: 'PAUSED', 3: 'BUFFERING', 5: 'CUED' };
 
-  /* Greys out a track's row in the playlist list by video ID. A broken track
-     usually never reaches PLAYING/PAUSED, so it never gets the normal
-     "active" treatment — this is called independently, right at the moment
-     a track is confirmed dead, using whatever video ID the player still
-     reports for it even though it never actually played. */
-  function ytMarkUnavailable(id) {
-    if (!id) return;
-    var idx = ytTracks.findIndex(function (t) { return t.id === id; });
-    if (idx === -1) return;
+  /* Greys out a track's row in the playlist list by its position in the
+     queue. Looking it up by video ID doesn't work here — a broken track
+     routinely never loads enough metadata to report its own ID (confirmed
+     in testing: video_id showed up as undefined right through the actual
+     error). getPlaylistIndex() is positional instead, so it holds up even
+     when the track itself never loaded at all. */
+  function ytMarkUnavailable(idx) {
+    if (idx == null || idx < 0 || idx >= ytTracks.length) return;
     var row = document.getElementById('yt-row-' + idx);
     if (row) row.classList.add('unavailable');
   }
@@ -546,10 +545,10 @@
      so this works whether shuffle is on or off. Caps at one full pass through
      the playlist so a fully broken playlist/connection doesn't loop forever. */
   function ytSkipDeadTrack(reason) {
-    var deadId = null;
-    try { deadId = ytPlayer.getVideoData().video_id; } catch (err) {}
+    var deadIdx = null;
+    try { deadIdx = ytPlayer.getPlaylistIndex(); } catch (err) {}
     console.warn('[YT watchdog] SKIPPING — track unavailable (' + reason + '), index', ytCurrentIndex);
-    ytMarkUnavailable(deadId);
+    ytMarkUnavailable(deadIdx);
     ytConsecutiveErrors++;
     if (ytConsecutiveErrors >= Math.max(ytTracks.length, 1)) {
       console.error('[YT watchdog] All tracks in this playlist failed to play — stopping auto-skip.');
