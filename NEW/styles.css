@@ -308,8 +308,8 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
 
   #image-carousel.splide { max-width: 300px;  } /*AFECTA EL TAMAÑO MAXIMO DEL CAROUSEL DE ALBUMES SOLAMENTE*/
   
-  .LiveSetsM { font-size: 5px;  }
-  .PlaylistsM { font-size: 5px;  }
+ /* .LiveSetsM { font-size: 12px;  }
+  .PlaylistsM { font-size: 12px;  }*/
 }
 
 /* Very small PORTRAIT PHONES like Galazy Z Fold */ 
