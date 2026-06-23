@@ -255,8 +255,8 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
     grid-template-rows: 27px 1fr 27px;        /* (66 x scale)px 1fr (66 x scale)px Round each to the nearest whole pixel */ 
 }
   .minidiv { height: 45px; display: flex; } 
-  .LiveSetsM { font-size: 16px;  }
-  .PlaylistsM { font-size: 16px;  }
+  .LiveSetsM { font-size: 18px;  }
+  .PlaylistsM { font-size: 18px;  }
 }
 
 /* Landscape phones & small tablets */
