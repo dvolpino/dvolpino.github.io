@@ -36,16 +36,19 @@
 		  <p>So half of this genre sounds like Progressive House/Trance with breaks. The other half sounds like its trying to be Orbital. It can get cheesy at times, with the washy pads and twinkly leads and sometimes even ethnic vocals (without going full Worldbeat), but it certainly does not sound like any other Breaks, shedding the Hip Hop motifs entirely.</p><br>
 			
 	      <p>Progressive Breaks has a massive number of miscellaneous subgenres: Atmospheric Breaks, Balearic Breaks, Deep Progressive Breaks, Intelligent Breaks -- essentially a Breaks equivalent of every Prog genre that exists including McProg -- it's called Vocal Progressive Breaks.</p><br>
-</div>
+   </div>
 </main>
    
 <script src="background-manager.js"></script>
 
 <!-- Makes .history fill the remaining viewport space below it (so the page
-     itself never needs a vertical scrollbar) while scrolling its own long
-     text internally. Measures live since the space available depends on
-     the logo, nav links, and AKA line's actual rendered height, all of
-     which vary slightly by breakpoint/content. -->
+     itself never needs a vertical scrollbar) — but ONLY when the text is
+     actually long enough to need that much room. Short descriptions (like
+     this Jazzstep one) instead size to their own content, so the box ends
+     right below where the text finishes instead of leaving empty space
+     down to the bottom of the screen. Measures live since the space
+     available depends on the logo, nav links, and AKA line's actual
+     rendered height, all of which vary slightly by breakpoint/content. -->
 <script>
   function ytSyncHistoryHeight() {
     var history = document.querySelector('.history');
@@ -64,7 +67,20 @@
     var available = window.innerHeight - top - bottomPad;
     if (available < 80) available = 80; /* sane minimum so it never collapses to nothing */
 
-    history.style.height = available + 'px';
+    /* Measure how tall the text actually wants to be by letting it size
+       naturally first, then decide which mode applies. */
+    history.style.height = 'auto';
+    var natural = history.scrollHeight;
+
+    if (natural > available) {
+      /* Long text — fill the available space and let .history's own
+         overflow-y:auto scroll it internally, same as before. */
+      history.style.height = available + 'px';
+    } else {
+      /* Short text — leave it at its natural height instead of stretching
+         it down to the bottom of the screen. */
+      history.style.height = 'auto';
+    }
   }
 
   window.addEventListener('load', function () {

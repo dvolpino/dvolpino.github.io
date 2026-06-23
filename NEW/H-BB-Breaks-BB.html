@@ -36,16 +36,19 @@
 	 <p>Big Beat tomó la estructura esencial de Chemical Breaks y eliminó los elementos químicos adictivos, reemplazándolos con líneas de bajo familiares, letras para cantar a coro y gritos vocales, melodías cálidas con ganchos creados a partir de tropos accesibles como riffs de guitarra, fanfarrias de instrumentos de viento y cuerdas, scratching y samples de scratching, e incluso samples de blues antiguos.		</p><br>
 	 <p>Esta combinación permitió que los breaks se consolidaran como uno de los géneros comerciales que impulsaron la explosión de la electrónica a finales de los 90. El Big Beat aún se aferraba a la cadencia Funky Drummer de sus progenitores pero el sonido característico del Big Beat provenía del gran y retumbante golpe de bajo en cada compás: más pesado, más grueso y más prominente que el resto de la percusión. </p><br>
 	 <p>Esto se llama "jammin on the 1", lo que significa que siempre suena fuerte en el primer tiempo de cada compás. Probablemente se podría culpar a los <a class="linkshisto" href="https://www.discogs.com/artist/2290-The-Chemical-Brothers">Chemical Brothers</a> por popularizarlo, pero no lo inventaron. Es un clásico del funk de los 70. </p>
-</div>
+   </div>
 </main>
    
 <script src="background-manager.js"></script>
 
 <!-- Makes .history fill the remaining viewport space below it (so the page
-     itself never needs a vertical scrollbar) while scrolling its own long
-     text internally. Measures live since the space available depends on
-     the logo, nav links, and AKA line's actual rendered height, all of
-     which vary slightly by breakpoint/content. -->
+     itself never needs a vertical scrollbar) — but ONLY when the text is
+     actually long enough to need that much room. Short descriptions (like
+     this Jazzstep one) instead size to their own content, so the box ends
+     right below where the text finishes instead of leaving empty space
+     down to the bottom of the screen. Measures live since the space
+     available depends on the logo, nav links, and AKA line's actual
+     rendered height, all of which vary slightly by breakpoint/content. -->
 <script>
   function ytSyncHistoryHeight() {
     var history = document.querySelector('.history');
@@ -64,7 +67,20 @@
     var available = window.innerHeight - top - bottomPad;
     if (available < 80) available = 80; /* sane minimum so it never collapses to nothing */
 
-    history.style.height = available + 'px';
+    /* Measure how tall the text actually wants to be by letting it size
+       naturally first, then decide which mode applies. */
+    history.style.height = 'auto';
+    var natural = history.scrollHeight;
+
+    if (natural > available) {
+      /* Long text — fill the available space and let .history's own
+         overflow-y:auto scroll it internally, same as before. */
+      history.style.height = available + 'px';
+    } else {
+      /* Short text — leave it at its natural height instead of stretching
+         it down to the bottom of the screen. */
+      history.style.height = 'auto';
+    }
   }
 
   window.addEventListener('load', function () {

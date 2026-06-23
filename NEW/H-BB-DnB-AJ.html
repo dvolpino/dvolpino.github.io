@@ -37,16 +37,19 @@
 		  <p>LTJ Bukem es reconocido como el principal pionero y defensor del género, con clásicos como Demon's Theme y Atlantis (I Need You) (L.T.J. Bukem Remix), además de fundar Good Looking Records, el sello discográfico más exitoso especializado en este estilo. Otros nombres importantes del género incluyen a Goldie, Photek, Adam F y Omni Trio.</p><br>
 		    
 	      <p> El género alcanzó un breve auge de popularidad en 1995 y 1996, tras lo cual fue superado por estilos más recientes de drum and bass (principalmente el techstep). Su filosofía fue adoptada por el jazzstep, un estilo estrechamente relacionado, y posteriormente por Liquid Drum and Bass. Paralelamente al jungle, el drum and bass atmosférico experimentó un resurgimiento considerable en las décadas de 2010 y 2020, liderado por artistas como Coco Bryce, Kloke y ASC, y sellos como OKBRON Records.</p>
-    </div>
+   </div>
 </main>
    
 <script src="background-manager.js"></script>
 
 <!-- Makes .history fill the remaining viewport space below it (so the page
-     itself never needs a vertical scrollbar) while scrolling its own long
-     text internally. Measures live since the space available depends on
-     the logo, nav links, and AKA line's actual rendered height, all of
-     which vary slightly by breakpoint/content. -->
+     itself never needs a vertical scrollbar) — but ONLY when the text is
+     actually long enough to need that much room. Short descriptions (like
+     this Jazzstep one) instead size to their own content, so the box ends
+     right below where the text finishes instead of leaving empty space
+     down to the bottom of the screen. Measures live since the space
+     available depends on the logo, nav links, and AKA line's actual
+     rendered height, all of which vary slightly by breakpoint/content. -->
 <script>
   function ytSyncHistoryHeight() {
     var history = document.querySelector('.history');
@@ -65,7 +68,20 @@
     var available = window.innerHeight - top - bottomPad;
     if (available < 80) available = 80; /* sane minimum so it never collapses to nothing */
 
-    history.style.height = available + 'px';
+    /* Measure how tall the text actually wants to be by letting it size
+       naturally first, then decide which mode applies. */
+    history.style.height = 'auto';
+    var natural = history.scrollHeight;
+
+    if (natural > available) {
+      /* Long text — fill the available space and let .history's own
+         overflow-y:auto scroll it internally, same as before. */
+      history.style.height = available + 'px';
+    } else {
+      /* Short text — leave it at its natural height instead of stretching
+         it down to the bottom of the screen. */
+      history.style.height = 'auto';
+    }
   }
 
   window.addEventListener('load', function () {
