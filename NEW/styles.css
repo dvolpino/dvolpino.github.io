@@ -267,14 +267,39 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
   .PlaylistsM { font-size: 18px;  }
 }
 
-/* Landscape phones & small tablets */
+/* Viejo "Landscape phones & small tablets" Queda solo para pequeñas pantallas en general */
 @media (max-width: 600px) {
   .aka { padding: 0 18px; } /* SELECCIONADOR DE PADDING DEL TEXTO AKA */
-  .page-wrapper { padding: 28px 18px 48px;  }
-  .logo-img { width: min(240px, 72vw);  }
+  .page-wrapper { padding: 28px 18px 48px;  } /* portrait overrides only padding-top below — right/bottom/left here are shared by both orientations */
+  /* .logo-img { width: min(240px, 72vw);  } -- MOVIDO a @media (orientation: landscape) and (max-width: 900px) el 24/06/2026, portrait siempre lo sobreescribia con un valor distinto */
   .site-header { margin-bottom: 28px;  }
-  .site-nav { margin-bottom: 36px;  }
+  /* .site-nav { margin-bottom: 36px;  } -- MOVIDO a @media (orientation: landscape) and (max-width: 900px) el 24/06/2026, portrait siempre lo sobreescribia con un valor distinto */
   .nav-link { font-size: 1rem; padding: 5px 12px;  }
+
+  /* .nav-list { width: min(420px, 92vw); } -- MOVIDO a @media (orientation: landscape) and (max-width: 900px) el 24/06/2026, portrait siempre lo sobreescribia con un valor distinto */
+
+  /* .tape-counter-outer {
+    width: 160px;
+    height: 89px;
+  } -- MOVIDO a @media (orientation: landscape) and (max-width: 900px) el 24/06/2026, portrait siempre lo sobreescribia con un valor distinto */
+  /* .tape-counter-wrap {
+    width: 160px;
+    height: 89px;
+    grid-template-columns: 19px 1fr 59px;
+    grid-template-rows: 15px 1fr 15px;
+  } -- MOVIDO junto con .tape-counter-outer */
+
+  /* #image-carousel.splide { max-width: 400px;  } -- MOVIDO a @media (orientation: landscape) and (max-width: 900px) el 24/06/2026, portrait siempre lo sobreescribia con un valor distinto */
+
+  /* .minidiv { height: 45px; display: flex; } -- MOVIDO a @media (orientation: landscape) and (max-width: 900px) el 24/06/2026 */
+  /* .LiveSetsM { font-size: 16px;  } -- MOVIDO junto con .minidiv */
+  /* .PlaylistsM { font-size: 16px;  } -- MOVIDO junto con .minidiv */
+}
+
+/* LANDSCAPE PHONES */
+@media (orientation: landscape) and (max-width: 900px){
+  .logo-img { width: min(240px, 72vw);  }
+  .site-nav { margin-bottom: 36px;  }
 
   /* Same fixed-width approach as desktop, scaled to fit phone screens
      without overflowing — keeps logo+links aligned consistently across
@@ -296,20 +321,13 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
   }
 
   #image-carousel.splide { max-width: 400px;  } /*AFECTA EL TAMAÑO DEL CAROUSEL DE ALBUMES SOLAMENTE*/
-	
+
   .minidiv { height: 45px; display: flex; }  /* Renglón doble linea */
   .LiveSetsM { font-size: 16px;  }           /* Renglón doble linea */
   .PlaylistsM { font-size: 16px;  }          /* Renglón doble linea */
-}
 
-/* Landscape phones (explicit) — orientation-specific overrides only.
-   Everything orientation-agnostic (.nav-list width, tape-counter sizing,
-   etc.) lives in the (max-width: 600px) block above instead, so it keeps
-   applying regardless of orientation — this block only holds the font-size
-   tweaks that are genuinely landscape-specific. */
-@media (orientation: landscape) and (max-width: 900px){
-  .scene2 { font-size: clamp(1.5rem, 2vw, 2rem); }     /* Ajusta (achica) texto demasiado ancho a esta @media */
-  .SubGenre3 { font-size: clamp(1.5rem, 20vw, 1.8rem); } /* Ajusta (achica) texto demasiado ancho a esta @media */
+  .scene2 { font-size: clamp(1.5rem, 26vw, 2.6rem); }     /* Ajusta (achica) texto demasiado ancho a esta @media */
+  .SubGenre3 { font-size: clamp(1.5rem, 26vw, 2.6rem); }  /* Ajusta (achica) texto demasiado ancho a esta @media */
 }
 
 /* PORTRAIT PHONES  */
