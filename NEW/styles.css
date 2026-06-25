@@ -47,7 +47,7 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
    class below, so they're declared once instead of repeated 8+ times.
    Each individual class then only needs its unique color (and any other
    property that differs from this shared baseline). */
-.scene, .Genre, .SubGenre, .SubGenre2, .Artists, .Playlists, .Playlists2, .Resto, .LiveSets, .LiveSetsM, .PlaylistsM, .scene2, .Subgenre3 {
+.scene, .Genre, .SubGenre, .SubGenre2, .Artists, .Playlists, .Playlists2, .Resto, .LiveSets, .LiveSetsM, .PlaylistsM, .scene2, .SubGenre3 {
   font-family: Inter;
   text-decoration: none;
   letter-spacing: 0.03em;
