@@ -301,8 +301,8 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
   .LiveSetsM { font-size: 16px;  }
   .PlaylistsM { font-size: 16px;  }
 
-  .scene2 { font-size: clamp(1.5rem, 24vw, 2.4rem); }     /* Ajusta (achica) texto demasiado ancho a esta @media */
-  .SubGenre3 { font-size: clamp(1.5rem, 24vw, 2.4rem); } /* Ajusta (achica) texto demasiado ancho a esta @media */
+  .scene2 { font-size: clamp(1.5rem, 22vw, 2.2rem); }     /* Ajusta (achica) texto demasiado ancho a esta @media */
+  .SubGenre3 { font-size: clamp(1.5rem, 22vw, 2.2rem); } /* Ajusta (achica) texto demasiado ancho a esta @media */
 }
 
 /* PORTRAIT PHONES  */
