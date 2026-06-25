@@ -65,7 +65,7 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
 .scene2:hover {  color: #00F5B4; border-left-color: #00F5B4; background-color: rgba(168, 216, 255, 0.07); }
 .scene2.active { border-left-color: #00F5B4;  background-color: rgba(255, 215, 0, 0.07); }
 
-.Genre { color: #FFDD00; font-weight: 400; }
+.Genre { font-size: clamp(1.5rem, 18vw, 2rem); color: #FFDD00; font-weight: 400; } /* Tamaño general menor — antes no tenia ningun font-size, heredaba el default del navegador sin control responsivo */
 .Genre:hover {  color: #FFDD00; border-left-color: #FFDD00; background-color: rgba(168, 216, 255, 0.07); }
 .Genre.active { border-left-color: #FFD700;  background-color: rgba(255, 215, 0, 0.07); }
 
@@ -81,11 +81,11 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
 .SubGenre3:hover {  color: #FFFFFF; border-left-color: #FFFFFF; background-color: rgba(168, 216, 255, 0.07); }
 .SubGenre3.active { border-left-color: #FFFFFF;  background-color: rgba(255, 215, 0, 0.07); }
 
-.Artists { color: #FF0000; }
+.Artists { font-size: clamp(1.5rem, 18vw, 2rem); color: #FF0000; } /* Tamaño general menor — ver nota en .Genre */
 .Artists:hover {  color: #FF0000; border-left-color: #FF0000; background-color: rgba(168, 216, 255, 0.07); }
 .Artists.active { border-left-color: #FF0000;  background-color: rgba(255, 215, 0, 0.07); }
 
-.Playlists { color: #0691FF; }
+.Playlists { font-size: clamp(1.5rem, 18vw, 2rem); color: #0691FF; } /* Tamaño general menor — ver nota en .Genre */
 .Playlists:hover {  color: #0691FF; border-left-color: #0691FF; background-color: rgba(168, 216, 255, 0.07); }
 .Playlists.active { border-left-color: #0691FF;  background-color: rgba(255, 215, 0, 0.07); }
 
@@ -95,7 +95,7 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
 
 .pl-small { font-size: 0.6em; vertical-align: middle; } /* Small inline label (e.g. "PL") used inside a link's own text, like "Drum n'Bass PL". Sized relative to its parent link's current font-size using em, so it stays proportionally ~60% no matter which class/breakpoint it's nested inside. Replaces the old standalone .PL sibling element. */
 
-.Resto { color: #FA60FF; }
+.Resto { font-size: clamp(1.5rem, 18vw, 2rem); color: #FA60FF; } /* Tamaño general menor — ver nota en .Genre */
 .Resto:hover {  color: #FA60FF; border-left-color: #FA60FF; background-color: rgba(168, 216, 255, 0.07); }
 .Resto.active { border-left-color: #FA60FF;  background-color: rgba(255, 215, 0, 0.07); }
 
@@ -267,7 +267,7 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
   .PlaylistsM { font-size: 18px;  }
 }
 
-/* Viejo "Landscape phones & small tablets" Queda solo para pequeñas pantallas en general */
+/* Landscape phones & small tablets */
 @media (max-width: 600px) {
   .aka { padding: 0 18px; } /* SELECCIONADOR DE PADDING DEL TEXTO AKA */
   .page-wrapper { padding: 28px 18px 48px;  } /* portrait overrides only padding-top below — right/bottom/left here are shared by both orientations */
@@ -296,7 +296,14 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
   /* .PlaylistsM { font-size: 16px;  } -- MOVIDO junto con .minidiv */
 }
 
-/* LANDSCAPE PHONES */
+/* Landscape phones (explicit) — orientation-specific overrides only.
+   Everything in here only ever took effect for landscape anyway: portrait
+   always overrides each of these with its own (different) value below,
+   regardless of where the "default" lived — so these were never truly
+   orientation-agnostic, just mislabeled as such. Moved here so they
+   actually apply across the real landscape-phone width range (up to
+   900px) instead of being stuck at the old ≤600px threshold that barely
+   any real landscape phone falls under. */
 @media (orientation: landscape) and (max-width: 900px){
   .logo-img { width: min(240px, 72vw);  }
   .site-nav { margin-bottom: 36px;  }
@@ -326,8 +333,8 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
   .LiveSetsM { font-size: 16px;  }           /* Renglón doble linea */
   .PlaylistsM { font-size: 16px;  }          /* Renglón doble linea */
 
-  .scene2 { font-size: clamp(1.5rem, 26vw, 2.6rem); }     /* Ajusta (achica) texto demasiado ancho a esta @media */
-  .SubGenre3 { font-size: clamp(1.5rem, 26vw, 2.6rem); }  /* Ajusta (achica) texto demasiado ancho a esta @media */
+  .scene2 { font-size: clamp(1.5rem, 2vw, 2rem); }     /* Ajusta (achica) texto demasiado ancho a esta @media */
+  .SubGenre3 { font-size: clamp(1.5rem, 20vw, 1.8rem); } /* Ajusta (achica) texto demasiado ancho a esta @media */
 }
 
 /* PORTRAIT PHONES  */
