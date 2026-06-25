@@ -329,8 +329,8 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
 	
 /*  .scene2 { font-size: clamp(1.5rem, 20vw, 2.2rem); }
   .SubGenre3 { font-size: clamp(1.5rem, 20vw, 2.2rem);  } */
-  .scene2 { font-size: clamp(1.5rem, 22vw, 2.2rem); }
-  .SubGenre3 { font-size: clamp(1.5rem, 22vw, 2.2rem);  }
+  .scene2 { font-size: clamp(1.5rem, 22vw, 2.4rem); }
+  .SubGenre3 { font-size: clamp(1.5rem, 22vw, 2.4rem);  }
 }
 
 /* Very small PORTRAIT PHONES like Galazy Z Fold */ 
