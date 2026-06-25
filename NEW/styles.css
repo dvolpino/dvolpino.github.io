@@ -47,7 +47,7 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
    class below, so they're declared once instead of repeated 8+ times.
    Each individual class then only needs its unique color (and any other
    property that differs from this shared baseline). */
-.scene, .Genre, .SubGenre, .SubGenre2, .Artists, .Playlists, .Playlists2, .Resto, .LiveSets, .LiveSetsM, .PlaylistsM {
+.scene, .Genre, .SubGenre, .SubGenre2, .Artists, .Playlists, .Playlists2, .Resto, .LiveSets, .LiveSetsM, .PlaylistsM, .scene2, .Subgenre3 {
   font-family: Inter;
   text-decoration: none;
   letter-spacing: 0.03em;
@@ -61,7 +61,7 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
 .scene:hover {  color: #00F5B4; border-left-color: #00F5B4; background-color: rgba(168, 216, 255, 0.07); }
 .scene.active { border-left-color: #00F5B4;  background-color: rgba(255, 215, 0, 0.07); }
 
-.scene2 { font-size: clamp(1.5rem, 18vw, 2rem); color: #00F5B4; }
+.scene2 { color: #00F5B4; }
 .scene2:hover {  color: #00F5B4; border-left-color: #00F5B4; background-color: rgba(168, 216, 255, 0.07); }
 .scene2.active { border-left-color: #00F5B4;  background-color: rgba(255, 215, 0, 0.07); }
 
@@ -73,9 +73,13 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
 .SubGenre:hover {  color: #FFFFFF; border-left-color: #FFFFFF; background-color: rgba(168, 216, 255, 0.07); }
 .SubGenre.active { border-left-color: #FFFFFF;  background-color: rgba(255, 215, 0, 0.07); }
 
-.SubGenre2 { font-size: clamp(1.5rem, 18vw, 2rem); color: #FFFFFF; }
+.SubGenre2 { font-size: clamp(1.5rem, 18vw, 2rem); color: #FFFFFF; } /* Tamaño general menor */
 .SubGenre2:hover {  color: #FFFFFF; border-left-color: #FFFFFF; background-color: rgba(168, 216, 255, 0.07); }
 .SubGenre2.active { border-left-color: #FFFFFF;  background-color: rgba(255, 215, 0, 0.07); }
+
+.SubGenre3 { color: #FFFFFF; }
+.SubGenre3:hover {  color: #FFFFFF; border-left-color: #FFFFFF; background-color: rgba(168, 216, 255, 0.07); }
+.SubGenre3.active { border-left-color: #FFFFFF;  background-color: rgba(255, 215, 0, 0.07); }
 
 .Artists { color: #FF0000; }
 .Artists:hover {  color: #FF0000; border-left-color: #FF0000; background-color: rgba(168, 216, 255, 0.07); }
@@ -309,7 +313,7 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
 
   .logo-img { width: min(280px, 78vw);  }  /* Slightly larger logo on portrait phones than the landscape phone size */
   .nav-list { width: min(300px, 70vw); } /* ANCHO COLUMNA DE LINKS - Afecta el centrado de la misma - Elige el valor minimo de los dos (XXpx, XXvw) - 92vw=92% del ancho del viewport */
-  .site-nav { font-size: clamp(2.7rem, 20vw, 2.7rem) ;  { margin-bottom: 30px; } /* reducido de 48 para reducir el gap con el texto debajo en History*/ }
+  .site-nav { font-size: clamp(2.7rem, 20vw, 2.7rem) ;   margin-bottom: 30px; } /* reducido de 48 para reducir el gap con el texto debajo en History*/ }
   
 	/* Tape-counter assembly: 686px native -> 170px target on portrait phone.This overrides the 300px-target rule from the general phone breakpoint above since this rule appears later in the cascade for the same specificity. */
   .tape-counter-outer {            /* SELECCIONADOR DE PLAYLIST X DECADA Su ancho depende de este valor (220px) si no hay un Album carousel. Si lo hay entonces toma el ancho del mismo */
@@ -322,6 +326,9 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
   .minidiv { height: 50px; display: flex; } 
   .LiveSetsM { font-size: 18px;  }
   .PlaylistsM { font-size: 18px;  }
+	
+  .scene2 { font-size: clamp(1.5rem, 18vw, 2rem); }
+  .SubGenre3 { font-size: clamp(1.5rem, 18vw, 2rem);  }
 }
 
 /* Very small PORTRAIT PHONES like Galazy Z Fold */ 
