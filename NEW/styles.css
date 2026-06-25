@@ -301,7 +301,7 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
   .LiveSetsM { font-size: 16px;  }           /* Renglón doble linea */
   .PlaylistsM { font-size: 16px;  }          /* Renglón doble linea */
 
-  .scene2 { font-size: clamp(1.5rem, 20vw, 0.8rem); }     /* Ajusta (achica) texto demasiado ancho a esta @media */
+  .scene2 { font-size: clamp(1.5rem, 2vw, 0.2rem); }     /* Ajusta (achica) texto demasiado ancho a esta @media */
   .SubGenre3 { font-size: clamp(1.5rem, 20vw, 1.8rem); } /* Ajusta (achica) texto demasiado ancho a esta @media */
 }
 
