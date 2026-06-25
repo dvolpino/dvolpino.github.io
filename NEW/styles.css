@@ -319,7 +319,7 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
   .tape-counter-outer {            /* SELECCIONADOR DE PLAYLIST X DECADA Su ancho depende de este valor (220px) si no hay un Album carousel. Si lo hay entonces toma el ancho del mismo */
     width: 220px;
     height: 123px;  }
-  .tape-counter-wrap { width: 220px; height: 123px; grid-template-columns: 26px 1fr 81px; grid-template-rows: 21px 1fr 21px;  }
+.tape-counter-wrap { width: 220px; height: 123px; grid-template-columns: 26px 1fr 81px; grid-template-rows: 21px 1fr 21px;  }
 
   #image-carousel.splide { max-width: 300px;  } /*AFECTA EL TAMAÑO MAXIMO DEL CAROUSEL DE ALBUMES SOLAMENTE*/
   
