@@ -327,8 +327,8 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
   .LiveSetsM { font-size: 18px;  }
   .PlaylistsM { font-size: 18px;  }
 	
-  .scene2 { font-size: clamp(1.5rem, 18vw, 2rem); }
-  .SubGenre3 { font-size: clamp(1.5rem, 18vw, 2rem);  }
+  .scene2 { font-size: clamp(1.5rem, 20vw, 2.2rem); }
+  .SubGenre3 { font-size: clamp(1.5rem, 20vw, 2.2rem);  }
 }
 
 /* Very small PORTRAIT PHONES like Galazy Z Fold */ 
