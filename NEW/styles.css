@@ -268,7 +268,8 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
 }
 
 /* Landscape phones & small tablets */
-@media (max-width: 600px) {
+/*@media (max-width: 600px) */
+@media (orientation: landscape) and (max-width: 900px){
   .aka { padding: 0 18px; } /* SELECCIONADOR DE PADDING DEL TEXTO AKA */
   .page-wrapper { padding: 28px 18px 48px;  }
   .logo-img { width: min(240px, 72vw);  }
@@ -301,7 +302,7 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
   .LiveSetsM { font-size: 16px;  }           /* Renglón doble linea */
   .PlaylistsM { font-size: 16px;  }          /* Renglón doble linea */
 
-  .scene2 { font-size: clamp(1.5rem, 2vw, 0.2rem); }     /* Ajusta (achica) texto demasiado ancho a esta @media */
+  .scene2 { font-size: clamp(1.5rem, 2vw, 2rem); }     /* Ajusta (achica) texto demasiado ancho a esta @media */
   .SubGenre3 { font-size: clamp(1.5rem, 20vw, 1.8rem); } /* Ajusta (achica) texto demasiado ancho a esta @media */
 }
 
