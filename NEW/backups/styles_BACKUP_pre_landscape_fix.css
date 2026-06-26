@@ -57,7 +57,7 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
   transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;
 }
 
-.scene { font-size: clamp(2.2rem, 18vw, 2.8rem); color: #00F5B4; margin: auto; } /* Mismo tamaño que .Genre — antes heredaba el font-size de .site-nav (mas chico), nunca tuvo el propio */
+.scene { color: #00F5B4; margin: auto; }
 .scene:hover {  color: #00F5B4; border-left-color: #00F5B4; background-color: rgba(168, 216, 255, 0.07); }
 .scene.active { border-left-color: #00F5B4;  background-color: rgba(255, 215, 0, 0.07); }
 
@@ -65,7 +65,7 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
 .scene2:hover {  color: #00F5B4; border-left-color: #00F5B4; background-color: rgba(168, 216, 255, 0.07); }
 .scene2.active { border-left-color: #00F5B4;  background-color: rgba(255, 215, 0, 0.07); }
 
-.Genre { font-size: clamp(2.2rem, 18vw, 2.8rem); color: #FFDD00; font-weight: 400; } /* Tamaño general menor — antes no tenia ningun font-size, heredaba el default del navegador sin control responsivo. Maximo 2.8rem iguala el tamaño visual original; ajustado y medido con render real (Opcion D) */
+.Genre { color: #FFDD00; font-weight: 400; }
 .Genre:hover {  color: #FFDD00; border-left-color: #FFDD00; background-color: rgba(168, 216, 255, 0.07); }
 .Genre.active { border-left-color: #FFD700;  background-color: rgba(255, 215, 0, 0.07); }
 
@@ -81,11 +81,11 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
 .SubGenre3:hover {  color: #FFFFFF; border-left-color: #FFFFFF; background-color: rgba(168, 216, 255, 0.07); }
 .SubGenre3.active { border-left-color: #FFFFFF;  background-color: rgba(255, 215, 0, 0.07); }
 
-.Artists { font-size: clamp(2.2rem, 18vw, 2.8rem); color: #FF0000; } /* Tamaño general menor — ver nota en .Genre */
+.Artists { color: #FF0000; }
 .Artists:hover {  color: #FF0000; border-left-color: #FF0000; background-color: rgba(168, 216, 255, 0.07); }
 .Artists.active { border-left-color: #FF0000;  background-color: rgba(255, 215, 0, 0.07); }
 
-.Playlists { font-size: clamp(2.2rem, 18vw, 2.8rem); color: #0691FF; } /* Tamaño general menor — ver nota en .Genre */
+.Playlists { color: #0691FF; }
 .Playlists:hover {  color: #0691FF; border-left-color: #0691FF; background-color: rgba(168, 216, 255, 0.07); }
 .Playlists.active { border-left-color: #0691FF;  background-color: rgba(255, 215, 0, 0.07); }
 
@@ -95,11 +95,11 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
 
 .pl-small { font-size: 0.6em; vertical-align: middle; } /* Small inline label (e.g. "PL") used inside a link's own text, like "Drum n'Bass PL". Sized relative to its parent link's current font-size using em, so it stays proportionally ~60% no matter which class/breakpoint it's nested inside. Replaces the old standalone .PL sibling element. */
 
-.Resto { font-size: clamp(2.2rem, 18vw, 2.8rem); color: #FA60FF; } /* Tamaño general menor — ver nota en .Genre */
+.Resto { color: #FA60FF; }
 .Resto:hover {  color: #FA60FF; border-left-color: #FA60FF; background-color: rgba(168, 216, 255, 0.07); }
 .Resto.active { border-left-color: #FA60FF;  background-color: rgba(255, 215, 0, 0.07); }
 
-.LiveSets { font-size: clamp(2.2rem, 18vw, 2.8rem); color: #02FF00; } /* Mismo tamaño que .Genre — ver nota en .scene */
+.LiveSets { color: #02FF00; }
 .LiveSets:hover {  color: #02FF00; border-left-color: #02FF00; background-color: rgba(168, 216, 255, 0.07); }
 
 .history{ font-family: Inter; color: #FFFCFC; font-size: 14px; /* margin-left: auto; margin-right: auto; position: relative;*/	} 
@@ -268,45 +268,14 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
 }
 
 /* Landscape phones & small tablets */
-@media (max-width: 600px) {
-  .aka { padding: 0 18px; } /* SELECCIONADOR DE PADDING DEL TEXTO AKA */
-  .page-wrapper { padding: 28px 18px 48px;  } /* portrait overrides only padding-top below — right/bottom/left here are shared by both orientations */
-  /* .logo-img { width: min(240px, 72vw);  } -- MOVIDO a @media (orientation: landscape) and (max-width: 900px) el 24/06/2026, portrait siempre lo sobreescribia con un valor distinto */
-  .site-header { margin-bottom: 28px;  }
-  /* .site-nav { margin-bottom: 36px;  } -- MOVIDO a @media (orientation: landscape) and (max-width: 900px) el 24/06/2026, portrait siempre lo sobreescribia con un valor distinto */
-  .nav-link { font-size: 1rem; padding: 5px 12px;  }
-
-  /* .nav-list { width: min(420px, 92vw); } -- MOVIDO a @media (orientation: landscape) and (max-width: 900px) el 24/06/2026, portrait siempre lo sobreescribia con un valor distinto */
-
-  /* .tape-counter-outer {
-    width: 160px;
-    height: 89px;
-  } -- MOVIDO a @media (orientation: landscape) and (max-width: 900px) el 24/06/2026, portrait siempre lo sobreescribia con un valor distinto */
-  /* .tape-counter-wrap {
-    width: 160px;
-    height: 89px;
-    grid-template-columns: 19px 1fr 59px;
-    grid-template-rows: 15px 1fr 15px;
-  } -- MOVIDO junto con .tape-counter-outer */
-
-  /* #image-carousel.splide { max-width: 400px;  } -- MOVIDO a @media (orientation: landscape) and (max-width: 900px) el 24/06/2026, portrait siempre lo sobreescribia con un valor distinto */
-
-  /* .minidiv { height: 45px; display: flex; } -- MOVIDO a @media (orientation: landscape) and (max-width: 900px) el 24/06/2026 */
-  /* .LiveSetsM { font-size: 16px;  } -- MOVIDO junto con .minidiv */
-  /* .PlaylistsM { font-size: 16px;  } -- MOVIDO junto con .minidiv */
-}
-
-/* Landscape phones (explicit) — orientation-specific overrides only.
-   Everything in here only ever took effect for landscape anyway: portrait
-   always overrides each of these with its own (different) value below,
-   regardless of where the "default" lived — so these were never truly
-   orientation-agnostic, just mislabeled as such. Moved here so they
-   actually apply across the real landscape-phone width range (up to
-   900px) instead of being stuck at the old ≤600px threshold that barely
-   any real landscape phone falls under. */
+/*@media (max-width: 600px) */
 @media (orientation: landscape) and (max-width: 900px){
+  .aka { padding: 0 18px; } /* SELECCIONADOR DE PADDING DEL TEXTO AKA */
+  .page-wrapper { padding: 28px 18px 48px;  }
   .logo-img { width: min(240px, 72vw);  }
+  .site-header { margin-bottom: 28px;  }
   .site-nav { margin-bottom: 36px;  }
+  .nav-link { font-size: 1rem; padding: 5px 12px;  }
 
   /* Same fixed-width approach as desktop, scaled to fit phone screens
      without overflowing — keeps logo+links aligned consistently across
@@ -328,7 +297,7 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
   }
 
   #image-carousel.splide { max-width: 400px;  } /*AFECTA EL TAMAÑO DEL CAROUSEL DE ALBUMES SOLAMENTE*/
-
+	
   .minidiv { height: 45px; display: flex; }  /* Renglón doble linea */
   .LiveSetsM { font-size: 16px;  }           /* Renglón doble linea */
   .PlaylistsM { font-size: 16px;  }          /* Renglón doble linea */
@@ -372,7 +341,6 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
  /*.page-wrapper { padding: 20px 14px 40px; } /* 20px 14px 40px */
   .site-nav {font-size:clamp(2rem, 20vw, 2.2rem)  } /* Font de columna de navegación clamp(the smallest the value is ever allowed to be, what it tries to be, usually based on something that changes (like viewport width, the largest the value is ever allowed to be ) */
  .aka { padding: 0 18px; } /* SELECCIONADOR DE PADDING DEL TEXTO AKA */
- .scene2 { font-size: clamp(1.5rem, 20vw, 2.4rem); }    /* Ajusta (achica) texto demasiado ancho a esta @media — techo medido con render real a 344px: 2.5rem hace wrap, 2.4rem es el maximo seguro */
- .SubGenre3 { font-size: clamp(1.5rem, 20vw, 2.4rem);}  /* Ajusta (achica) texto demasiado ancho a esta @media — techo medido con render real a 344px: 2.5rem hace wrap "Psy Dub & Psybient", 2.4rem es el maximo seguro */
- .Playlists { font-size: clamp(1.5rem, 18vw, 2.3rem); } /* "Playlists & Albums" es mas largo que Trance/Artists y hace wrap al tamaño base de 2.8rem — techo medido con render real: 2.5rem hace wrap, 2.3rem deja margen de seguridad */
+ .scene2 { font-size: clamp(1.5rem, 20vw, 2rem); }    /* Ajusta (achica) texto demasiado ancho a esta @media */
+ .SubGenre3 { font-size: clamp(1.5rem, 20vw, 2rem);}  /* Ajusta (achica) texto demasiado ancho a esta @media */
 } 
