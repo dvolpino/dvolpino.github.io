@@ -4,7 +4,8 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { font-size: 14px; scrollbar-gutter: stable; /* Always reserve space for the vertical scrollbar, even on pages short enough not to need one. Without this, pages with more content (and therefore a real scrollbar) had a slightly narrower viewport than shorter pages, shifting centered content (logo, nav-list) by the scrollbar's width between pages. */  }
 body { background-image: url(background%20YTML.jpg); background-size: cover; background-attachment: fixed; background-position: top;
-  min-height: 100vh;
+  min-height: 100vh; /* fallback for older browsers that don't support dvh */
+  min-height: 100dvh; /* tracks the REAL visible viewport on mobile as the browser's address bar shows/hides, instead of assuming it's always hidden (which is what plain 100vh does) — fixes pages being scrollable past their actual content on phones, where the logo would appear to "scroll away" into space that was never real content */
   background-color: #1a1a2e; color: #e8e8e8; font-family: "Inter", "Inter VariableFont opsz", 'Segoe UI', Arial, sans-serif;
   display: flex; justify-content: center; }
 
