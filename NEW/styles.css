@@ -365,7 +365,7 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
   .SubGenre3 { font-size: clamp(1.5rem, 20vw, 2.2rem);  } */
   .scene2 { font-size: clamp(1.5rem, 6.2vw, 2.6rem); }     /* Ajusta (achica) texto demasiado ancho a esta @media — el coeficiente vw anterior (26vw) siempre tocaba el techo de 2.6rem sin importar el ancho dentro de este rango (361-600px), haciendo wrap en telefonos angostos comunes (iPhone, Android chicos ~361-393px). Techo REAL medido con Inter: 6.3vw rompe a 361px, 6.2vw es el maximo seguro */
   .SubGenre3 { font-size: clamp(1.5rem, 6.2vw, 2.6rem); }  /* Ajusta (achica) texto demasiado ancho a esta @media — ver nota en .scene2, mismo problema y misma solucion (limitado por "Psy Dub & Psybient") */
-  .Playlists { font-size: clamp(1.5rem, 6.3vw, 2.8rem); } /* "Playlists & Albums" necesita un coeficiente vw propio (no solo un maximo) porque este breakpoint va de 361 a 600px de ancho y a 361px ni 2.4rem entra, mientras que a 480px+ entra hasta 2.8rem. Techo REAL medido con Inter: 6.5vw hace wrap a 361px, 6.3vw deja margen */
+  .Playlists { font-size: clamp(1.5rem, 6.5vw, 2.8rem); } /* "Playlists & Albums" necesita un coeficiente vw propio (no solo un maximo) porque este breakpoint va de 361 a 600px de ancho y a 361px ni 2.4rem entra, mientras que a 480px+ entra hasta 2.8rem. Techo REAL medido con Inter: 6.6vw hace wrap a 361px, 6.5vw es el maximo seguro (nota: la version anterior de este comentario decia erroneamente que 6.5vw rompia — era 6.6vw) */
 }
 
 /* Very small PORTRAIT PHONES like Galazy Z Fold */ 
