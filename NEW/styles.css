@@ -253,7 +253,7 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
 html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes use rem/clamp(...rem) units, changing the root html font-size scales all of them proportionally without editing every rule. */
 .scene2 { font-size: 2.7rem; }     /* "Psychedelic Trance" — .nav-list es de solo 350px aqui (mas angosto que otros breakpoints), asi que ni el maximo base (2rem) ni el de .Genre (2.8rem) sirven de referencia directa. Techo REAL medido con Inter: 2.75rem hace wrap, 2.7rem es el maximo seguro. No supera el tamaño de .Genre/.scene en este breakpoint (2.8rem, heredado de .site-nav) */
 .SubGenre3 { font-size: 2.7rem; }  /* "Psy Dub & Psybient" — antes no tenia NINGUN font-size propio en este breakpoint, heredaba los 2.8rem de .site-nav que hacian wrap. Ver nota en .scene2 */
-.SubGenre2 { font-size: 2.579rem; } /* "Atmospheric Jungle" — sin margen de prudencia (techo exacto medido con Inter: 30.95px = 2.579rem en html=12px; .nav-list flat 350px en todo este rango, mismo valor en 601-1199px). No supera .Genre (2.8rem en este breakpoint) */
+.SubGenre2 { font-size: 2.4rem; } /* "Atmospheric Jungle" — el techo exacto medido en Chrome es 2.579rem (30.95px), pero los iPads usan Safari/WebKit, que puede renderizar la misma fuente con un ancho ligeramente distinto al de Chrome (que es lo unico que puedo medir desde mi entorno). Bajado a 2.4rem (~7% de margen) especificamente por esta variacion entre motores, no por falta de precision en la medicion. No supera .Genre (2.8rem en este breakpoint) */
 
 
 .tape-counter-outer {     /* SELECCIONADOR DE PLAYLIST X DECADA */ /* scale = desired width / 686 */ 
