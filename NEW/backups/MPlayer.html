@@ -13,6 +13,23 @@
 <link href="styles.css" rel="stylesheet" type="text/css">	
 <link rel="icon" href="favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<style>
+  /* Marks a track row as unavailable/skipped — applied by JS the moment a
+     track is confirmed dead (no manual flagging needed). Doubles as a
+     built-in "report": scroll the playlist and grey rows are the broken ones. */
+  .yt-track-row.unavailable .yt-track-num,
+  .yt-track-row.unavailable .yt-track-name,
+  .yt-track-row.unavailable .yt-track-ch,
+  .yt-track-row.unavailable .yt-track-duration {
+    color: #888 !important;
+  }
+  .yt-track-row.unavailable {
+    background: rgba(128, 128, 128, 0.10) !important;
+  }
+  .yt-track-row.unavailable::before {
+    background: #888 !important;
+  }
+</style>
 </head>
 <!--
   HOW TO LINK TO THE PLAYER FROM ANY PAGE
@@ -200,6 +217,13 @@
   var nasOrder       = [];     /* playback order (sequential or shuffled indices) */
   var nasOrderPos    = 0;      /* current position in nasOrder */
 
+  /* Track failed-load recovery: whether playback was actually intended
+     (so a broken FIRST track doesn't force-start playback on page load),
+     and how many tracks in a row have failed (so a fully broken playlist
+     skips through once and stops instead of looping forever). */
+  var nasAutoPlayIntent    = false;
+  var nasConsecutiveErrors = 0;
+
   if (NAS_MODE) {
     /* Hide YouTube-only elements, show NAS-only elements */
     document.getElementById('yt-player').style.display    = 'none';
@@ -211,7 +235,42 @@
     nasAudio = document.getElementById('nas-audio');
 
     /* Auto-advance to next track when current one ends */
-    nasAudio.addEventListener('ended', function() { nasNext(); });
+    nasAudio.addEventListener('ended', function() {
+      /* Last track of a non-shuffled playlist — stop here rather than
+         wrapping back around to track 1. When shuffle is on, keep
+         wrapping as before (nasOrder is just a shuffled sequence, there's
+         no well-defined "end" the same way). */
+      if (!ytShuffleOn && nasOrderPos >= nasOrder.length - 1) return;
+      nasNext();
+    });
+
+    /* Track is unavailable (404, bad path, CORS, decode failure, etc.)
+       Skip to the next track in the current order — respects shuffle
+       automatically since nasOrder is already shuffled when shuffle is on.
+       Bail out instead of skipping once every track in the playlist has
+       failed back-to-back, so a fully broken NAS connection doesn't spin
+       through the list forever. */
+    nasAudio.addEventListener('error', function() {
+      if (!nasAudio.src) return; /* ignore spurious errors before any track is loaded */
+      nasConsecutiveErrors++;
+      console.warn('NAS track unavailable, skipping:', ytTracks[ytCurrentIndex] && ytTracks[ytCurrentIndex].src);
+      var deadRow = document.getElementById('yt-row-' + ytCurrentIndex);
+      if (deadRow) deadRow.classList.add('unavailable');
+      if (nasConsecutiveErrors >= Math.max(ytTracks.length, 1)) {
+        document.getElementById('yt-playlist-loading').textContent = 'No tracks could be loaded.';
+        return;
+      }
+      nasSkipToNext(nasAutoPlayIntent);
+    });
+
+    /* A track loaded successfully — reset the failure streak. Using
+       'canplay' rather than 'playing' so this fires even when a track is
+       loaded without autoplay (e.g. the very first track on page load). */
+    nasAudio.addEventListener('canplay', function() {
+      nasConsecutiveErrors = 0;
+      var loadedRow = document.getElementById('yt-row-' + ytCurrentIndex);
+      if (loadedRow) loadedRow.classList.remove('unavailable'); /* it just loaded fine — wasn't actually dead */
+    });
 
     /* Update elapsed time display while playing */
     nasAudio.addEventListener('timeupdate', function() {
@@ -370,6 +429,7 @@
     if (!track) return;
 
     ytCurrentIndex = trackIdx;
+    nasAutoPlayIntent = autoPlay;
 
     /* Update album art */
     document.getElementById('nas-album-art').src = track.folder + 'folder.jpg';
@@ -441,11 +501,17 @@
   }
 
   function nasNext() {
+    nasSkipToNext(true); /* user pressed Next — always start playing */
+  }
+
+  /* Shared by the Next button and the error-recovery handler.
+     Wraps to the start of nasOrder, so it works whether shuffle is on or off —
+     nasOrder is already in the correct (sequential or shuffled) order. */
+  function nasSkipToNext(autoPlay) {
     if (nasOrderPos < nasOrder.length - 1) {
-      nasLoadTrack(nasOrderPos + 1, true);
+      nasLoadTrack(nasOrderPos + 1, autoPlay);
     } else {
-      /* Wrap to start */
-      nasLoadTrack(0, true);
+      nasLoadTrack(0, autoPlay);
     }
   }
 
@@ -462,6 +528,138 @@
      YOUTUBE MODE
      ═══════════════════════════════════════════════════════ */
   var ytPlayer, ytReady = false;
+  var ytConsecutiveErrors = 0; /* tracks repeated playback failures so a fully broken playlist stops instead of looping forever */
+  var ytStuckWatchdog  = null; /* pending timer, if any */
+  var ytStuckTrackId   = null; /* which video id the pending timer belongs to */
+
+  /* Human-readable state names for console logging only — doesn't affect logic. */
+  var YT_STATE_NAMES = { '-1': 'UNSTARTED', 0: 'ENDED', 1: 'PLAYING', 2: 'PAUSED', 3: 'BUFFERING', 5: 'CUED' };
+
+  /* Greys out a track's row in the playlist list by its position in the
+     queue. Looking it up by video ID doesn't work here — a broken track
+     routinely never loads enough metadata to report its own ID (confirmed
+     in testing: video_id showed up as undefined right through the actual
+     error). getPlaylistIndex() is positional instead, so it holds up even
+     when the track itself never loaded at all. */
+  function ytMarkUnavailable(idx) {
+    if (idx == null || idx < 0 || idx >= ytTracks.length) return;
+    var row = document.getElementById('yt-row-' + idx);
+    if (row) row.classList.add('unavailable');
+  }
+
+  /* Shared by onError and the stuck-watchdog below. Skips to the next track —
+     nextVideo() respects the playlist's current shuffle setting on its own,
+     so this works whether shuffle is on or off. Caps at one full pass through
+     the playlist so a fully broken playlist/connection doesn't loop forever. */
+  function ytSkipDeadTrack(reason) {
+    var deadIdx = null;
+    try { deadIdx = ytPlayer.getPlaylistIndex(); } catch (err) {}
+    console.warn('[YT watchdog] SKIPPING — track unavailable (' + reason + '), index', ytCurrentIndex);
+    ytMarkUnavailable(deadIdx);
+    ytConsecutiveErrors++;
+    if (ytConsecutiveErrors >= Math.max(ytTracks.length, 1)) {
+      console.error('[YT watchdog] All tracks in this playlist failed to play — stopping auto-skip.');
+      return;
+    }
+    try {
+      ytPlayer.nextVideo();
+    } catch (err) {
+      console.error('[YT watchdog] nextVideo() threw:', err);
+    }
+  }
+
+  function ytClearStuckWatchdog() {
+    if (ytStuckWatchdog) { clearTimeout(ytStuckWatchdog); ytStuckWatchdog = null; }
+    ytStuckTrackId = null;
+  }
+
+  /* Some dead videos (region blocks, certain removed-from-playlist cases) never
+     fire onError — the player just sits there not playing, sometimes flickering
+     between BUFFERING/PAUSED. Detect that by comparing currentTime across a
+     5-second window instead of checking duration — duration is unreliable here
+     since YouTube often still knows a blocked video's length even though it
+     can't stream it. No measurable progress in 5 seconds while not PLAYING =
+     stuck. Crucially, this does NOT re-arm (and reset the clock) for repeated
+     state-change events on the SAME stuck video, since a flaky track can fire
+     onStateChange many times before the 5s mark would otherwise ever be reached. */
+  function ytArmStuckWatchdog() {
+    var id = null;
+    try { id = ytPlayer.getVideoData().video_id; } catch (err) { console.error('[YT watchdog] getVideoData() threw in ytArmStuckWatchdog:', err); }
+
+    if (ytStuckWatchdog && ytStuckTrackId === id) {
+      return; /* already watching this track — let the original timer run */
+    }
+
+    ytClearStuckWatchdog();
+    ytStuckTrackId = id;
+    var startTime = 0;
+    try { startTime = ytPlayer.getCurrentTime(); } catch (err) { console.error('[YT watchdog] getCurrentTime() threw in ytArmStuckWatchdog:', err); }
+
+    ytStuckWatchdog = setTimeout(function () {
+      ytStuckWatchdog = null;
+      if (!ytPlayer) return;
+      try {
+        var state = ytPlayer.getPlayerState();
+        var nowTime = ytPlayer.getCurrentTime();
+        if (state === YT.PlayerState.PLAYING) return; /* recovered on its own — not stuck */
+        if (nowTime - startTime < 0.5) {
+          ytSkipDeadTrack('stuck, no onError fired — state was ' + (YT_STATE_NAMES[state] || state));
+        }
+      } catch (err) {
+        console.error('[YT watchdog] check callback threw:', err);
+      }
+    }, 5000);
+  }
+
+  var ytPollInterval = null;
+  var ytPollTrack = { id: undefined, since: 0 };
+  var ytPlaybackIntended = false; /* true once playback has actually started at least once — guards against flagging the not-yet-pressed-play initial screen as "stuck" */
+
+  /* THE REAL FIX for the diagnosed bug: when the playlist's own internal
+     auto-advance (after a track ends) lands on an unavailable video, the
+     IFrame API can show its "Video unavailable" overlay without firing
+     ANY event — no onStateChange, no onError. Nothing event-driven can catch
+     that, so this polls getPlayerState()/getCurrentTime() directly on a timer,
+     independent of events, every 1.5s.
+
+     Only treats state -1 (UNSTARTED) / 5 (CUED) as suspicious — never state 2
+     (PAUSED), so a track the user deliberately paused mid-way is never touched
+     by this. Only runs once ytPlaybackIntended is true (i.e. playback has
+     already started once this session) — otherwise the very first track,
+     sitting unplayed on the cover/initial screen before the user presses
+     play, would itself look "stuck" and get skipped for no reason. */
+  function ytStartPolling() {
+    if (ytPollInterval) return;
+    ytPollInterval = setInterval(ytPollCheck, 1500);
+  }
+
+  function ytPollCheck() {
+    if (!ytPlayer) return;
+    var id, state, cur;
+    try {
+      id = ytPlayer.getVideoData().video_id;
+      state = ytPlayer.getPlayerState();
+      cur = ytPlayer.getCurrentTime();
+    } catch (err) {
+      console.error('[YT poll] query threw:', err);
+      return;
+    }
+
+    if (id !== ytPollTrack.id) {
+      ytPollTrack = { id: id, since: Date.now() }; /* different track since last poll — fresh window */
+      return;
+    }
+
+    var neverStarted = (state === -1 || state === 5);
+    if (!ytPlaybackIntended || !neverStarted) return;
+
+    var stuckMs = Date.now() - ytPollTrack.since;
+    if (stuckMs >= 6000) {
+      console.warn('[YT poll] track', id, 'stuck in', (YT_STATE_NAMES[state] || state), 'for', stuckMs, 'ms with no events firing — treating as a silently-failed auto-advance');
+      ytPollTrack = { id: undefined, since: 0 };
+      ytSkipDeadTrack('silent auto-advance failure (poll-detected), stuck in ' + (YT_STATE_NAMES[state] || state));
+    }
+  }
 
   /* Show cover image if thumb param provided */
   if (!NAS_MODE && YT_THUMB && YT_LIST_ID) {
@@ -493,13 +691,42 @@
           if (iframe) iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
           ytReady = true;
           setTimeout(ytBuildPlaylist, 1500);
+          ytStartPolling();
         },
         onStateChange: function (e) {
           if (e.data === YT.PlayerState.PLAYING) {
             document.getElementById('yt-cover-wrap').style.display = 'none';
             ytStartTimer();
-          } else if (e.data === YT.PlayerState.ENDED || e.data === YT.PlayerState.PAUSED) {
-            ytStopTimer();
+            ytConsecutiveErrors = 0; /* successful playback — reset the failure streak */
+            ytClearStuckWatchdog();
+            ytPlaybackIntended = true;
+          } else {
+            if (e.data === YT.PlayerState.ENDED || e.data === YT.PlayerState.PAUSED) {
+              ytStopTimer();
+            }
+            var isLegitimateEnd = false;
+            if (e.data === YT.PlayerState.ENDED && !ytShuffleOn) {
+              try {
+                isLegitimateEnd = (ytPlayer.getPlaylistIndex() === ytTracks.length - 1);
+              } catch (err) {}
+            }
+            if (e.data === YT.PlayerState.PAUSED || isLegitimateEnd) {
+              /* A deliberate pause is not a stuck track — currentTime stops
+                 advancing the instant you pause, by definition, so checking
+                 "no progress" here would misfire on every single pause.
+                 Likewise, finishing the last track of a non-shuffled
+                 playlist is a normal stop, not a stuck track — without this
+                 check the watchdog would see "ended, no progress for 5s,
+                 nothing next" and force a nextVideo() call, which wraps
+                 back around to track 1 instead of just staying stopped. */
+              ytClearStuckWatchdog();
+            } else {
+              /* BUFFERING, UNSTARTED, CUED, or an ENDED that isn't the
+                 legitimate end of the list could mean a track is silently
+                 stuck (no onError) instead of a normal transition — arm the
+                 watchdog to double-check in a few seconds. */
+              ytArmStuckWatchdog();
+            }
           }
           ytUpdateTitle();
           if (e.data === YT.PlayerState.PLAYING || e.data === YT.PlayerState.PAUSED) {
@@ -511,9 +738,19 @@
               if (foundIndex !== -1) {
                 ytCurrentIndex = foundIndex;
                 ytHighlightActive();
+                var playedRow = document.getElementById('yt-row-' + foundIndex);
+                if (playedRow) playedRow.classList.remove('unavailable'); /* it just played fine — wasn't actually dead */
               }
-            } catch(err) {}
+            } catch(err) { console.error('[YT state] video-id match block threw:', err); }
           }
+        },
+        /* Fires for unavailable videos: removed (100), embedding disabled by the
+           owner (101/150), or an invalid parameter (2)/HTML5 player error (5).
+           Not all dead tracks fire this — see ytArmStuckWatchdog for the rest. */
+        onError: function (e) {
+          console.warn('[YT onError] fired with code', e.data);
+          ytClearStuckWatchdog();
+          ytSkipDeadTrack('error code ' + e.data);
         }
       }
     });

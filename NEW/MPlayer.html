@@ -954,14 +954,34 @@
       var playlistClear = document.querySelector('.yt-playlist');
       if (playlistClear) playlistClear.style.removeProperty('height');
 
-      /* Portrait phone's own playlist height (CSS uses 37vh) can suffer
-         the same vh-recalculation-on-rotation issue, just on a different
-         property. Bypass it the same way: compute the pixel value directly
-         from the live window.innerHeight instead of relying on vh. */
+      /* Portrait phone's playlist height was a flat 40% of screen height,
+         which didn't account for how much space the logo + video + controls
+         already use. The video is roughly as tall as the screen is wide
+         (aspect-ratio 1/1), so logo + video + controls + a flat 40%
+         playlist could add up to more than 100% of the real screen height —
+         causing a small residual scroll (the page being a little taller
+         than the viewport, not a dramatic dvh-style bug). Compute the
+         actual remaining space instead, same "read everything live"
+         approach already used for landscape above. */
       var isPortraitPhone = (h >= w) && (w <= 600);
       var playlistList = document.querySelector('.yt-playlist-list');
       if (isPortraitPhone && playlistList) {
-        playlistList.style.maxHeight = (h * 0.40) + 'px';
+        var headerEl = document.querySelector('.site-header');
+        var videoWrapEl = document.querySelector('.yt-video-wrapper');
+        var controlsEl = document.querySelector('.yt-controls');
+        var playlistHeaderEl = document.querySelector('.yt-playlist-header');
+        var bodyCS = getComputedStyle(document.body);
+        var bodyVPad = (parseFloat(bodyCS.paddingTop) || 0) + (parseFloat(bodyCS.paddingBottom) || 0);
+
+        var usedHeight = bodyVPad;
+        if (headerEl) usedHeight += headerEl.getBoundingClientRect().height;
+        if (videoWrapEl) usedHeight += videoWrapEl.getBoundingClientRect().height;
+        if (controlsEl) usedHeight += controlsEl.getBoundingClientRect().height;
+        if (playlistHeaderEl) usedHeight += playlistHeaderEl.getBoundingClientRect().height;
+
+        var remaining = h - usedHeight;
+        if (remaining < 120) remaining = 120; /* sane minimum so the playlist never collapses to nothing */
+        playlistList.style.maxHeight = remaining + 'px';
       } else if (playlistList) {
         playlistList.style.removeProperty('max-height');
       }
