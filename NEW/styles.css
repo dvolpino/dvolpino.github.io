@@ -250,6 +250,8 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
  .aka { padding: 0 18px; } /* SELECCIONADOR DE PADDING DEL TEXTO AKA */
 #image-carousel.splide { max-width: 400px;  }  /* AFECTA EL TAMAÑO DEL CAROUSEL DE ALBUMES SOLAMENTE*/
 html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes use rem/clamp(...rem) units, changing the root html font-size scales all of them proportionally without editing every rule. */
+.scene2 { font-size: 2.6rem; }     /* "Psychedelic Trance" — .nav-list es de solo 350px aqui (mas angosto que otros breakpoints), asi que ni el maximo base (2rem) ni el de .Genre (2.8rem) sirven de referencia directa. Techo REAL medido con Inter: 2.75rem hace wrap, 2.6rem deja margen. No supera el tamaño de .Genre/.scene en este breakpoint (2.8rem, heredado de .site-nav) */
+.SubGenre3 { font-size: 2.6rem; }  /* "Psy Dub & Psybient" — antes no tenia NINGUN font-size propio en este breakpoint, heredaba los 2.8rem de .site-nav que hacian wrap. Ver nota en .scene2 */
 
 
 .tape-counter-outer {     /* SELECCIONADOR DE PLAYLIST X DECADA */ /* scale = desired width / 686 */ 
