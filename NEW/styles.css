@@ -271,17 +271,17 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
 @media (max-width: 600px) {
   .aka { padding: 0 18px; } /* SELECCIONADOR DE PADDING DEL TEXTO AKA */
   .page-wrapper { padding: 28px 18px 48px;  } /* portrait overrides only padding-top below — right/bottom/left here are shared by both orientations */
-  /* .logo-img { width: min(240px, 72vw);  } -- MOVIDO a @media (orientation: landscape) and (max-width: 900px) el 24/06/2026, portrait siempre lo sobreescribia con un valor distinto */
+  /* .logo-img { width: min(240px, 72vw);  } -- MOVIDO a @media (orientation: landscape) and (max-width: 960px) el 24/06/2026, portrait siempre lo sobreescribia con un valor distinto */
   .site-header { margin-bottom: 28px;  }
-  /* .site-nav { margin-bottom: 36px;  } -- MOVIDO a @media (orientation: landscape) and (max-width: 900px) el 24/06/2026, portrait siempre lo sobreescribia con un valor distinto */
+  /* .site-nav { margin-bottom: 36px;  } -- MOVIDO a @media (orientation: landscape) and (max-width: 960px) el 24/06/2026, portrait siempre lo sobreescribia con un valor distinto */
   .nav-link { font-size: 1rem; padding: 5px 12px;  }
 
-  /* .nav-list { width: min(420px, 92vw); } -- MOVIDO a @media (orientation: landscape) and (max-width: 900px) el 24/06/2026, portrait siempre lo sobreescribia con un valor distinto */
+  /* .nav-list { width: min(420px, 92vw); } -- MOVIDO a @media (orientation: landscape) and (max-width: 960px) el 24/06/2026, portrait siempre lo sobreescribia con un valor distinto */
 
   /* .tape-counter-outer {
     width: 160px;
     height: 89px;
-  } -- MOVIDO a @media (orientation: landscape) and (max-width: 900px) el 24/06/2026, portrait siempre lo sobreescribia con un valor distinto */
+  } -- MOVIDO a @media (orientation: landscape) and (max-width: 960px) el 24/06/2026, portrait siempre lo sobreescribia con un valor distinto */
   /* .tape-counter-wrap {
     width: 160px;
     height: 89px;
@@ -289,9 +289,9 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
     grid-template-rows: 15px 1fr 15px;
   } -- MOVIDO junto con .tape-counter-outer */
 
-  /* #image-carousel.splide { max-width: 400px;  } -- MOVIDO a @media (orientation: landscape) and (max-width: 900px) el 24/06/2026, portrait siempre lo sobreescribia con un valor distinto */
+  /* #image-carousel.splide { max-width: 400px;  } -- MOVIDO a @media (orientation: landscape) and (max-width: 960px) el 24/06/2026, portrait siempre lo sobreescribia con un valor distinto */
 
-  /* .minidiv { height: 45px; display: flex; } -- MOVIDO a @media (orientation: landscape) and (max-width: 900px) el 24/06/2026 */
+  /* .minidiv { height: 45px; display: flex; } -- MOVIDO a @media (orientation: landscape) and (max-width: 960px) el 24/06/2026 */
   /* .LiveSetsM { font-size: 16px;  } -- MOVIDO junto con .minidiv */
   /* .PlaylistsM { font-size: 16px;  } -- MOVIDO junto con .minidiv */
 }
@@ -302,9 +302,16 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
    regardless of where the "default" lived — so these were never truly
    orientation-agnostic, just mislabeled as such. Moved here so they
    actually apply across the real landscape-phone width range (up to
-   900px) instead of being stuck at the old ≤600px threshold that barely
+   960px) instead of being stuck at the old ≤600px threshold that barely
    any real landscape phone falls under. */
-@media (orientation: landscape) and (max-width: 900px){
+@media (orientation: landscape) and (max-width: 960px){
+  /* Threshold bumped from 900px to 960px on 26/06/2026: the Galaxy S21/S22/S23
+     Ultra (a very common phone) has a landscape viewport width of exactly
+     915px — 15px over the old 900px threshold, meaning this whole breakpoint
+     never applied on that phone at all in landscape; it fell through to the
+     tablet (max-width:1199px) rules instead. 960px safely covers it with
+     margin, while staying well clear of tablets (smallest common tablet
+     landscape width is ~1024px, iPad mini). */
   .logo-img { width: min(240px, 72vw);  }
   .site-nav { margin-bottom: 36px;  }
 
