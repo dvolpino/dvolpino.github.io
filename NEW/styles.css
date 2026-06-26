@@ -340,8 +340,8 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
   .LiveSetsM { font-size: 16px;  }           /* Renglón doble linea */
   .PlaylistsM { font-size: 16px;  }          /* Renglón doble linea */
 
-  .scene2 { font-size: clamp(3.1rem, 20vw, 3.1rem); }     /* Ajusta (achica) texto demasiado ancho a esta @media — el valor anterior (clamp(1.5rem,2vw,2rem)) nunca superaba su propio minimo, ya que 2vw es mucho menor a 1.5rem en todo este rango. .nav-list queda fijo en 420px en todo este breakpoint (no hace falta vw aqui) — techo REAL medido con Inter: 3.4rem hace wrap "Psy Dub & Psybient", 3.1rem deja margen */
-  .SubGenre3 { font-size: clamp(3.1rem, 20vw, 3.1rem); } /* Ajusta (achica) texto demasiado ancho a esta @media — ver nota en .scene2, mismo techo */
+  .scene2 { font-size: clamp(2.8rem, 20vw, 2.8rem); }     /* Ajusta (achica) texto demasiado ancho a esta @media — igualado a .Genre/.scene (2.8rem) en vez de superarlo; el techo real sin wrap es 3.3rem pero no debe pasar el tamaño de las clases "completas" */
+  .SubGenre3 { font-size: clamp(2.8rem, 20vw, 2.8rem); } /* Ajusta (achica) texto demasiado ancho a esta @media — ver nota en .scene2 */
 }
 
 /* PORTRAIT PHONES  */
