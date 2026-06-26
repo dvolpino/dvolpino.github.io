@@ -252,6 +252,7 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
 html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes use rem/clamp(...rem) units, changing the root html font-size scales all of them proportionally without editing every rule. */
 .scene2 { font-size: 2.7rem; }     /* "Psychedelic Trance" — .nav-list es de solo 350px aqui (mas angosto que otros breakpoints), asi que ni el maximo base (2rem) ni el de .Genre (2.8rem) sirven de referencia directa. Techo REAL medido con Inter: 2.75rem hace wrap, 2.7rem es el maximo seguro. No supera el tamaño de .Genre/.scene en este breakpoint (2.8rem, heredado de .site-nav) */
 .SubGenre3 { font-size: 2.7rem; }  /* "Psy Dub & Psybient" — antes no tenia NINGUN font-size propio en este breakpoint, heredaba los 2.8rem de .site-nav que hacian wrap. Ver nota en .scene2 */
+.SubGenre2 { font-size: 2.579rem; } /* "Atmospheric Jungle" — sin margen de prudencia (techo exacto medido con Inter: 30.95px = 2.579rem en html=12px; .nav-list flat 350px en todo este rango, mismo valor en 601-1199px). No supera .Genre (2.8rem en este breakpoint) */
 
 
 .tape-counter-outer {     /* SELECCIONADOR DE PLAYLIST X DECADA */ /* scale = desired width / 686 */ 
@@ -344,6 +345,7 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
 
   .scene2 { font-size: clamp(2.8rem, 20vw, 2.8rem); }     /* Ajusta (achica) texto demasiado ancho a esta @media — igualado a .Genre/.scene (2.8rem) en vez de superarlo; el techo real sin wrap es 3.3rem pero no debe pasar el tamaño de las clases "completas" */
   .SubGenre3 { font-size: clamp(2.8rem, 20vw, 2.8rem); } /* Ajusta (achica) texto demasiado ancho a esta @media — ver nota en .scene2 */
+  .SubGenre2 { font-size: 2.8rem; } /* "Atmospheric Jungle" — el techo real sin wrap aqui es 3.144rem (37.73px), pero no debe superar a .Genre/.scene en este breakpoint (2.8rem) — igual que scene2/SubGenre3, el limite de .Genre es el que manda, no el de wrap, cuando el de wrap es mayor */
 }
 
 /* PORTRAIT PHONES  */
@@ -375,6 +377,7 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
   .scene2 { font-size: clamp(1.5rem, 6.2vw, 2.6rem); }     /* Ajusta (achica) texto demasiado ancho a esta @media — el coeficiente vw anterior (26vw) siempre tocaba el techo de 2.6rem sin importar el ancho dentro de este rango (361-600px), haciendo wrap en telefonos angostos comunes (iPhone, Android chicos ~361-393px). Techo REAL medido con Inter: 6.3vw rompe a 361px, 6.2vw es el maximo seguro */
   .SubGenre3 { font-size: clamp(1.5rem, 6.2vw, 2.6rem); }  /* Ajusta (achica) texto demasiado ancho a esta @media — ver nota en .scene2, mismo problema y misma solucion (limitado por "Psy Dub & Psybient") */
   .Playlists { font-size: clamp(1.5rem, 6.5vw, 2.8rem); } /* "Playlists & Albums" necesita un coeficiente vw propio (no solo un maximo) porque este breakpoint va de 361 a 600px de ancho y a 361px ni 2.4rem entra, mientras que a 480px+ entra hasta 2.8rem. Techo REAL medido con Inter: 6.6vw hace wrap a 361px, 6.5vw es el maximo seguro (nota: la version anterior de este comentario decia erroneamente que 6.5vw rompia — era 6.6vw) */
+  .SubGenre2 { font-size: clamp(1.5rem, 5.95vw, 2.608rem); } /* "Atmospheric Jungle" — sin margen de prudencia, ajustado contra una grilla fina de anchos (361 a 600px) con la fuente Inter real. El techo sube de 21.5px a 26.08px en este rango (.nav-list crece de 252 a 300px hasta los ~428px, despues queda plano), por eso necesita vw real y no solo un maximo fijo. No supera a .Genre (2.8rem) en ningun punto */
 }
 
 /* Very small PORTRAIT PHONES like Galazy Z Fold */ 
@@ -385,4 +388,5 @@ html { font-size: 12px; /* was 14px */  } /* Text size - Since most font sizes u
  .scene2 { font-size: clamp(1.5rem, 20vw, 2rem); }    /* Ajusta (achica) texto demasiado ancho a esta @media — techo REAL medido con la fuente Inter real (no la de reemplazo): 2.15rem hace wrap, 2rem es el maximo seguro con margen */
  .SubGenre3 { font-size: clamp(1.5rem, 20vw, 2rem);}  /* Ajusta (achica) texto demasiado ancho a esta @media — techo REAL con Inter: 2.15rem hace wrap "Psy Dub & Psybient", 2rem es el maximo seguro con margen */
  .Playlists { font-size: clamp(1.5rem, 18vw, 2.1rem); } /* "Playlists & Albums" es mas largo que Trance/Artists y hace wrap al tamaño base de 2.8rem — techo REAL con Inter: 2.3rem hace wrap, 2.1rem deja margen de seguridad */
+ .SubGenre2 { font-size: 2.03rem; } /* "Atmospheric Jungle" — sin margen de prudencia (techo exacto medido con Inter a 344px: 20.35px = 2.03rem en html=10px). No supera a .Genre (2.8rem) en este breakpoint */
 } 
