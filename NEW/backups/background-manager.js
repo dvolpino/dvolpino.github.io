@@ -3,26 +3,6 @@
 const BASE_URL = 'https://dvolpino.github.io/';
 const NONE_VALUE = 'none'; // sentinel stored in localStorage + used as the <option value="none"> in the dropdown
 
-// 0. RUN THIS IMMEDIATELY: measure the REAL visible viewport height via JS and
-//    expose it as a CSS variable. CSS-only vh/dvh/svh all proved unreliable
-//    specifically in the installed PWA (standalone display mode) on Android —
-//    pages were scrollable well past their actual content, with the logo
-//    scrolling out of view into blank space that was never real content.
-//    window.innerHeight is the one source that reliably reflects what's
-//    actually visible, regardless of browser tab vs. installed PWA vs.
-//    dynamic toolbar state. styles.css uses var(--real-vh, 100svh) so it
-//    still has a CSS-only fallback before this script runs.
-(function setRealViewportHeight() {
-    function update() {
-        document.documentElement.style.setProperty('--real-vh', window.innerHeight + 'px');
-    }
-    update();
-    window.addEventListener('resize', update);
-    window.addEventListener('orientationchange', function () {
-        setTimeout(update, 200); /* let the browser/OS finish resizing before re-measuring */
-    });
-})();
-
 function toAbsolute(path) {
     if (!path || path === NONE_VALUE) return '';
     if (path.startsWith('http')) return path;
