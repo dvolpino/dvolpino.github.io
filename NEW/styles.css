@@ -9,6 +9,18 @@ body { background-image: url(background%20YTML.jpg); background-size: cover; bac
   background-color: #1a1a2e; color: #e8e8e8; font-family: "Inter", "Inter VariableFont opsz", 'Segoe UI', Arial, sans-serif;
   display: flex; justify-content: center; }
 
+/* background-attachment:fixed has long-standing, well-documented bugs on
+   mobile browsers (mainly iOS Safari, but also some Android Chrome cases) —
+   it can cause exactly this kind of phantom extra-scroll/overscroll behavior,
+   independent of the dvh fix above (which only addresses the address-bar-
+   height gap, not this). pointer:coarse targets touch-primary devices
+   (phones, tablets) specifically, regardless of their pixel width, so this
+   doesn't accidentally affect desktop monitors that happen to share a width
+   with a tablet. */
+@media (pointer: coarse) {
+  body { background-attachment: scroll; }
+}
+
 /* =============================================
    PAGE WRAPPER  – centers all content
    ============================================= */
